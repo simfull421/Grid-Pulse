@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using UnityEngine;
 namespace ReflexPuzzle.Entity
 {
     // 게임의 4가지 핵심 모드
@@ -14,17 +14,20 @@ namespace ReflexPuzzle.Entity
     // 개별 타일(격자 한 칸)의 데이터
     public struct CellData
     {
-        public int Number;       // 표시될 숫자 (1 ~ N)
-        public int ColorID;      // 타일 색상 ID (0:Blue, 1:Red(Trap), 2:Yellow...)
-        public bool IsTrap;      // 함정 여부 (Mixed 모드에서 터치 금지)
-        public bool IsHidden;    // Memory 모드에서 숫자 숨김 여부
+        public int Number;
+        public int ColorID;
+        public bool IsTrap;
+        public bool IsHidden;
+        public Vector3 WorldPos;
 
-        public CellData(int number, int colorID, bool isTrap = false, bool isHidden = false)
+        // [수정] 매개변수 이름 일치 + pos는 기본값(0,0,0) 설정
+        public CellData(int num, int color, bool trap, bool hidden, Vector3 pos = default)
         {
-            Number = number;
-            ColorID = colorID;
-            IsTrap = isTrap;
-            IsHidden = isHidden;
+            Number = num;      // num -> Number
+            ColorID = color;   // color -> ColorID
+            IsTrap = trap;     // trap -> IsTrap
+            IsHidden = hidden; // hidden -> IsHidden
+            WorldPos = pos;
         }
     }
 

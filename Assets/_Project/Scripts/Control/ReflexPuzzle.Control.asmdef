@@ -2,7 +2,8 @@
     "name": "ReflexPuzzle.Control",
     "rootNamespace": "",
     "references": [
-        "GUID:bcb40b30f54ba1e4da7a56df5c7d9e82"
+        "GUID:bcb40b30f54ba1e4da7a56df5c7d9e82",
+        "GUID:1ed07ff861e5f468287b0baef844706d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

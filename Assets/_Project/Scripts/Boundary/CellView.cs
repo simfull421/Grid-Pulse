@@ -6,6 +6,8 @@ namespace ReflexPuzzle.Boundary
 {
     public class CellView : MonoBehaviour
     {
+
+
         [Header("Components")]
         [SerializeField] private MeshRenderer _renderer;
         [SerializeField] private TextMeshPro _numberText;
@@ -17,6 +19,8 @@ namespace ReflexPuzzle.Boundary
 
         public int CurrentNumber { get; private set; }
         public int CurrentColorID { get; private set; }
+
+        public bool IsTrap { get; private set; } // 추가
 
         private void Awake()
         {
@@ -38,7 +42,12 @@ namespace ReflexPuzzle.Boundary
                 Vector3 txtPos = _numberText.transform.localPosition;
                 txtPos.z = -0.05f;
                 _numberText.transform.localPosition = txtPos;
-
+                // [수정] 2자리수 줄바꿈 방지 설정
+                _numberText.enableWordWrapping = false; // 줄바꿈 절대 금지
+                _numberText.overflowMode = TextOverflowModes.Overflow; // 영역 넘어가도 그냥 보여줌
+                _numberText.enableAutoSizing = true; // 폰트 크기 자동 조절
+                _numberText.fontSizeMin = 10; // 최소 크기
+                _numberText.fontSizeMax = 72; // 최대 크기
                 _numberText.text = data.IsHidden ? "" : data.Number.ToString();
 
                 if (theme != null)
@@ -83,6 +92,7 @@ namespace ReflexPuzzle.Boundary
 
             // 4. 등장 초기화
             if (_visualRoot != null) _visualRoot.localScale = Vector3.one;
+            IsTrap = data.IsTrap; // 데이터 저장
         }
 
         public void AnimateSpawn(float delay) { }
