@@ -10,29 +10,93 @@ namespace ReflexPuzzle.Boundary
     public class GameUIManager : MonoBehaviour, IGameUI
     {
         [Header("Panels")]
+        [SerializeField] private GameObject _titlePanel;
         [SerializeField] private GameObject _lobbyPanel;
         [SerializeField] private GameObject _gamePanel;
 
-        [Header("Lobby UI Elements")]
-        [SerializeField] private TextMeshProUGUI _modeTitleText; // 모드 이름
-        [SerializeField] private TextMeshProUGUI _modeDescText;  // 설명
-        [SerializeField] private RectTransform[] _modeCards;     // 슬라이드 카드들
+        [Header("Lobby Elements")]
+        [SerializeField] private TextMeshProUGUI _modeTitleText;
+        [SerializeField] private TextMeshProUGUI _modeDescText;
+        [SerializeField] private RectTransform[] _modeCards;
 
-        // 내부 상태
-        private GameMode? _clickedMode = null; // 유저가 클릭한 모드
+        // [추가됨] 게임 UI 요소 (시간, 레벨)
+        [Header("Game Elements")]
+        [SerializeField] private TextMeshProUGUI _timeText;
+        [SerializeField] private TextMeshProUGUI _levelText;
+
+        private GameMode? _selectedMode = null;
+        private bool _isConfirmed = false;
+
+        private void Awake()
+        {
+            if (_titlePanel) _titlePanel.SetActive(false);
+            if (_lobbyPanel) _lobbyPanel.SetActive(false);
+            if (_gamePanel) _gamePanel.SetActive(false);
+        }
+
+        public void ShowTitle()
+        {
+            _titlePanel.SetActive(true);
+            _lobbyPanel.SetActive(false);
+            _gamePanel.SetActive(false);
+        }
 
         public void ShowLobby()
         {
+            _titlePanel.SetActive(false);
             _lobbyPanel.SetActive(true);
             _gamePanel.SetActive(false);
-            _clickedMode = null;
-            UpdateModeDescription("", "카드를 터치하여 모드를 선택하세요.");
+
+            _selectedMode = null;
+            _isConfirmed = false;
+            ResetCards();
+            UpdateModeDescription("", "모드 카드를 터치하여 선택하세요.");
         }
 
         public void ShowGameUI()
         {
+            _titlePanel.SetActive(false);
             _lobbyPanel.SetActive(false);
             _gamePanel.SetActive(true);
+
+            // 시작 시 초기화
+            UpdateGameStatus(30f, 1);
+        }
+
+        public void OnModeCardClicked(int modeIndex)
+        {
+            GameMode clicked = (GameMode)modeIndex;
+
+            if (_selectedMode == clicked)
+            {
+                _isConfirmed = true;
+                return;
+            }
+
+            _selectedMode = clicked;
+            _isConfirmed = false;
+
+            for (int i = 0; i < _modeCards.Length; i++)
+            {
+                float targetScale = (i == modeIndex) ? 1.2f : 0.9f;
+                _modeCards[i].localScale = Vector3.one * targetScale;
+            }
+
+            UpdateModeDescription(clicked.ToString(), GetModeDescription(clicked));
+        }
+
+        public async Awaitable<GameMode> WaitForModeSelectionAsync(CancellationToken token)
+        {
+            while (!_isConfirmed && !token.IsCancellationRequested)
+            {
+                await Awaitable.NextFrameAsync(token);
+            }
+            return _selectedMode.Value;
+        }
+
+        private void ResetCards()
+        {
+            foreach (var card in _modeCards) card.localScale = Vector3.one;
         }
 
         public void UpdateModeDescription(string title, string desc)
@@ -41,49 +105,31 @@ namespace ReflexPuzzle.Boundary
             if (_modeDescText) _modeDescText.text = desc;
         }
 
-        // 버튼(카드) 클릭 시 호출 (인스펙터 연결)
-        public void OnModeCardClicked(int modeIndex)
+        // [에러 해결] 인터페이스 구현: 시간과 레벨 갱신
+        public void UpdateGameStatus(float time, int level)
         {
-            // 1. 선택된 모드 저장
-            _clickedMode = (GameMode)modeIndex;
-
-            // 2. 설명 업데이트
-            string title = _clickedMode.ToString();
-            string desc = "";
-            switch (_clickedMode)
+            if (_timeText != null)
             {
-                case GameMode.Classic: desc = "1부터 순서대로 빠르게 터치하세요."; break;
-                case GameMode.Color: desc = "같은 색상끼리 그룹지어 터치하세요."; break;
-                case GameMode.Mixed: desc = "빨간색 함정을 피해서 순서대로 누르세요."; break;
-                case GameMode.Memory: desc = "사라진 숫자의 위치를 기억하세요."; break;
+                _timeText.text = $"{time:F2}"; // 30.00 형식
+                _timeText.color = (time <= 5.0f) ? Color.red : Color.white; // 5초 남으면 빨강
             }
-            UpdateModeDescription(title, desc);
 
-            // 3. 카드 확대 연출 (간단히)
-            for (int i = 0; i < _modeCards.Length; i++)
+            if (_levelText != null)
             {
-                if (i == modeIndex) _modeCards[i].localScale = Vector3.one * 1.2f; // 선택된 놈 커짐
-                else _modeCards[i].localScale = Vector3.one; // 나머지 원래대로
+                _levelText.text = $"Lv.{level}";
             }
         }
 
-        // GameMain이 호출: 유저가 "확정"할 때까지 대기
-        public async Awaitable<GameMode> WaitForModeSelectionAsync(CancellationToken token)
+        private string GetModeDescription(GameMode mode)
         {
-            // 여기서는 "두 번 터치" 로직을 간단히 구현
-            // 1. 아무것도 선택 안 된 상태에서 대기
-            while (_clickedMode == null && !token.IsCancellationRequested)
+            switch (mode)
             {
-                await Awaitable.NextFrameAsync(token);
+                case GameMode.Classic: return "1부터 순서대로! 가장 기본적인 모드입니다.";
+                case GameMode.Color: return "같은 색깔끼리 묶어서 터치하세요.";
+                case GameMode.Mixed: return "빨간색 함정을 피해 순서대로 누르세요!";
+                case GameMode.Memory: return "숫자가 사라집니다. 위치를 기억하세요!";
+                default: return "";
             }
-
-            // 2. 선택된 상태. 여기서 바로 리턴하면 "원터치 시작"
-            // "투터치 시작"을 원하면, 여기서 _isStartButtonClicked 같은 플래그를 한 번 더 기다리면 됨.
-
-            // 현재는 카드 누르면 바로 시작 (유저 경험상 이게 더 빠름)
-            // 하이브리드(확대 후 한번 더 터치)를 원하면 별도 START 버튼을 만들어서 그게 눌릴 때까지 기다려야 함.
-
-            return _clickedMode.Value;
         }
     }
 }

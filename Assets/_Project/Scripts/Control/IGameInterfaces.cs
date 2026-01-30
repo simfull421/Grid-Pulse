@@ -19,16 +19,21 @@ namespace ReflexPuzzle.Control
     {
         Awaitable<CellData> WaitForCellInputAsync(CancellationToken token);
         Awaitable WaitForAnyTouchAsync(CancellationToken token);
+
+        bool TryGetCellInput(out CellData data);
     }
 
     // 3. UI 제어 인터페이스 (로비/게임 패널)
     public interface IGameUI
     {
+        void ShowTitle(); // [추가] 타이틀 화면("터치하여 시작")
         void ShowLobby();
         void ShowGameUI();
         // [추가] 모드 설명 텍스트 갱신
         void UpdateModeDescription(string title, string desc);
         // [수정] 모드 선택 대기 (터치 입력까지 포함)
         Awaitable<GameMode> WaitForModeSelectionAsync(System.Threading.CancellationToken token);
+        // [추가] 이 줄이 없어서 에러가 났던 겁니다. 추가해주세요!
+        void UpdateGameStatus(float time, int level);
     }
 }

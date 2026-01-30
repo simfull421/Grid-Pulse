@@ -2,9 +2,9 @@
 using ReflexPuzzle.Entity;
 using System.Threading;
 // GPGS, AdMob 네임스페이스 추가 (실제 SDK 설치 후 주석 해제)
-using GoogleMobileAds.Api;
-using GooglePlayGames;
-using GooglePlayGames.BasicApi;
+// using GoogleMobileAds.Api;
+// using GooglePlayGames;
+// using GooglePlayGames.BasicApi;
 
 namespace ReflexPuzzle.Control
 {
@@ -48,65 +48,74 @@ namespace ReflexPuzzle.Control
 
         private async Awaitable MainLoop(CancellationToken token)
         {
-            // 1. [SYSTEM LOADING] GPGS / AdMob 초기화
-            // Debug.Log("Initializing Services...");
-            // await InitializeServices(token); 
+            // 1. [SYSTEM LOADING] (필요시 주석 해제)
+            // await InitializeServices(token);
 
             while (!token.IsCancellationRequested)
             {
-                // 2. [LOBBY]
-                Debug.Log("State: Lobby");
-                _ui.ShowLobby();
-                _ui.UpdateModeDescription("", "모드를 선택해주세요."); // 초기 문구
+                // ----------------------------------------------------
+                // 0. [TITLE SCREEN]
+                // ----------------------------------------------------
+                Debug.Log("State: Title");
+                _ui.ShowTitle();
 
-                // Attract Mode (배경용 랜덤 패턴)
+                // 배경용 격자 보여주기
                 StageInfo lobbyStage = _generator.CreateStage(99, GameMode.Mixed);
                 _view.BuildGrid(lobbyStage);
 
-                // 3. [MODE SELECTION - HYBRID]
-                GameMode selectedMode = GameMode.Classic;
-                bool isModeConfirmed = false;
+                // 아무 터치나 기다림
+                await _input.WaitForAnyTouchAsync(token);
 
-                while (!isModeConfirmed)
-                {
-                    // UI에서 모드 버튼을 누를 때까지 대기
-                    selectedMode = await _ui.WaitForModeSelectionAsync(token);
+                // ----------------------------------------------------
+                // 1. [LOBBY] - 모드 선택
+                // ----------------------------------------------------
+                Debug.Log("State: Lobby");
+                _ui.ShowLobby();
 
-                    // 모드가 선택됨 -> 설명 보여주고 확대 연출 (UI쪽에서 처리)
-                    // 여기서 바로 시작 안 하고, "한 번 더 터치" 혹은 "START 버튼" 대기 로직 필요
-                    // 간단하게: UI가 '선택됨' 상태에서 다시 누르면 WaitForModeSelectionAsync가 리턴되도록 구현
+                // 모드 선택 대기
+                GameMode selectedMode = await _ui.WaitForModeSelectionAsync(token);
 
-                    isModeConfirmed = true; // 지금은 선택하면 바로 시작 (원하면 여기서 확인 단계 추가 가능)
-                }
-
-                // 4. [GAME START]
+                // ----------------------------------------------------
+                // 2. [GAME START]
+                // ----------------------------------------------------
                 Debug.Log($"State: Game Start ({selectedMode})");
                 _ui.ShowGameUI();
 
                 int currentLevel = 1;
                 bool isGameOver = false;
 
+                // [시간 설정] 초기 30초
+                float remainingTime = 30.0f;
+
                 while (!isGameOver && !token.IsCancellationRequested)
                 {
-                    // 안드로이드 백버튼 처리 (로비로 나가기)
+                    // 안드로이드 백버튼 (로비로 나가기)
                     if (Input.GetKeyDown(KeyCode.Escape))
                     {
                         isGameOver = true;
                         break;
                     }
 
+                    // 스테이지 생성
                     StageInfo stage = _generator.CreateStage(currentLevel, selectedMode);
+
+                    // [레벨업 보너스] 2레벨부터 시간 조금 추가 (난이도 조절용)
+                    if (currentLevel > 1) remainingTime += 5.0f;
+
                     _matchEngine.Initialize(stage);
 
                     // 연출 분기
                     if (currentLevel == 1) _view.BuildGrid(stage);
                     else await PlayRefreshAnim(stage, token);
 
-                    // 플레이 루프
+                    // ------------------------------------------------
+                    // 3. [PLAY LOOP] - 실시간 프레임 루프
+                    // ------------------------------------------------
                     bool stageClear = false;
-                    while (!stageClear)
+
+                    while (!stageClear && !isGameOver)
                     {
-                        // 안드로이드 백버튼 (게임 중 일시정지/나가기)
+                        // A. 백버튼 체크
                         if (Input.GetKeyDown(KeyCode.Escape))
                         {
                             isGameOver = true;
@@ -114,33 +123,61 @@ namespace ReflexPuzzle.Control
                             break;
                         }
 
-                        // 입력 대기
-                        CellData inputData = await _input.WaitForCellInputAsync(token);
-
-                        // [로그 확인용] 터치 반응 체크
-                        if (inputData.Number != 0)
-                            Debug.Log($"Touch Input: Num {inputData.Number}, Trap {inputData.IsTrap}");
-
-                        MatchResult result = _matchEngine.SubmitInput(inputData);
-
-                        if (result == MatchResult.Success)
+                        // B. 시간 감소 및 타임오버 체크
+                        remainingTime -= Time.deltaTime;
+                        if (remainingTime <= 0f)
                         {
-                            _view.PlayTouchEffect(inputData.WorldPos);
-                        }
-                        else if (result == MatchResult.StageClear)
-                        {
-                            stageClear = true;
-                        }
-                        else if (result == MatchResult.Fail_Wrong || result == MatchResult.Fail_TimeOut)
-                        {
-                            Debug.Log("Game Over!");
+                            remainingTime = 0f;
+                            Debug.Log("Time Over!");
                             isGameOver = true;
                             stageClear = true;
-                            await Awaitable.WaitForSecondsAsync(1.0f, token);
+                            // 타임오버 UI 갱신 (0.00초 보여주기 위해)
+                            _ui.UpdateGameStatus(remainingTime, currentLevel);
+                            break;
                         }
+
+                        // C. UI 갱신 (매 프레임)
+                        _ui.UpdateGameStatus(remainingTime, currentLevel);
+
+                        // D. 입력 체크 (기다리지 않음! TryGet 사용)
+                        // [수정됨] await WaitForCellInputAsync 대신 TryGetCellInput 사용
+                        if (_input.TryGetCellInput(out CellData inputData))
+                        {
+                            // [로그 확인용]
+                            // Debug.Log($"Touch Input: {inputData.Number}");
+
+                            MatchResult result = _matchEngine.SubmitInput(inputData);
+
+                            if (result == MatchResult.Success)
+                            {
+                                _view.PlayTouchEffect(inputData.WorldPos);
+                            }
+                            else if (result == MatchResult.StageClear)
+                            {
+                                stageClear = true;
+                            }
+                            else if (result == MatchResult.Fail_Wrong)
+                            {
+                                Debug.Log("Wrong Touch!");
+                                isGameOver = true; // 오답 시 즉시 사망
+                                stageClear = true;
+                            }
+                        }
+
+                        // E. 프레임 대기 (필수: 루프가 너무 빨리 돌지 않게 함)
+                        await Awaitable.NextFrameAsync(token);
                     }
 
-                    if (!isGameOver) currentLevel++;
+                    // 스테이지 종료 후 처리
+                    if (!isGameOver)
+                    {
+                        currentLevel++;
+                    }
+                    else
+                    {
+                        // 게임오버 시 잠시 대기 후 로비로
+                        await Awaitable.WaitForSecondsAsync(1.0f, token);
+                    }
                 }
             }
         }
@@ -155,16 +192,8 @@ namespace ReflexPuzzle.Control
 
         private async Awaitable InitializeServices(CancellationToken token)
         {
-            // GPGS Init
-            // PlayGamesPlatform.Activate();
-            // await Social.localUser.Authenticate((bool success) => { });
-            
-            // AdMob Init
-            // MobileAds.Initialize(initStatus => { });
-            
-            // 가짜 로딩 시간 (로고 보여줄 시간)
-            await Awaitable.WaitForSecondsAsync(2.0f, token);
+            // GPGS & AdMob Init (나중에 활성화)
+            await Awaitable.WaitForSecondsAsync(1.0f, token);
         }
-        
     }
 }

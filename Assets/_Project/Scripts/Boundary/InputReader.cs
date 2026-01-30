@@ -2,8 +2,8 @@
 using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using System.Threading;
-using ReflexPuzzle.Control; // IInputReader
-using ReflexPuzzle.Entity;  // CellData
+using ReflexPuzzle.Control;
+using ReflexPuzzle.Entity;
 
 namespace ReflexPuzzle.Boundary
 {
@@ -11,6 +11,9 @@ namespace ReflexPuzzle.Boundary
     {
         [SerializeField] private LayerMask _targetLayer;
         [SerializeField] private Camera _targetCamera;
+
+        private float _lastInputTime = 0f;
+        private const float INPUT_COOLDOWN = 0.1f; // 0.1초 쿨타임
 
         private void Awake()
         {
@@ -29,9 +32,7 @@ namespace ReflexPuzzle.Boundary
             EnhancedTouchSupport.Disable();
         }
 
-        // =================================================================
-        // [1] 인터페이스 구현: 게임 플레이용 (CellData 반환)
-        // =================================================================
+        // 1. 비동기 대기 (로비용)
         public async Awaitable<CellData> WaitForCellInputAsync(CancellationToken token)
         {
             CellView view = await WaitForCellTouchInternalAsync(token);
@@ -42,50 +43,67 @@ namespace ReflexPuzzle.Boundary
                     view.CurrentColorID,
                     view.IsTrap,
                     false,
-                    view.transform.position // 좌표 담아서 보냄
+                    view.transform.position
                 );
             }
             return default;
         }
 
-        // =================================================================
-        // [2] 인터페이스 구현: 로비용 (아무거나 터치하면 진행) - 이게 없어서 에러났음
-        // =================================================================
+        // 2. 아무 터치나 대기 (타이틀용)
         public async Awaitable WaitForAnyTouchAsync(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
-                if (Touch.activeTouches.Count > 0)
+                // 모바일
+                if (Touch.activeTouches.Count > 0 &&
+                    Touch.activeTouches[0].phase == UnityEngine.InputSystem.TouchPhase.Began)
                 {
-                    var touch = Touch.activeTouches[0];
-                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Began)
-                    {
-                        return; // 무엇이든 터치되면 즉시 리턴
-                    }
+                    return;
+                }
+                // PC
+                if (UnityEngine.InputSystem.Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    return;
                 }
                 await Awaitable.NextFrameAsync(token);
             }
         }
 
-        // =================================================================
-        // [3] 내부 헬퍼 함수: 실제 Raycast 로직 (CellView 반환)
-        // =================================================================
+        // 3. 내부 로직
         private async Awaitable<CellView> WaitForCellTouchInternalAsync(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
+                if (Time.time < _lastInputTime + INPUT_COOLDOWN)
+                {
+                    await Awaitable.NextFrameAsync(token);
+                    continue;
+                }
+
+                CellView detectedCell = null;
+
+                // 모바일
                 if (Touch.activeTouches.Count > 0)
                 {
                     var touch = Touch.activeTouches[0];
                     if (touch.phase == UnityEngine.InputSystem.TouchPhase.Began)
                     {
-                        // UI가 아닌 게임 오브젝트(타일)만 검출
-                        if (DetectObject(touch.screenPosition, out CellView cell))
-                        {
-                            return cell;
-                        }
+                        DetectObject(touch.screenPosition, out detectedCell);
                     }
                 }
+                // PC (else if)
+                else if (UnityEngine.InputSystem.Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    Vector2 mousePos = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
+                    DetectObject(mousePos, out detectedCell);
+                }
+
+                if (detectedCell != null)
+                {
+                    _lastInputTime = Time.time;
+                    return detectedCell;
+                }
+
                 await Awaitable.NextFrameAsync(token);
             }
             return null;
@@ -95,11 +113,57 @@ namespace ReflexPuzzle.Boundary
         {
             cell = null;
             Ray ray = _targetCamera.ScreenPointToRay(screenPos);
+
+            // [디버그] 빨간 선 확인
+            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1.0f);
+
             if (Physics.Raycast(ray, out RaycastHit hit, 100f, _targetLayer))
             {
                 return hit.collider.TryGetComponent(out cell);
             }
             return false;
         }
+
+        // [에러 해결] 이 함수가 클래스 밖으로 나가 있어서 문제였습니다. 안으로 가져왔습니다.
+        // 4. 즉시 확인 (게임용 - Non Blocking)
+        public bool TryGetCellInput(out CellData data)
+        {
+            data = default;
+
+            if (Time.time < _lastInputTime + INPUT_COOLDOWN) return false;
+
+            CellView detectedCell = null;
+
+            // 1. 터치
+            if (Touch.activeTouches.Count > 0)
+            {
+                var touch = Touch.activeTouches[0];
+                if (touch.phase == UnityEngine.InputSystem.TouchPhase.Began)
+                {
+                    DetectObject(touch.screenPosition, out detectedCell);
+                }
+            }
+            // 2. 마우스
+            else if (UnityEngine.InputSystem.Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                Vector2 mousePos = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
+                DetectObject(mousePos, out detectedCell);
+            }
+
+            if (detectedCell != null)
+            {
+                _lastInputTime = Time.time;
+                data = new CellData(
+                    detectedCell.CurrentNumber,
+                    detectedCell.CurrentColorID,
+                    detectedCell.IsTrap,
+                    false,
+                    detectedCell.transform.position
+                );
+                return true;
+            }
+
+            return false;
+        } // 클래스 끝
     }
-}
+} // 네임스페이스 끝
