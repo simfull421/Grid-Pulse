@@ -32,4 +32,37 @@ class Program
             if (count % stage.GridSize == 0) Console.WriteLine();
         }
     }
+    // Program.cs에 추가
+    static void TestMatchEngine()
+    {
+        Console.WriteLine("\n=== MatchEngine Logic Test ===");
+
+        // 1. 데이터 생성 (Control)
+        GridGenerator gen = new GridGenerator();
+        StageInfo stage = gen.CreateStage(10, GameMode.Mixed); // Mixed 모드
+
+        // 2. 엔진 초기화 (Control)
+        MatchEngine engine = new MatchEngine();
+        engine.Initialize(stage);
+
+        Console.WriteLine($"Stage Loaded: {stage.Cells.Count} cells.");
+
+        // 3. 시뮬레이션: 유저가 1, 2, 3... 순서대로 누른다고 가정
+        // 정답 큐를 알 수 없으니(private), stage.Cells를 순회하며 시뮬레이션
+
+        // 정렬해서 작은 숫자부터 눌러봅니다.
+        stage.Cells.Sort((a, b) => a.Number.CompareTo(b.Number));
+
+        foreach (var cell in stage.Cells)
+        {
+            Console.Write($"Touch [{cell.Number}] (Trap:{cell.IsTrap}) -> ");
+            var result = engine.SubmitInput(cell);
+            Console.WriteLine(result);
+
+            if (result == MatchResult.Fail_Wrong || result == MatchResult.StageClear)
+            {
+                break;
+            }
+        }
+    }
 }

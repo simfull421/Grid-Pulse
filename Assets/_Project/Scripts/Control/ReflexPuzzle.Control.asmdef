@@ -1,0 +1,16 @@
+{
+    "name": "ReflexPuzzle.Control",
+    "rootNamespace": "",
+    "references": [
+        "GUID:bcb40b30f54ba1e4da7a56df5c7d9e82"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
