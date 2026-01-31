@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using TouchIT.Entity;
-using TouchIT.Control; // 인터페이스 참조
+using TouchIT.Control;
 
 namespace TouchIT.Boundary
 {
-    // MonoBehaviour이면서 INoteView 인터페이스를 구현
     public class NoteView : MonoBehaviour, INoteView
     {
-        [SerializeField] private Transform _visualPivot;
+        [SerializeField] private Transform _visualPivot; // 자식 오브젝트(Visual)
 
         private NoteData _data;
         private float _currentAngle;
@@ -23,16 +22,22 @@ namespace TouchIT.Boundary
             _isActive = true;
             gameObject.SetActive(true);
 
-            // 비주얼 길이 조정 로직 (필요시 주석 해제)
-            /*
+            // [수정] 주석 해제 및 코드 적용!
+            // 이 코드가 자식을 강제로 밖으로 밀어냅니다.
             if (_visualPivot != null)
             {
-                Vector3 scale = _visualPivot.localScale;
-                scale.y = ringRadius; 
-                _visualPivot.localScale = scale;
-                _visualPivot.localPosition = new Vector3(0, ringRadius * 0.5f, 0);
+                // 1. 위치 이동: 반지름만큼 위로 올림 (중심에서 멀어짐)
+                // ringRadius가 3.0이면 Y를 2.5 정도로 살짝 안쪽에 두는 게 이쁨
+                float offset = ringRadius - 0.5f;
+                _visualPivot.localPosition = new Vector3(0, offset, 0);
+
+                // 2. 회전 초기화: 자식은 회전하지 않음 (항상 위를 보거나, 부모 따라 돌거나)
+                _visualPivot.localRotation = Quaternion.identity;
+
+                // 3. (선택사항) 노트 크기가 너무 크면 여기서 줄여버림
+                // _visualPivot.localScale = new Vector3(0.2f, 1.0f, 1.0f); 
             }
-            */
+
             UpdateTransform();
         }
 
@@ -45,6 +50,7 @@ namespace TouchIT.Boundary
 
         private void UpdateTransform()
         {
+            // 부모를 Z축으로 회전시킴 -> 자식은 떨어져 있으니 공전하게 됨
             transform.localRotation = Quaternion.Euler(0, 0, _currentAngle);
         }
 

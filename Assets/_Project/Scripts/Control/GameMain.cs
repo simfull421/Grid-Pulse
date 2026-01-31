@@ -28,21 +28,36 @@ namespace TouchIT.Control
 
         private void Update()
         {
-            if (_view == null) return; // 초기화 전엔 실행 X
+            if (_view == null) return;
 
-            // 1. 엔진 업데이트
             _engine.OnUpdate();
 
-            // 2. 노트 회전 업데이트
-            // GameMain은 구체적인 NoteView를 모르지만, INoteView를 통해 회전 명령을 내림
             float dt = Time.deltaTime;
-            foreach (var note in _view.GetActiveNotes())
+
+            // [중요] foreach 대신 for문을 역순으로 돕니다.
+            // 도는 도중에 노트를 삭제(반납)해야 하기 때문입니다.
+            var activeNotes = _view.GetActiveNotes() as List<INoteView>; // 리스트로 형변환 필요할 수 있음
+                                                                         // 혹은 아래처럼 복사본을 만들어서 순회
+            var noteList = new List<INoteView>(_view.GetActiveNotes());
+
+            foreach (var note in noteList)
             {
                 note.UpdateRotation(dt);
-                // 화면 밖으로 나간 것 처리 로직 등 추가 가능
+
+                // [수정] Miss 판정 로직 추가
+                // 12시가 90도이고, 시계방향으로 각도가 줄어듭니다 (90 -> 80 -> ... -> 0)
+                // 각도가 0도(3시 방향)보다 작아지면 완전히 지나간 것으로 판단
+                // [수정] 각도가 90도보다 작아지면 (12시를 지나침) Miss
+                // 판정 여유를 둬서 75도(1시 방향 쯤)까지 안 눌렀으면 미스로 처리
+                if (note.CurrentAngle <= 75f)
+                {
+                    Debug.Log("MISS! (Time Over)");
+                    _view.ReduceLife(1);
+                    _audio.PlaySfx("Miss");
+                    _view.ReturnNote(note);
+                }
             }
 
-            // 3. 터치 입력
             if (Input.GetMouseButtonDown(0))
             {
                 CheckHit();
@@ -81,5 +96,34 @@ namespace TouchIT.Control
                 _view.ReduceLife(1);
             }
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            // 12시 방향(90도) 기준으로 ±15도 부채꼴 그리기
+            Gizmos.color = new Color(0, 1, 0, 0.3f); // 반투명 초록색
+            Vector3 center = Vector3.zero;
+
+            // 90도에서 -15도 뺀 곳(75도)부터 시작해서 30도만큼 그림
+            // 유니티 Gizmos는 3D 기준이라 방향 계산이 좀 다를 수 있지만 대략적으로 확인
+            // (Z축 회전 게임이므로 XY평면에 그려야 함)
+
+            // 간단하게 선 2개로 표시
+            float radius = 4.0f; // 링보다 조금 크게
+
+            // 왼쪽 경계 (105도)
+            Vector3 leftDir = new Vector3(Mathf.Cos(105 * Mathf.Deg2Rad), Mathf.Sin(105 * Mathf.Deg2Rad), 0);
+            // 오른쪽 경계 (75도)
+            Vector3 rightDir = new Vector3(Mathf.Cos(75 * Mathf.Deg2Rad), Mathf.Sin(75 * Mathf.Deg2Rad), 0);
+
+            Gizmos.DrawLine(center, center + leftDir * radius);
+            Gizmos.DrawLine(center, center + rightDir * radius);
+
+            // 타겟 라인 (90도 - 12시)
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(center, center + Vector3.up * radius);
+        }
+#endif
     }
+
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TouchIT.Entity;
+using System.Collections;
 
 namespace TouchIT.Boundary
 {
@@ -16,13 +17,14 @@ namespace TouchIT.Boundary
         [SerializeField] private GameObject _targetZonePrefab; // 12시 방향 강조용 스프라이트
 
         private LineRenderer _lineRenderer;
-
+        private float _baseWidth; // 원래 두께 저장용
         // 외부에서 이 반지름을 가져다 씁니다 (중요)
         public float Radius => _radius;
 
         public void Initialize()
         {
             _lineRenderer = GetComponent<LineRenderer>();
+            _baseWidth = 0.2f; // 인스펙터의 Width값과 맞춰주세요 (코드상 _width 변수 사용 추천)
             DrawCircle();
             CreateTargetZone();
         }
@@ -64,6 +66,38 @@ namespace TouchIT.Boundary
                 zone.transform.localPosition = new Vector3(0, _radius, 0);
                 // 필요하다면 회전이나 스케일 조정
             }
+        }
+        // [추가] 링 둠칫! 효과 (두께를 조절해서 줌아웃 느낌 냄)
+        public void PlayPulseEffect()
+        {
+            StopAllCoroutines();
+            StartCoroutine(PulseRoutine());
+        }
+        private IEnumerator PulseRoutine()
+        {
+            float duration = 0.2f;
+            float elapsed = 0f;
+
+            // 두께가 2배가 됐다가 돌아옴
+            float targetWidth = _baseWidth * 2.5f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = elapsed / duration;
+
+                // 갔다가 돌아오는 곡선 (sin)
+                float currentWidth = Mathf.Lerp(_baseWidth, targetWidth, Mathf.Sin(t * Mathf.PI));
+
+                _lineRenderer.startWidth = currentWidth;
+                _lineRenderer.endWidth = currentWidth;
+
+                yield return null;
+            }
+
+            // 원상복구
+            _lineRenderer.startWidth = _baseWidth;
+            _lineRenderer.endWidth = _baseWidth;
         }
     }
 }

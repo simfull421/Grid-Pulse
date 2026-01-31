@@ -9,7 +9,7 @@ namespace TouchIT.Control
     {
         // 설정값
         private float _bpm = 120f; // 1분당 120박자
-        private float _noteSpeed = 180f; // 초당 회전 속도
+        private float _noteSpeed = 90f; // 초당 회전 속도
 
         // 상태
         private double _nextSpawnTime;
@@ -46,20 +46,29 @@ namespace TouchIT.Control
 
         private void SpawnBeatNote()
         {
+            // [추가] 리듬 변칙 로직
+            // 20% 확률로 쉼표 (노트 생성 안 함) -> 엇박자 느낌 남
+            // [수정 2] 겹침 방지 (변칙/쉼표 추가)
+            // 30% 확률로 노트 생성을 건너뜀 (쉼표)
+            // 이러면 노트 사이에 공간이 생겨서 덜 겹쳐 보임
+            if (UnityEngine.Random.value < 0.3f) return;
+
             // 1. 다음 음계 가져오기
             int soundIdx = _composer.GetNextNoteIndex();
 
-            // 2. 노트 데이터 생성 (Entity 사용)
-            NoteData note = new NoteData(
-                _noteIdCounter++,
-                (float)_audioTime,
-                270f,       // 270도(6시)에서 시작
-                _noteSpeed, // 회전 속도
-                soundIdx,
-                NoteType.Normal
-            );
+            // [추가] 가끔 반대 방향(반시계)이나 속도 변화를 주면 더 재밌음
+            // 지금은 일단 정직하게 생성
 
-            // 3. 뷰에게 생성 요청 (인터페이스 사용)
+            // 2. 노트 데이터 생성
+            NoteData note = new NoteData(
+        _noteIdCounter++,
+        (float)_audioTime,
+        450f,       // [수정] 450도에서 시작
+        _noteSpeed,
+        soundIdx,
+        NoteType.Normal
+    );
+
             _view.SpawnNote(note);
         }
     }
