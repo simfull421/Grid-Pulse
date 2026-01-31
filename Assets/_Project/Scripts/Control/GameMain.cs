@@ -1,199 +1,85 @@
 ﻿using UnityEngine;
-using ReflexPuzzle.Entity;
-using System.Threading;
-// GPGS, AdMob 네임스페이스 추가 (실제 SDK 설치 후 주석 해제)
-// using GoogleMobileAds.Api;
-// using GooglePlayGames;
-// using GooglePlayGames.BasicApi;
+using System.Collections.Generic;
+using TouchIT.Entity;
+// using TouchIT.Boundary; // [삭제] Boundary 절대 참조 금지!
 
-namespace ReflexPuzzle.Control
+namespace TouchIT.Control
 {
     public class GameMain : MonoBehaviour
     {
-        private IGridView _view;
-        private IInputReader _input;
-        private IGameUI _ui;
-
-        private GridGenerator _generator;
-        private MatchEngine _matchEngine;
-        private CancellationTokenSource _cts;
-
-        public void Initialize(IGridView view, IInputReader input, IGameUI ui)
-        {
-            _view = view;
-            _input = input;
-            _ui = ui;
-        }
+        // 구체적인 클래스 대신 인터페이스 사용
+        private IGameView _view;
+        private IAudioManager _audio;
+        private RhythmEngine _engine;
 
         private void Awake()
         {
-            _generator = new GridGenerator();
-            _matchEngine = new MatchEngine();
-            _cts = new CancellationTokenSource();
-
-            // [배터리 최적화]
             Application.targetFrameRate = 60;
+            _engine = new RhythmEngine();
         }
 
-        public void RunGameLoop()
+        // Binder에 의해 호출됨 (의존성 주입)
+        public void Initialize(IGameView view, IAudioManager audio)
         {
-            _ = MainLoop(_cts.Token);
+            _view = view;
+            _audio = audio;
+            _engine.Initialize(view, audio);
         }
 
-        private void OnDestroy()
+        private void Update()
         {
-            _cts.Cancel();
-            _cts.Dispose();
-        }
+            if (_view == null) return; // 초기화 전엔 실행 X
 
-        private async Awaitable MainLoop(CancellationToken token)
-        {
-            // 1. [SYSTEM LOADING] (필요시 주석 해제)
-            // await InitializeServices(token);
+            // 1. 엔진 업데이트
+            _engine.OnUpdate();
 
-            while (!token.IsCancellationRequested)
+            // 2. 노트 회전 업데이트
+            // GameMain은 구체적인 NoteView를 모르지만, INoteView를 통해 회전 명령을 내림
+            float dt = Time.deltaTime;
+            foreach (var note in _view.GetActiveNotes())
             {
-                // ----------------------------------------------------
-                // 0. [TITLE SCREEN]
-                // ----------------------------------------------------
-                Debug.Log("State: Title");
-                _ui.ShowTitle();
+                note.UpdateRotation(dt);
+                // 화면 밖으로 나간 것 처리 로직 등 추가 가능
+            }
 
-                // 배경용 격자 보여주기
-                StageInfo lobbyStage = _generator.CreateStage(99, GameMode.Mixed);
-                _view.BuildGrid(lobbyStage);
-
-                // 아무 터치나 기다림
-                await _input.WaitForAnyTouchAsync(token);
-
-                // ----------------------------------------------------
-                // 1. [LOBBY] - 모드 선택
-                // ----------------------------------------------------
-                Debug.Log("State: Lobby");
-                _ui.ShowLobby();
-
-                // 모드 선택 대기
-                GameMode selectedMode = await _ui.WaitForModeSelectionAsync(token);
-
-                // ----------------------------------------------------
-                // 2. [GAME START]
-                // ----------------------------------------------------
-                Debug.Log($"State: Game Start ({selectedMode})");
-                _ui.ShowGameUI();
-
-                int currentLevel = 1;
-                bool isGameOver = false;
-
-                // [시간 설정] 초기 30초
-                float remainingTime = 30.0f;
-
-                while (!isGameOver && !token.IsCancellationRequested)
-                {
-                    // 안드로이드 백버튼 (로비로 나가기)
-                    if (Input.GetKeyDown(KeyCode.Escape))
-                    {
-                        isGameOver = true;
-                        break;
-                    }
-
-                    // 스테이지 생성
-                    StageInfo stage = _generator.CreateStage(currentLevel, selectedMode);
-
-                    // [레벨업 보너스] 2레벨부터 시간 조금 추가 (난이도 조절용)
-                    if (currentLevel > 1) remainingTime += 5.0f;
-
-                    _matchEngine.Initialize(stage);
-
-                    // 연출 분기
-                    if (currentLevel == 1) _view.BuildGrid(stage);
-                    else await PlayRefreshAnim(stage, token);
-
-                    // ------------------------------------------------
-                    // 3. [PLAY LOOP] - 실시간 프레임 루프
-                    // ------------------------------------------------
-                    bool stageClear = false;
-
-                    while (!stageClear && !isGameOver)
-                    {
-                        // A. 백버튼 체크
-                        if (Input.GetKeyDown(KeyCode.Escape))
-                        {
-                            isGameOver = true;
-                            stageClear = true;
-                            break;
-                        }
-
-                        // B. 시간 감소 및 타임오버 체크
-                        remainingTime -= Time.deltaTime;
-                        if (remainingTime <= 0f)
-                        {
-                            remainingTime = 0f;
-                            Debug.Log("Time Over!");
-                            isGameOver = true;
-                            stageClear = true;
-                            // 타임오버 UI 갱신 (0.00초 보여주기 위해)
-                            _ui.UpdateGameStatus(remainingTime, currentLevel);
-                            break;
-                        }
-
-                        // C. UI 갱신 (매 프레임)
-                        _ui.UpdateGameStatus(remainingTime, currentLevel);
-
-                        // D. 입력 체크 (기다리지 않음! TryGet 사용)
-                        // [수정됨] await WaitForCellInputAsync 대신 TryGetCellInput 사용
-                        if (_input.TryGetCellInput(out CellData inputData))
-                        {
-                            // [로그 확인용]
-                            // Debug.Log($"Touch Input: {inputData.Number}");
-
-                            MatchResult result = _matchEngine.SubmitInput(inputData);
-
-                            if (result == MatchResult.Success)
-                            {
-                                _view.PlayTouchEffect(inputData.WorldPos);
-                            }
-                            else if (result == MatchResult.StageClear)
-                            {
-                                stageClear = true;
-                            }
-                            else if (result == MatchResult.Fail_Wrong)
-                            {
-                                Debug.Log("Wrong Touch!");
-                                isGameOver = true; // 오답 시 즉시 사망
-                                stageClear = true;
-                            }
-                        }
-
-                        // E. 프레임 대기 (필수: 루프가 너무 빨리 돌지 않게 함)
-                        await Awaitable.NextFrameAsync(token);
-                    }
-
-                    // 스테이지 종료 후 처리
-                    if (!isGameOver)
-                    {
-                        currentLevel++;
-                    }
-                    else
-                    {
-                        // 게임오버 시 잠시 대기 후 로비로
-                        await Awaitable.WaitForSecondsAsync(1.0f, token);
-                    }
-                }
+            // 3. 터치 입력
+            if (Input.GetMouseButtonDown(0))
+            {
+                CheckHit();
             }
         }
 
-        // 헬퍼: 백덤블링 대기
-        private async Awaitable PlayRefreshAnim(StageInfo stage, CancellationToken token)
+        private void CheckHit()
         {
-            bool animDone = false;
-            _view.TriggerRefresh(stage, () => animDone = true);
-            while (!animDone && !token.IsCancellationRequested) await Awaitable.NextFrameAsync(token);
-        }
+            INoteView closestNode = null;
+            float minDiff = float.MaxValue;
+            float targetAngle = 90f;
 
-        private async Awaitable InitializeServices(CancellationToken token)
-        {
-            // GPGS & AdMob Init (나중에 활성화)
-            await Awaitable.WaitForSecondsAsync(1.0f, token);
+            // 인터페이스를 통해 순회
+            foreach (var note in _view.GetActiveNotes())
+            {
+                float diff = Mathf.Abs(Mathf.DeltaAngle(note.CurrentAngle, targetAngle));
+                if (diff < minDiff)
+                {
+                    minDiff = diff;
+                    closestNode = note;
+                }
+            }
+
+            if (closestNode != null && minDiff <= 15f)
+            {
+                Debug.Log($"HIT! (Diff: {minDiff:F2})");
+                _view.PlayHitEffect();
+                _audio.PlayNoteSound(closestNode.SoundIndex, 1);
+
+                // 인터페이스를 넘겨서 반납 요청
+                _view.ReturnNote(closestNode);
+            }
+            else
+            {
+                Debug.Log("MISS!");
+                _view.ReduceLife(1);
+            }
         }
     }
 }

@@ -1,39 +1,63 @@
 ﻿using UnityEngine;
-using ReflexPuzzle.Entity;
+using TouchIT.Entity;
 using System.Threading;
-
-namespace ReflexPuzzle.Control
+using System.Collections.Generic;
+namespace TouchIT.Control
 {
-    // 1. 화면(격자) 제어 인터페이스
-    public interface IGridView
+    // 1. 화면/연출 제어 (Boundary가 구현)
+    public interface IGameView
     {
-        void BuildGrid(StageInfo stage);
-        void ClearGrid();
-        void TriggerRefresh(StageInfo nextStage, System.Action onComplete);
-        // [추가] 이펙트 재생 요청
-        void PlayTouchEffect(Vector3 position);
+        // 보스 관련
+        void UpdateBossHp(float current, float max);
+        void PlayBossHitAnimation();   // 피격 시 줌아웃/실루엣 흔들림
+        void SetGroggyMode(bool isOn); // 그로기(문지르기) 모드 전환
+        // [추가됨] 활성화된 노트 목록 가져오기
+        IEnumerable<INoteView> GetActiveNotes();
+
+        // [추가됨] 노트 반납
+        void ReturnNote(INoteView note);
+
+        // 연출 관련
+        // [추가됨] 피격 이펙트
+        void PlayHitEffect();
+
+        // [추가됨] 라이프 감소
+        void ReduceLife(int amount);
+        // 노트 관련
+        void SpawnNote(NoteData data);
+        void ClearAllNotes();
+
+        // 라이프(궤도) 관련 [아이디어 반영]
+        void UpdateLifeVisual(int lifeCount); // 3->2->1 깨지는 연출
+
+        // 카메라/이펙트
+        void TriggerCameraKick(float intensity);
+        void SetTheme(bool isDarkMode);
     }
 
-    // 2. 입력 제어 인터페이스 (비동기)
-    public interface IInputReader
+    // 2. 오디오 제어 (Boundary가 구현)
+    public interface IAudioManager
     {
-        Awaitable<CellData> WaitForCellInputAsync(CancellationToken token);
-        Awaitable WaitForAnyTouchAsync(CancellationToken token);
-
-        bool TryGetCellInput(out CellData data);
+        // 펜타토닉 화음 재생 (combo에 따라 화음 수 결정)
+        void PlayNoteSound(int scaleIndex, int intensityLevel);
+        void PlaySfx(string sfxName); // "Hit", "Fail", "Groggy" 등
+        void SetMute(bool isMuted);
     }
 
-    // 3. UI 제어 인터페이스 (로비/게임 패널)
-    public interface IGameUI
+    // 3. 입력 제어 (Control이 사용, Boundary가 구현 or Control 내 로직)
+    public interface IInputProvider
     {
-        void ShowTitle(); // [추가] 타이틀 화면("터치하여 시작")
-        void ShowLobby();
-        void ShowGameUI();
-        // [추가] 모드 설명 텍스트 갱신
-        void UpdateModeDescription(string title, string desc);
-        // [수정] 모드 선택 대기 (터치 입력까지 포함)
-        Awaitable<GameMode> WaitForModeSelectionAsync(System.Threading.CancellationToken token);
-        // [추가] 이 줄이 없어서 에러가 났던 겁니다. 추가해주세요!
-        void UpdateGameStatus(float time, int level);
+        // 이번엔 TryGet 방식을 기본으로 가져갑니다.
+        bool TryGetTap(out Vector2 screenPos); // 탭 했나?
+        bool TryGetShake(out float intensity); // 문지르기 강도 (그로기용)
+    }
+    // [신규] 노트의 구체적인 정보(NoteView)를 숨기기 위한 인터페이스
+    public interface INoteView
+    {
+        float CurrentAngle { get; }
+        int SoundIndex { get; }
+        void UpdateRotation(float deltaTime);
+        void Initialize(NoteData data, float ringRadius);
+        void Deactivate();
     }
 }
