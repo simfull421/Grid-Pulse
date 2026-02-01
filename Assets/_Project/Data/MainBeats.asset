@@ -1,0 +1,275 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f4235133442af24fb5fef329a242df9, type: 3}
+  m_Name: MainBeats
+  m_EditorClassIdentifier: 
+  Patterns:
+  - PatternName: 01. Basic House (4/4)
+    Intervals:
+    - 1
+    - 1
+    - 1
+    - 1
+  - PatternName: 02. Double Time (Fast)
+    Intervals:
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.5
+  - PatternName: 03. Slow Breath (Relax)
+    Intervals:
+    - 2
+    - 2
+    - 2
+  - PatternName: 04. Waltz (3/4)
+    Intervals:
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+  - PatternName: 05. Gallop (Horse)
+    Intervals:
+    - 0.5
+    - 0.25
+    - 0.25
+    - 0.5
+    - 0.25
+    - 0.25
+  - PatternName: 06. Reggaeton (Dem Bow)
+    Intervals:
+    - 0.75
+    - 0.25
+    - 0.5
+    - 0.5
+    - 0.75
+    - 0.25
+    - 0.5
+    - 0.5
+  - PatternName: 07. Swing Triplet (Jazz)
+    Intervals:
+    - 0.66
+    - 0.33
+    - 0.66
+    - 0.33
+    - 0.66
+    - 0.33
+  - PatternName: 08. Funky Syncopation
+    Intervals:
+    - 0.75
+    - 0.25
+    - 0.75
+    - 0.25
+    - 1
+    - 1
+  - PatternName: 09. Trap Roll (Drill)
+    Intervals:
+    - 1
+    - 1
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.5
+    - 0.5
+  - PatternName: 10. Heartbeat (Tension)
+    Intervals:
+    - 0.2
+    - 0.8
+    - 0.2
+    - 0.8
+    - 0.2
+    - 0.8
+  - PatternName: 11. Double Tap Dash
+    Intervals:
+    - 0.2
+    - 0.2
+    - 0.6
+    - 0.2
+    - 0.2
+    - 0.6
+  - PatternName: 12. The Pause (Fakeout)
+    Intervals:
+    - 0.5
+    - 0.5
+    - 0.5
+    - 1.5
+    - 0.5
+    - 0.5
+  - PatternName: 13. Polyrhythm (3 vs 2)
+    Intervals:
+    - 0.5
+    - 1
+    - 0.5
+    - 1
+    - 0.5
+    - 0.5
+  - PatternName: 14. Off-Beat Chaos
+    Intervals:
+    - 0.5
+    - 0.25
+    - 0.25
+    - 0.5
+    - 1.2
+    - 0.3
+  - PatternName: 15. Morse Code (SOS)
+    Intervals:
+    - 0.2
+    - 0.2
+    - 0.2
+    - 0.6
+    - 0.6
+    - 0.6
+    - 0.2
+    - 0.2
+    - 0.2
+  - PatternName: 16. Acceleration (Ramp Up)
+    Intervals:
+    - 1
+    - 0.9
+    - 0.8
+    - 0.7
+    - 0.6
+    - 0.5
+    - 0.4
+    - 0.3
+    - 0.2
+  - PatternName: 17. Deceleration (Cool Down)
+    Intervals:
+    - 0.2
+    - 0.3
+    - 0.4
+    - 0.5
+    - 0.6
+    - 0.7
+    - 0.8
+    - 0.9
+    - 1
+  - PatternName: 18. Rubber Band
+    Intervals:
+    - 0.2
+    - 0.4
+    - 0.8
+    - 0.4
+    - 0.2
+  - PatternName: 19. Fibonacci Spacing
+    Intervals:
+    - 0.1
+    - 0.1
+    - 0.2
+    - 0.3
+    - 0.5
+    - 0.8
+    - 1.3
+  - PatternName: 20. Stutter Step
+    Intervals:
+    - 0.1
+    - 0.1
+    - 0.8
+    - 0.1
+    - 0.1
+    - 0.8
+  - PatternName: 21. Machine Gun
+    Intervals:
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+  - PatternName: 22. Broken Walz
+    Intervals:
+    - 1
+    - 0.5
+    - 1.5
+    - 1
+    - 0.5
+    - 1.5
+  - PatternName: 23. Prime Number Gaps
+    Intervals:
+    - 0.2
+    - 0.3
+    - 0.5
+    - 0.7
+    - 1.1
+  - PatternName: 24. Dubstep Drop
+    Intervals:
+    - 1.5
+    - 1.5
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+  - PatternName: 25. Random Burst
+    Intervals:
+    - 0.2
+    - 1.2
+    - 0.2
+    - 0.2
+    - 1.5
+    - 0.2
+  - PatternName: 26. Standard 8-Beat Rock
+    Intervals:
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.25
+    - 0.25
+    - 0.5
+  - PatternName: 27. K-Pop Build Up
+    Intervals:
+    - 0.5
+    - 0.5
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.25
+    - 0.125
+    - 0.125
+    - 0.125
+    - 0.125
+  - PatternName: 28. Three-Three-Two
+    Intervals:
+    - 0.75
+    - 0.75
+    - 0.5
+    - 0.75
+    - 0.75
+    - 0.5
+  - PatternName: 29. Missing Pulse
+    Intervals:
+    - 1
+    - 1
+    - 2
+    - 1
+    - 1
+  - PatternName: 30. The Finale
+    Intervals:
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.25
+    - 0.25
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0

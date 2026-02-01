@@ -6,58 +6,116 @@ namespace TouchIT.Boundary
 {
     public class NoteView : MonoBehaviour, INoteView
     {
-        [SerializeField] private Transform _visualPivot; // 자식 오브젝트(Visual)
+        [SerializeField] private Transform _visual;
+        [SerializeField] private LineRenderer _holdTail;
+        [SerializeField] private SpriteRenderer _bodySr;
+        // [삭제] _outlineSr 변수 및 관련 로직 제거됨
+
+        // [설정] 코드로 제어하는 디자인 수치들
+        private readonly Vector3 BODY_SCALE = new Vector3(0.2f, 0.6f, 1f);
+
+        // [위치 보정] 9시(180도) -> 12시(90도) 보정값
+        private const float ANGLE_OFFSET = -90f;
 
         private NoteData _data;
+        private GameBinder _binder;
         private float _currentAngle;
-        private bool _isActive;
 
+        // =========================================================
+        // [인터페이스 구현] 여기가 핵심입니다
+        // =========================================================
+        public NoteColor Color => _data.Color;
+        public NoteType Type => _data.Type;
         public float CurrentAngle => _currentAngle;
-        public int SoundIndex => _data.SoundIndex;
 
-        public void Initialize(NoteData data, float ringRadius)
+        // [신규] 이 코드가 없어서 에러가 났던 겁니다.
+        // 이펙트가 터질 위치를 알려줍니다 (회전하는 부모가 아니라, 실제 눈에 보이는 자식의 위치)
+        public Vector3 Position => _visual.position;
+        // =========================================================
+
+        public void Initialize(NoteData data, float radius, GameBinder binder)
         {
             _data = data;
+            _binder = binder;
             _currentAngle = data.StartAngle;
-            _isActive = true;
-            gameObject.SetActive(true);
 
-            // [수정] 주석 해제 및 코드 적용!
-            // 이 코드가 자식을 강제로 밖으로 밀어냅니다.
-            if (_visualPivot != null)
+            // 1. 비주얼 크기 설정
+            _bodySr.transform.localScale = BODY_SCALE;
+
+            // 2. 위치 잡기 (반지름만큼 떨어진 곳)
+            _visual.localPosition = new Vector3(0, radius, 0);
+            _visual.localRotation = Quaternion.identity;
+
+            // 3. 색상 설정 (테두리 삭제됨)
+            Color whiteTheme = new Color(0.95f, 0.95f, 0.95f);
+            Color blackTheme = new Color(0.1f, 0.1f, 0.1f);
+
+            if (data.Color == NoteColor.White)
             {
-                // 1. 위치 이동: 반지름만큼 위로 올림 (중심에서 멀어짐)
-                // ringRadius가 3.0이면 Y를 2.5 정도로 살짝 안쪽에 두는 게 이쁨
-                float offset = ringRadius - 0.5f;
-                _visualPivot.localPosition = new Vector3(0, offset, 0);
+                _bodySr.color = whiteTheme;
+            }
+            else
+            {
+                _bodySr.color = blackTheme;
+            }
 
-                // 2. 회전 초기화: 자식은 회전하지 않음 (항상 위를 보거나, 부모 따라 돌거나)
-                _visualPivot.localRotation = Quaternion.identity;
+            // 4. 홀드 노트 꼬리 그리기
+            if (data.Type == NoteType.Hold)
+            {
+                _holdTail.enabled = true;
 
-                // 3. (선택사항) 노트 크기가 너무 크면 여기서 줄여버림
-                // _visualPivot.localScale = new Vector3(0.2f, 1.0f, 1.0f); 
+                if (_holdTail.sharedMaterial == null)
+                    _holdTail.material = new Material(Shader.Find("Sprites/Default"));
+
+                _holdTail.startColor = (data.Color == NoteColor.White) ? whiteTheme : blackTheme;
+                _holdTail.endColor = (data.Color == NoteColor.White) ? new Color(1, 1, 1, 0) : new Color(0, 0, 0, 0);
+
+                DrawHoldTail(radius, data.HoldDuration * data.Speed);
+            }
+            else
+            {
+                if (_holdTail) _holdTail.enabled = false;
             }
 
             UpdateTransform();
+            gameObject.SetActive(true);
+        }
+
+        private void DrawHoldTail(float radius, float lengthAngle)
+        {
+            _holdTail.positionCount = 20;
+            _holdTail.useWorldSpace = false;
+            _holdTail.startWidth = 0.4f;
+            _holdTail.endWidth = 0.0f;
+
+            for (int i = 0; i < 20; i++)
+            {
+                float t = (float)i / 19f;
+                // [위치 보정] 12시 기준으로 꼬리 그리기
+                float angleDeg = 90f + (lengthAngle * t);
+                float rad = angleDeg * Mathf.Deg2Rad;
+
+                float x = Mathf.Cos(rad) * radius;
+                float y = Mathf.Sin(rad) * radius;
+
+                _holdTail.SetPosition(i, new Vector3(x, y, 0));
+            }
         }
 
         public void UpdateRotation(float deltaTime)
         {
-            if (!_isActive) return;
             _currentAngle -= _data.Speed * deltaTime;
             UpdateTransform();
         }
 
         private void UpdateTransform()
         {
-            // 부모를 Z축으로 회전시킴 -> 자식은 떨어져 있으니 공전하게 됨
-            transform.localRotation = Quaternion.Euler(0, 0, _currentAngle);
+            transform.localRotation = Quaternion.Euler(0, 0, _currentAngle + ANGLE_OFFSET);
         }
 
-        public void Deactivate()
+        public void ReturnToPool()
         {
-            _isActive = false;
-            gameObject.SetActive(false);
+            _binder.ReturnNote(this);
         }
     }
 }
