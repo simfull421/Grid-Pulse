@@ -28,6 +28,9 @@ namespace TouchIT.Control
         private Queue<float> _intervalQueue = new Queue<float>();
         private Queue<int> _soundQueue = new Queue<int>(); // [신규] 펜타토닉 음계 인덱스 큐
 
+        public bool IsIdle => _intervalQueue.Count == 0; // 큐가 비면 쉬는 중
+        private const float PATTERN_GAP = 3.0f; // 패턴 사이 3초 휴식
+        private double _gapEndTime = 0;
         public void Initialize(IGameView view, BeatLibrary lib)
         {
             _view = view;
@@ -68,11 +71,22 @@ namespace TouchIT.Control
 
         private void CalculateNextSpawn()
         {
-            if (_intervalQueue.Count == 0) LoadNewPattern();
+            // 큐가 비었으면 (패턴 종료)
+            if (_intervalQueue.Count == 0)
+            {
+                // 휴식 시간 부여
+                _gapEndTime = AudioSettings.dspTime + PATTERN_GAP;
+                LoadNewPattern(); // 다음 패턴 미리 로드 (하지만 시간은 Gap 이후로 설정됨)
 
-            float gap = (_intervalQueue.Count > 0) ? _intervalQueue.Dequeue() : 1.0f;
-            double gapTime = (60.0 / _bpm) * gap;
-            _nextSpawnTime += gapTime;
+                // _nextSpawnTime을 미래로 미룸
+                _nextSpawnTime = _gapEndTime;
+            }
+            else
+            {
+                // 기존 로직
+                float gap = _intervalQueue.Dequeue();
+                _nextSpawnTime += (60.0 / _bpm) * gap;
+            }
         }
 
         private void LoadNewPattern()
