@@ -564,6 +564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1013470043}
   - component: {fileID: 1013470044}
+  - component: {fileID: 1013470045}
   m_Layer: 0
   m_Name: HudManager
   m_TagString: Untagged
@@ -598,8 +599,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb10b2fc2ba21274ebda33d684edc98a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _comboGaugeImage: {fileID: 1821505501}
+  _comboRingView: {fileID: 1013470045}
   _hitZoneVisual: {fileID: 2054027910}
+--- !u!114 &1013470045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013470042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b150ff7aaf5fe4848aa230ba0707ea67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _radius: 2.2
+  _width: 0.08
+  _gapSize: 5
 --- !u!1 &1356585070
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,8 +875,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1821505500}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -961,10 +976,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1912264a05f6ad74c983745b77abbf47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sphereRenderer: {fileID: 0}
+  _sphereRenderer: {fileID: 2034892586}
   _lifeRingView: {fileID: 1827356240}
   _musicSource: {fileID: 228807680}
-  _musicSensitivity: 2
+  _wobbleSens: 1.5
+  _recoverySpeed: 10
 --- !u!1 &1705761391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,81 +1284,6 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
---- !u!1 &1821505499
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1821505500}
-  - component: {fileID: 1821505502}
-  - component: {fileID: 1821505501}
-  m_Layer: 5
-  m_Name: ComboGauge
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1821505500
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821505499}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.7, y: 2.7, z: 2.7}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 1444882111}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1821505501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821505499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.4392157}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 2
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1821505502
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821505499}
-  m_CullTransparentMesh: 1
 --- !u!1 &1827356238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,9 +1329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 2.5
-  _width: 0.15
-  _punchHeight: 1
-  _punchWidth: 40
+  _width: 0.08
   _elasticity: 10
 --- !u!1 &2034892577
 GameObject:
@@ -1401,12 +1340,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2034892578}
+  - component: {fileID: 2034892585}
+  - component: {fileID: 2034892586}
   - component: {fileID: 2034892581}
   - component: {fileID: 2034892582}
-  - component: {fileID: 2034892583}
-  - component: {fileID: 2034892585}
   - component: {fileID: 2034892584}
-  - component: {fileID: 2034892586}
+  - component: {fileID: 2034892583}
+  - component: {fileID: 2034892587}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -1464,7 +1404,7 @@ CircleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cb2b0844864250043ad8d327f3a4be6e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1535,7 +1475,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c649d11969a81d848989fe1270d1b9c0, type: 2}
+  - {fileID: 2100000, guid: e2cbcf9e460fdec4a9b12ad08d9eac7d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1557,6 +1497,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!50 &2034892587
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034892577}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &2054027909
 GameObject:
   m_ObjectHideFlags: 0

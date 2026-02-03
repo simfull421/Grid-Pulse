@@ -23,6 +23,8 @@ namespace TouchIT.Control
             _lastWorldPos = Vector3.zero;
             _currentSpherePos = Vector3.zero;
             _isDragging = false;
+
+
         }
 
         public override void Update()

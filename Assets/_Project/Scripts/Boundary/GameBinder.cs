@@ -83,8 +83,6 @@ namespace TouchIT.Boundary
             // 이펙트 재생
             _vfxManager.PlayHitEffect(position, color, RingRadius);
 
-            // [추가] 구체 펀치 (터치 성공 시 구체가 확 찌그러짐)
-            if (_juiceController) _juiceController.PunchSphere();
         }
 
         public void SetHoldEffect(bool isHolding)
@@ -107,10 +105,10 @@ namespace TouchIT.Boundary
 
         public void PunchRingEffect(Vector3 direction)
         {
-            // 링 자체의 물리적 반동 (GameBinder 코루틴 사용 or JuiceController 위임)
-            StartCoroutine(RingBounceRoutine(direction));
-        }
+            // 1. 링 자체의 물리적 반동
+            if (_lifeRingView) StartCoroutine(RingBounceRoutine(direction));
 
+        }
         private System.Collections.IEnumerator RingBounceRoutine(Vector3 hitDir)
         {
             if (_lifeRingView == null) yield break;

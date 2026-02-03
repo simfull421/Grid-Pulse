@@ -1,34 +1,32 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using TouchIT.Entity;
 
 namespace TouchIT.Boundary
 {
     public class HudManager : MonoBehaviour
     {
-        [Header("UI References")]
-        [SerializeField] private Image _comboGaugeImage;
-        [SerializeField] private SpriteRenderer _hitZoneVisual;
+        [Header("Procedural UI")]
+        [SerializeField] private ComboRingView _comboRingView; // [신규]
 
-        // [삭제됨] _timerLineRenderer 관련 코드 전부 제거
+        [Header("Visuals")]
+        [SerializeField] private SpriteRenderer _hitZoneVisual;
 
         public void Initialize(float ringRadius)
         {
-            if (_comboGaugeImage) _comboGaugeImage.fillAmount = 0f;
-            // 판정선 위치나 크기를 ringRadius에 맞출 필요가 있다면 여기서 조정
+            // 콤보 링 초기화
+            if (_comboRingView) _comboRingView.Initialize();
         }
 
         public void UpdateComboGauge(float fillAmount)
         {
-            if (_comboGaugeImage) _comboGaugeImage.fillAmount = fillAmount;
+            if (_comboRingView) _comboRingView.UpdateGauge(fillAmount);
         }
 
         public void SetThemeColors(ThemeColors.ThemeSet colors)
         {
             if (_hitZoneVisual) _hitZoneVisual.color = colors.Foreground;
-            // 콤보 게이지 색상 변경이 필요하면 여기서 추가
+            // 콤보 링 색상도 테마 따라갈지, 아니면 골드로 고정할지 결정
+            // if (_comboRingView) _comboRingView.SetColor(colors.Foreground); 
         }
-
-        // [삭제됨] DrawTimerRing 메서드 제거
     }
 }

@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_Jelly
-  m_Shader: {fileID: 4800000, guid: e3ea583ae8ded5e40853c93ec9f91e8e, type: 3}
+  m_Name: TouchIT_Slime
+  m_Shader: {fileID: 4800000, guid: cab13cc9c64bfe440ba289aea36b72f3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -29,12 +29,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Frequency: 4.1
     - _Glossiness: 0
     - _Metallic: 1
-    - _WobbleAmount: 0
-    - _WobbleSpeed: 20
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Inertia: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
