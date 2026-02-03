@@ -12,7 +12,7 @@ namespace TouchIT.Boundary
 
         [Header("Prefabs")]
         [SerializeField] private ParticleSystem _sparkPrefab;
-        [SerializeField] private ParticleSystem _shockwavePrefab;
+
         [SerializeField] private ParticleSystem _groggyBubblePrefab;
         [SerializeField] private ParticleSystem _holdLoopEffectPrefab;
 
@@ -96,20 +96,6 @@ namespace TouchIT.Boundary
                 StartCoroutine(ReturnSparkToPool(spark));
             }
 
-            // 3. 쇼크웨이브 (Instantiate)
-            if (_shockwavePrefab)
-            {
-                var shock = Instantiate(_shockwavePrefab, Vector3.zero, Quaternion.identity, _particleContainer);
-                var main = shock.main;
-                main.startColor = visualColor;
-
-                if (position != Vector3.zero)
-                {
-                    float angle = Mathf.Atan2(position.y, position.x) * Mathf.Rad2Deg;
-                    shock.transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
-                }
-                Destroy(shock.gameObject, 1.0f);
-            }
         }
 
         public void PlayGroggyBubble(Vector3 centerPos, NoteColor theme)

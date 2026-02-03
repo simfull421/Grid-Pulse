@@ -30,9 +30,7 @@ namespace TouchIT.Boundary
         [SerializeField] private SphereView _sphereView;
         [SerializeField] private SphereInteraction _sphereInteraction;
 
-        // [신규] 쥬스 컨트롤러 (선택 사항, 직접 연결해도 됨)
-        [Header("Juice & Feedback")]
-        [SerializeField] private JuiceController _juiceController;
+  
 
         public float RingRadius => _lifeRingView != null ? _lifeRingView.Radius : 2.8f;
 
