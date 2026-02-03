@@ -33,18 +33,21 @@ namespace TouchIT.Control
             Audio = audio;
             _beatLibrary = lib;
 
-            // 엔진 및 시스템 생성
             Engine = new RhythmEngine();
             Engine.Initialize(View, _beatLibrary);
 
             HitSystem = new HitJudgeSystem(targetAngle: 90f);
 
-            // 초기 상태 진입
+            // [Fix] 초기 테마 랜덤 (White or Black)
+            CurrentTheme = (Random.value > 0.5f) ? NoteColor.White : NoteColor.Black;
+
+            // 이펙트/구/링 색상 강제 적용
+            SetTheme(CurrentTheme);
+
             ChangeState(new StateNormal(this));
 
-            Debug.Log("✅ GameController Initialized via Dependency Injection");
+            Debug.Log($"✅ GameController Initialized. Start Theme: {CurrentTheme}");
         }
-
         private void Update()
         {
             // 초기화 전이면 실행 안 함
@@ -89,8 +92,11 @@ namespace TouchIT.Control
         public void AddCombo()
         {
             Combo++;
+            // [Fix] _comboCount -> Combo 로 수정
+            Audio.PlaySfx("Hit", Combo);
             Score += 100 * Combo;
             View.UpdateComboGauge(Mathf.Clamp01((float)Combo / 10f));
+            // 콤보 10개마다 그로기 모드 발동 (테스트용)
             if (Combo >= 10) ChangeState(new StateGroggy(this));
         }
 

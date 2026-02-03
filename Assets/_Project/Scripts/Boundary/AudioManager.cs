@@ -4,54 +4,56 @@ using TouchIT.Entity; // NoteColor 사용
 
 namespace TouchIT.Boundary
 {
-    [RequireComponent(typeof(AudioSource))]
     public class AudioManager : MonoBehaviour, IAudioManager
     {
         [Header("Sources")]
         [SerializeField] private AudioSource _bgmSource;
         [SerializeField] private AudioSource _sfxSource;
 
-        [Header("Clips")]
+        [Header("Common Clips")]
         [SerializeField] private AudioClip _whiteBgm;
         [SerializeField] private AudioClip _blackBgm;
-        [SerializeField] private AudioClip _hitClip;
         [SerializeField] private AudioClip _missSfx;
         [SerializeField] private AudioClip _swipeSfx;
 
-        // 엔진용 드럼 사운드
-        [SerializeField] private AudioClip _kickClip;
-        [SerializeField] private AudioClip _snareClip;
+        [Header("Combo Scale Clips (8 Notes)")]
+        // 도, 레, 미, 파, 솔, 라, 시, 도(높은) 순서로 할당하세요.
+        [SerializeField] private AudioClip[] _comboClips;
 
         public void Initialize()
         {
             _bgmSource.loop = true;
         }
 
-        public void PlaySfx(string name)
+        public void PlaySfx(string name, int comboCount = 0)
         {
-            // [수정] 피치(음정)를 0.9 ~ 1.1 사이로 랜덤하게 주면 훨씬 자연스러움 (버블 소리 등)
-            _sfxSource.pitch = Random.Range(0.9f, 1.1f);
+            _sfxSource.pitch = 1.0f; // 피치는 정배속 고정
 
             AudioClip clip = null;
-            switch (name)
+
+            if (name == "Hit")
             {
-                case "Hit": clip = _hitClip; break;
-                case "Miss": clip = _missSfx; break;
-                case "Swipe": clip = _swipeSfx; break;
+                // [신규] 8음계 로직
+                // 콤보 10개당 1음계 상승 (0~9: 도, 10~19: 레 ...)
+                if (_comboClips != null && _comboClips.Length > 0)
+                {
+                    // 인덱스 계산 (최대값은 배열 길이 - 1)
+                    int index = Mathf.Clamp(comboCount / 5, 0, _comboClips.Length - 1);
+                    clip = _comboClips[index];
+                }
+            }
+            else
+            {
+                switch (name)
+                {
+                    case "Miss": clip = _missSfx; break;
+                    case "Swipe": clip = _swipeSfx; break;
+                }
             }
 
-            if (clip != null)
-            {
-                _sfxSource.PlayOneShot(clip);
-            }
+            if (clip != null) _sfxSource.PlayOneShot(clip);
         }
-
-        public void PlayDrum(bool isKick)
-        {
-            // [중요] 드럼은 피치가 바뀌면 이상하므로 1.0으로 리셋
-            _sfxSource.pitch = 1.0f;
-            _sfxSource.PlayOneShot(isKick ? _kickClip : _snareClip);
-        }
+  
 
         public void SetBgmTheme(NoteColor theme)
         {

@@ -6,6 +6,7 @@ namespace TouchIT.Control
 {
     public interface INoteView
     {
+        float TailAngle { get; }
         float CurrentAngle { get; }
         NoteColor Color { get; }
         // [Fix] 누락되었던 Type 프로퍼티 추가
@@ -24,8 +25,11 @@ namespace TouchIT.Control
     }
     public interface IGameView
     {// [신규] 홀드 노트 누르고 있을 때 이펙트 켜기/끄기
+        // [신규] 꼬리의 각도 (일반 노트면 Head와 동일, 홀드면 Head + 길이)
+ 
         void SetHoldEffect(bool isHolding);
-
+        // [Fix] 누락된 링 충돌 효과 추가
+        void PunchRingEffect(Vector3 direction);
         float RingRadius { get; }
         void SpawnNote(NoteData data);
         List<INoteView> GetActiveNotes();
@@ -60,7 +64,8 @@ namespace TouchIT.Control
         // [중요] 컨트롤러나 부트스트래퍼가 호출하는 모든 메서드는 여기 있어야 합니다.
         void Initialize();
 
-        void PlaySfx(string name);
+        // [Fix] comboCount 파라미터 추가 (기본값은 인터페이스 구현체에서 처리 or 오버로딩)
+        void PlaySfx(string name, int comboCount = 0);
 
         // [신규] 오류 해결: 배경음 테마 변경 메서드 추가
         void SetBgmTheme(NoteColor theme);
