@@ -12,8 +12,6 @@ namespace TouchIT.Boundary
 
         [Header("Prefabs")]
         [SerializeField] private ParticleSystem _sparkPrefab;
-
-        [SerializeField] private ParticleSystem _groggyBubblePrefab;
         [SerializeField] private ParticleSystem _holdLoopEffectPrefab;
 
         // 내부 상태
@@ -72,10 +70,12 @@ namespace TouchIT.Boundary
             }
         }
 
-        public void PlayHitEffect(Vector3 position, NoteColor color, float radius)
+        public void PlayHitEffect(Vector3 position, NoteType type, float radius)
         {
-            var theme = ThemeColors.GetColors(color);
-            Color visualColor = (color == NoteColor.Cosmic) ? Color.cyan : theme.Note;
+            // [수정] NoteType에 따라 색상 결정
+            // 일반 노트(Normal) -> NoteNormal (초록)
+            // 홀드 노트(Hold) -> NoteHold (청록/파랑)
+            Color visualColor = (type == NoteType.Hold) ? ThemeColors.NoteHold : ThemeColors.NoteNormal;
 
             // 1. 줌 이펙트
             if (_zoomCoroutine != null) StopCoroutine(_zoomCoroutine);
@@ -85,7 +85,7 @@ namespace TouchIT.Boundary
             if (_sparkPool.Count > 0)
             {
                 var spark = _sparkPool.Dequeue();
-                spark.transform.position = position; // 위치 지정
+                spark.transform.position = position;
                 spark.transform.rotation = Quaternion.identity;
                 spark.gameObject.SetActive(true);
 
@@ -95,20 +95,9 @@ namespace TouchIT.Boundary
                 spark.Play();
                 StartCoroutine(ReturnSparkToPool(spark));
             }
-
         }
 
-        public void PlayGroggyBubble(Vector3 centerPos, NoteColor theme)
-        {
-            if (_groggyBubblePrefab)
-            {
-                Vector3 spawnPos = centerPos + (Vector3)(Random.insideUnitCircle * 1.5f);
-                var bubble = Instantiate(_groggyBubblePrefab, spawnPos, Quaternion.identity);
-                var main = bubble.main;
-                main.startColor = (theme == NoteColor.White) ? Color.black : Color.white;
-                Destroy(bubble.gameObject, 1.0f);
-            }
-        }
+        // [삭제] PlayGroggyBubble 메서드는 더 이상 사용하지 않음 (EmberController가 담당하거나 삭제)
 
         private IEnumerator ReturnSparkToPool(ParticleSystem spark)
         {
@@ -120,7 +109,7 @@ namespace TouchIT.Boundary
         private IEnumerator HitZoomEffect()
         {
             if (_mainCam == null) yield break;
-            float targetSize = _defaultCamSize + 0.2f;
+            float targetSize = _defaultCamSize + 0.1f; // 줌 강도 약간 줄임 (0.2 -> 0.1)
 
             // Zoom Out
             float elapsed = 0f;

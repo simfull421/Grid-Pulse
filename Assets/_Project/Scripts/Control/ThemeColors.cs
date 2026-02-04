@@ -2,46 +2,18 @@
 
 namespace TouchIT.Entity
 {
+    // [간소화] 불필요한 Enum 삭제, 단일 정적 컬러 관리
     public static class ThemeColors
     {
-        public struct ThemeSet
-        {
-            public Color Background;
-            public Color Foreground;
-            public Color Note;
-        }
+        // Monster Energy 스타일 (Deep Dark + Neon Green/Gold)
+        public static readonly Color Background = new Color(0.05f, 0.05f, 0.07f); // 칠흑 같은 어둠
+        public static readonly Color RingLine = new Color(0.2f, 0.2f, 0.2f);      // 꺼진 링 (회색)
+        public static readonly Color RingFire = new Color(1.0f, 0.6f, 0.0f);      // 불붙은 링 (주황)
 
-        public static ThemeSet GetColors(NoteColor theme)
-        {
-            switch (theme)
-            {
-                case NoteColor.White:
-                    return new ThemeSet
-                    {
-                        Background = new Color(0.95f, 0.95f, 0.95f),
-                        Foreground = Color.black,
-                        Note = Color.black
-                    };
+        public static readonly Color EmberCore = new Color(1.0f, 1.0f, 0.8f);     // 불꽃 심지 (밝은 노랑)
+        public static readonly Color EmberOuter = new Color(0.2f, 1.0f, 0.2f);    // 불꽃 외곽 (형광 초록)
 
-                case NoteColor.Black:
-                    return new ThemeSet
-                    {
-                        Background = new Color(0.1f, 0.1f, 0.12f),
-                        Foreground = Color.white,
-                        Note = Color.white
-                    };
-
-                case NoteColor.Cosmic:
-                    // [수정] Cyan -> Gold / Amber (고급스럽고 강렬하게)
-                    return new ThemeSet
-                    {
-                        Background = new Color(0.2f, 0.05f, 0.05f), // 더 어두운 핏빛
-                        Foreground = new Color(1.0f, 0.8f, 0.2f),   // 황금색 링
-                        Note = new Color(1.0f, 0.5f, 0.0f)          // 불타는 주황 노트
-                    };
-
-                default: return GetColors(NoteColor.White);
-            }
-        }
+        public static readonly Color NoteNormal = new Color(0.2f, 1.0f, 0.2f);    // 노트 (초록)
+        public static readonly Color NoteHold = new Color(0.0f, 1.0f, 1.0f);      // 홀드 (청록)
     }
 }

@@ -4,70 +4,66 @@ using TouchIT.Entity;
 
 namespace TouchIT.Control
 {
+    // 노트 인터페이스 (기존 유지)
     public interface INoteView
     {
         float TailAngle { get; }
         float CurrentAngle { get; }
         NoteColor Color { get; }
-        // [Fix] 누락되었던 Type 프로퍼티 추가
         NoteType Type { get; }
         Vector3 Position { get; }
-        // [신규] 상태 구분: 절반(180도)을 넘어서 타격 가능한 상태인가?
         bool IsHittable { get; }
         void UpdateRotation(float deltaTime);
         void ReturnToPool();
     }
-    // [신규] Control이 바라볼 센서 인터페이스
+
+    // 센서 인터페이스 (기존 유지)
     public interface IHitSensor
     {
         INoteView GetBestHitNote(NoteColor currentMode);
         void RemoveNote(INoteView note);
     }
+
+    // [핵심] GameController가 바라보는 뷰 인터페이스
     public interface IGameView
-    {// [신규] 홀드 노트 누르고 있을 때 이펙트 켜기/끄기
-        // [신규] 꼬리의 각도 (일반 노트면 Head와 동일, 홀드면 Head + 길이)
- 
-        void SetHoldEffect(bool isHolding);
-        // [Fix] 누락된 링 충돌 효과 추가
-        void PunchRingEffect(Vector3 direction);
+    {
+        // === 1. 기본 속성 ===
         float RingRadius { get; }
+
+        // === 2. 노트 관리 (Note Manager) ===
         void SpawnNote(NoteData data);
         List<INoteView> GetActiveNotes();
         void ReturnNote(INoteView note);
+        void ClearAllNotes(bool isSuccess);
 
-        // 연출 및 상태 제어
-        void SetTheme(NoteColor mode);
-        void PlayHitEffect(Vector3 position, NoteColor color);
-        void ReduceLife();
+        // === 3. 시각 효과 (VFX) ===
+        void PlayHitEffect(Vector3 position, NoteType type);
+        void SetHoldEffect(bool isHolding);
 
-        // 그로기 관련
-        void SetGroggyMode(bool isActive);
+        // [Error Fix] StateIgnition에서 호출함 (그로기 진입 시 연출)
         void TriggerGroggyEffect();
 
-        // [신규] 누락되었던 핵심 기능 추가
-        void ClearAllNotes(bool isSuccess); // 성공 여부에 따라 이펙트 다르게 삭제
+        // === 4. 불꽃 생존 시스템 (Ember System) ===
+        // [Error Fix] GameController에서 호출함
+        bool IsEmberDead { get; }             // 게임 오버 체크용
 
-    
+  
+        void StopEmberDrag();
+        // [신규] 차원 이동 & Osu 모드 관련
 
-        void PlayGroggyBubbleEffect(Vector3 centerPos, NoteColor theme);
 
-
-        void SetVisualTimer(float fillAmount, bool isActive); // 5초 타이머 링
-        void UpdateComboGauge(float fillAmount); // 오버워치 궁 게이지
-
-        void UpdateSpherePosition(Vector3 pos); // 그로기 때 구체 이동
-
+   
+        // 하이퍼 노트 (Osu)
+        void SpawnHyperNote(Vector2 position);
     }
 
     public interface IAudioManager
     {
-        // [중요] 컨트롤러나 부트스트래퍼가 호출하는 모든 메서드는 여기 있어야 합니다.
         void Initialize();
-
-        // [Fix] comboCount 파라미터 추가 (기본값은 인터페이스 구현체에서 처리 or 오버로딩)
         void PlaySfx(string name, int comboCount = 0);
 
-        // [신규] 오류 해결: 배경음 테마 변경 메서드 추가
+        // 테마가 하나로 통일되었으므로 BGM 테마 변경은 사실상 필요 없으나,
+        // 기존 코드 호환성을 위해 남겨두거나 내부 구현을 비워두면 됩니다.
         void SetBgmTheme(NoteColor theme);
     }
 }

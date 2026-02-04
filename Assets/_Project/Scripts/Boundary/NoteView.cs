@@ -30,6 +30,8 @@ namespace TouchIT.Boundary
         // 180도(6시)를 지나면 히트 불가 (단, 홀드 중이면 예외 처리는 로직에서 함)
         public bool IsHittable => _currentAngle <= 180f;
 
+        // NoteView.cs 내부 Initialize 메서드
+
         public void Initialize(NoteData data, float radius, GameBinder binder)
         {
             _data = data;
@@ -45,14 +47,14 @@ namespace TouchIT.Boundary
             if (_visualRoot == null) _visualRoot = transform;
             _visualRoot.localRotation = Quaternion.Euler(0, 0, _currentAngle - 90f);
 
-            // 2. 머리 위치 (로컬 좌표계) - 미세하게 더 앞으로(-0.1)
+            // 2. 머리 위치 (로컬 좌표계)
             _headSr.transform.localPosition = new Vector3(0, _radius, -0.1f);
             _headSr.transform.localRotation = Quaternion.identity;
-            _headSr.sortingOrder = 20; // [수정] SortingOrder도 넉넉하게 올림
+            _headSr.sortingOrder = 20;
 
-            // 3. 색상 적용
-            var colors = ThemeColors.GetColors(data.Color);
-            Color mainColor = (data.Type == NoteType.Hold) ? UnityEngine.Color.cyan : colors.Note;
+            // 3. [오류 수정] ThemeColors.GetColors() 삭제됨 -> 정적 필드 직접 접근
+            // 일반 노트는 NoteNormal, 홀드 노트는 NoteHold 색상 사용
+            Color mainColor = (data.Type == NoteType.Hold) ? ThemeColors.NoteHold : ThemeColors.NoteNormal;
 
             _headSr.color = mainColor;
             _headSr.enabled = true;

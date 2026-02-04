@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using TouchIT.Entity;
-// [중요] using TouchIT.Boundary; 삭제됨 -> 의존성 끊음
+// [중요] Boundary 의존성 없음 (IGameView 사용)
 
 namespace TouchIT.Control
 {
     public class GameController : MonoBehaviour
     {
-        // === Dependencies (Interfaces) ===
-        // 구체 클래스가 아닌 인터페이스로만 선언
+        // === Dependencies ===
         public IGameView View { get; private set; }
         public IAudioManager Audio { get; private set; }
         private BeatLibrary _beatLibrary;
@@ -18,12 +17,11 @@ namespace TouchIT.Control
 
         // === State & Data ===
         private GameState _currentState;
-        public NoteColor CurrentTheme { get; private set; } = NoteColor.White;
         public int Combo { get; private set; }
         public int Score { get; private set; }
+        public bool IsGameOver { get; private set; }
 
         // === Input ===
-        private Vector2 _touchStartPos;
         private bool _isTouching;
 
         // [핵심] 외부(Initializer)에서 의존성을 꽂아주는 주입구
@@ -38,23 +36,27 @@ namespace TouchIT.Control
 
             HitSystem = new HitJudgeSystem(targetAngle: 90f);
 
-            // [Fix] 초기 테마 랜덤 (White or Black)
-            CurrentTheme = (Random.value > 0.5f) ? NoteColor.White : NoteColor.Black;
+            // [변경] 테마 설정 삭제 (단일 테마 사용)
+            // [변경] 초기 상태 -> StateSurvival (생존 모드)
+            ChangeState(new StateSurvival(this));
 
-            // 이펙트/구/링 색상 강제 적용
-            SetTheme(CurrentTheme);
-
-            ChangeState(new StateNormal(this));
-
-            Debug.Log($"✅ GameController Initialized. Start Theme: {CurrentTheme}");
+            Debug.Log("✅ GameController Initialized (Fire Survival Mode)");
         }
+
         private void Update()
         {
-            // 초기화 전이면 실행 안 함
-            if (View == null || Engine == null) return;
+            // 초기화 전이거나 게임 오버면 중지
+            if (View == null || Engine == null || IsGameOver) return;
 
             if (_currentState != null) _currentState.Update();
+
             HandleInput();
+
+            // [신규] 게임 오버 체크 (불꽃이 꺼졌는가?)
+            if (View.IsEmberDead)
+            {
+                TriggerGameOver();
+            }
         }
 
         public void ChangeState(GameState newState)
@@ -64,60 +66,76 @@ namespace TouchIT.Control
             _currentState.Enter();
         }
 
-        // ... (HandleInput, AddCombo, Gizmos 등 나머지 로직은 동일) ...
-
         private void HandleInput()
         {
+            // [단순화] 복잡한 스와이프 로직 삭제 -> 터치/드래그만 깔끔하게 처리
             if (Input.GetMouseButtonDown(0))
             {
                 _isTouching = true;
-                _touchStartPos = Input.mousePosition;
                 _currentState?.OnTouch((Vector2)Input.mousePosition);
-                // 상태에게 "손 뗐음" 알림 (그로기 복귀용)
-                _currentState?.OnTouchUp();
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                if (_isTouching) _currentState?.OnDrag((Vector2)Input.mousePosition);
             }
             else if (Input.GetMouseButtonUp(0))
             {
                 if (_isTouching)
                 {
                     _isTouching = false;
-                    Vector2 delta = (Vector2)Input.mousePosition - _touchStartPos;
-                    if (delta.magnitude > 50f) _currentState?.OnSwipe(delta);
+                    _currentState?.OnTouchUp();
                 }
             }
-
-            if (_isTouching) _currentState?.OnDrag((Vector2)Input.mousePosition);
         }
 
-        public void AddCombo()
+        // === State에서 호출하는 액션들 ===
+        public void OnNoteHit(INoteView note)
         {
+            // 1. 점수 및 콤보
             Combo++;
-            // [Fix] _comboCount -> Combo 로 수정
+            Score += 100 + (Combo * 10);
+
+            // 2. 사운드 & 이펙트
             Audio.PlaySfx("Hit", Combo);
-            Score += 100 * Combo;
-            View.UpdateComboGauge(Mathf.Clamp01((float)Combo / 10f));
-            // 콤보 10개마다 그로기 모드 발동 (테스트용)
-            if (Combo >= 10) ChangeState(new StateGroggy(this));
+
+            // [수정] note.Color -> note.Type 전달
+            View.PlayHitEffect(note.Position, note.Type);
+
+            // 3. [핵심] 불꽃 연료 회복 (장작 투입)
+            View.AddEmberFuel();
+
+            // 4. 그로기(Ignition) 진입 체크
+            if (Combo >= 10 && _currentState is StateSurvival)
+            {
+                Debug.Log("🔥 IGNITION READY! (Grind to Boost)");
+                ChangeState(new StateIgnition(this));
+            }
+
+            // 노트 반환
+            note.ReturnToPool();
+        }
+        public void OnNoteMiss(INoteView note)
+        {
+            Combo = 0;
+            Audio.PlaySfx("Miss");
+
+            // [핵심] 미스 시 연료 대폭 감소 (패널티)
+            View.ConsumeEmberFuel(10f);
+
+            if (note != null) note.ReturnToPool();
         }
 
         public void ResetCombo()
         {
             Combo = 0;
-            View.UpdateComboGauge(0f);
+            // 콤보 게이지 UI 업데이트 삭제됨 (불꽃 크기가 곧 게이지임)
         }
 
-        public void AddShakeScore()
+        private void TriggerGameOver()
         {
-            Score += 50;
-            Audio.PlaySfx("Hit");
-        }
-
-        public void SetTheme(NoteColor newTheme)
-        {
-            CurrentTheme = newTheme;
-            View.SetTheme(newTheme);
-            Audio.SetBgmTheme(newTheme);
-            Engine.SetCurrentPhase(newTheme);
+            IsGameOver = true;
+            Debug.Log("💀 GAME OVER: The Fire has faded...");
+            // TODO: 게임 오버 UI 띄우기
         }
 
         void OnDrawGizmos()

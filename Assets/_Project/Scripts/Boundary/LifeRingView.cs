@@ -11,24 +11,23 @@ namespace TouchIT.Boundary
         public float Angle;
         public float Amplitude;
         public float Decay;
-        public bool IsFinished => Amplitude <= 0.001f; // 더 정밀하게 체크
+        public bool IsFinished => Amplitude <= 0.001f;
         public void Update(float dt) { Amplitude = Mathf.Lerp(Amplitude, 0f, dt * Decay); }
     }
 
+    [RequireComponent(typeof(EdgeCollider2D))]
     public class LifeRingView : MonoBehaviour
     {
         [Header("Settings")]
         [SerializeField] private float _radius = 2.8f;
-        // [피드백 반영] 링 두께 0.15 -> 0.08 (얇고 세련되게)
-        [SerializeField] private float _width = 0.08f;
+        [SerializeField] private float _width = 0.08f; // 얇고 세련되게
 
         [Header("Subtle & Sharp Punch")]
-        // [피드백 반영] 높이 대폭 축소 (0.6 -> 0.25) : 산만함 방지
-        [SerializeField] private float _baseKickHeight = 0.25f;
-        [SerializeField] private float _elasticity = 20f; // 복원 속도 UP (잔상 없이 바로 사라짐)
+        [SerializeField] private float _baseKickHeight = 0.25f; // 산만함 방지
+        [SerializeField] private float _elasticity = 20f; // 복원 속도 UP
 
         private const int SECTOR_COUNT = 32;
-        private const int NEIGHBOR_BLOCK = 3; // 이웃 억제 범위 증가 (동시다발적 발생 방지)
+        private const int NEIGHBOR_BLOCK = 3;
         private const int MAX_LIFE = 16;
 
         private int _currentLife;
@@ -37,7 +36,6 @@ namespace TouchIT.Boundary
         private bool[] _sectorOccupied = new bool[SECTOR_COUNT];
 
         private EdgeCollider2D _edgeCollider;
-        private NoteColor _lastTheme = NoteColor.White;
 
         public float Radius => _radius;
 
@@ -55,6 +53,9 @@ namespace TouchIT.Boundary
 
             CreatePhysicsBoundary();
             CreateSegments();
+
+            // [수정] 초기 색상 적용 (단일 테마 -> RingLine 사용)
+            SetColor(ThemeColors.RingLine);
             UpdateVisual();
         }
 
@@ -62,6 +63,7 @@ namespace TouchIT.Boundary
         {
             if (_segments.Count == 0) return;
 
+            // 펀치 효과 업데이트
             for (int i = _activeBulges.Count - 1; i >= 0; i--)
             {
                 var bulge = _activeBulges[i];
@@ -77,13 +79,10 @@ namespace TouchIT.Boundary
 
         public void ApplyAudioImpulse(float power)
         {
-            // [피드백 반영] 임계값 상향 (0.15 -> 0.3) : 확실한 비트만 통과
             if (power < 0.3f) return;
 
-            // 강도 레벨링 (미세함 ~ 약간 튐)
-            // 너무 크게 튀어나오면 정신사나우므로 최대치를 제한
             float levelMultiplier = 1.0f;
-            if (power > 0.8f) levelMultiplier = 1.5f; // 강한 비트도 1.5배까지만
+            if (power > 0.8f) levelMultiplier = 1.5f;
 
             int targetSector = Random.Range(0, SECTOR_COUNT);
             if (IsAreaClear(targetSector))
@@ -132,13 +131,14 @@ namespace TouchIT.Boundary
             for (int i = 0; i < MAX_LIFE; i++)
             {
                 GameObject obj = new GameObject($"Seg_{i}");
-                obj.transform.localPosition = new Vector3(0, 0, 1.0f);
+                obj.transform.localPosition = new Vector3(0, 0, 1.0f); // 뒤로
                 obj.transform.SetParent(transform, false);
+
                 LineRenderer lr = obj.AddComponent<LineRenderer>();
                 lr.useWorldSpace = false;
                 lr.material = new Material(Shader.Find("Sprites/Default"));
-                // [피드백 반영] 두께 적용
-                lr.startWidth = _width; lr.endWidth = _width;
+                lr.startWidth = _width;
+                lr.endWidth = _width;
                 lr.positionCount = 20;
                 _segments.Add(lr);
             }
@@ -147,7 +147,7 @@ namespace TouchIT.Boundary
         private void UpdateRingShape()
         {
             float angleStep = 360f / MAX_LIFE;
-            float gap = 2.0f; // 틈새는 유지 (시인성 위해)
+            float gap = 2.0f;
 
             for (int i = 0; i < MAX_LIFE; i++)
             {
@@ -178,39 +178,46 @@ namespace TouchIT.Boundary
         private float CalculateBulgeOffset(float currentAngle)
         {
             float totalOffset = 0f;
-            // [피드백 반영] 뾰족함(Sharpness)을 위해 너비를 좁힘 (1.2 -> 0.6)
             float punchWidth = (360f / SECTOR_COUNT) * 0.6f;
 
             foreach (var bulge in _activeBulges)
             {
                 float diff = Mathf.DeltaAngle(currentAngle, bulge.Angle);
-
                 if (Mathf.Abs(diff) < punchWidth)
                 {
                     float ratio = diff / punchWidth;
-
-                    // [핵심] 아주 뾰족한 가시 모양
-                    // Cosine 기반이지만, Pow 5제곱을 사용하여 바늘처럼 만듦
                     float baseShape = Mathf.Cos(ratio * Mathf.PI * 0.5f);
-                    float sharpShape = Mathf.Pow(baseShape, 5.0f); // 3->5제곱 (더 뾰족하게)
-
+                    float sharpShape = Mathf.Pow(baseShape, 5.0f); // 뾰족하게
                     totalOffset += sharpShape * bulge.Amplitude;
                 }
             }
             return totalOffset;
         }
 
-        public void SetColor(NoteColor theme) { _lastTheme = theme; var c = ThemeColors.GetColors(theme).Foreground; foreach (var s in _segments) { s.startColor = c; s.endColor = c; } }
-        public void ReduceLife() { if (_currentLife > 0) _currentLife--; UpdateVisual(); }
-        public void ShowTimerState(float progress, bool isActive)
+        // [수정] 테마 Enum 제거 -> 직접 Color 받도록 변경 (혹은 ThemeColors 직접 참조)
+        public void SetColor(Color color)
         {
-            if (!isActive) { RestoreLifeState(); return; }
-            Color c = new Color(1f, 0.2f, 0.2f, 0.6f);
-            foreach (var s in _segments) { s.startColor = c; s.endColor = c; }
-            int count = Mathf.CeilToInt(MAX_LIFE * progress);
-            for (int i = 0; i < MAX_LIFE; i++) _segments[i].enabled = i < count;
+            foreach (var s in _segments)
+            {
+                s.startColor = color;
+                s.endColor = color;
+            }
         }
-        private void RestoreLifeState() { SetColor(_lastTheme); UpdateVisual(); }
-        private void UpdateVisual() { for (int i = 0; i < MAX_LIFE; i++) _segments[i].enabled = i < _currentLife; }
+
+        // [삭제] SetColor(NoteColor) 삭제
+        // [삭제] ShowTimerState 삭제 (안 씀)
+        // [삭제] RestoreLifeState 삭제 (안 씀)
+
+        public void ReduceLife()
+        {
+            if (_currentLife > 0) _currentLife--;
+            UpdateVisual();
+        }
+
+        private void UpdateVisual()
+        {
+            for (int i = 0; i < MAX_LIFE; i++)
+                _segments[i].enabled = i < _currentLife;
+        }
     }
 }
