@@ -1,0 +1,19 @@
+{
+    "name": "TouchIT.App",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a9b99bd6bce528642a15e59cf72cdd15",
+        "GUID:1998ba736b146a4449ea9ddc5f4a5361",
+        "GUID:06801f8e9c6c8c549ae89df87fdea524",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

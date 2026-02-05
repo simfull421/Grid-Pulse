@@ -4,220 +4,143 @@ using TouchIT.Entity;
 
 namespace TouchIT.Boundary
 {
-    // [펀치 데이터]
-    public class RingBulge
-    {
-        public int SectorIndex;
-        public float Angle;
-        public float Amplitude;
-        public float Decay;
-        public bool IsFinished => Amplitude <= 0.001f;
-        public void Update(float dt) { Amplitude = Mathf.Lerp(Amplitude, 0f, dt * Decay); }
-    }
-
-    [RequireComponent(typeof(EdgeCollider2D))]
+    [RequireComponent(typeof(LineRenderer))]
     public class LifeRingView : MonoBehaviour
     {
-        [Header("Settings")]
-        [SerializeField] private float _radius = 2.8f;
-        [SerializeField] private float _width = 0.08f; // 얇고 세련되게
+        [Header("Ring Settings")]
+        [SerializeField] private Color _goldColor = new Color(1f, 0.84f, 0f, 1f); // ✨ 골드
+        [SerializeField] private int _resolution = 128; // 원을 그리는 점의 개수
+        [SerializeField] private float _baseRadius = 3.0f; // 기본 반지름 R_base
+        [SerializeField] private float _width = 0.1f;
 
-        [Header("Subtle & Sharp Punch")]
-        [SerializeField] private float _baseKickHeight = 0.25f; // 산만함 방지
-        [SerializeField] private float _elasticity = 20f; // 복원 속도 UP
+        [Header("Spike Settings (Cos^5)")]
+        [SerializeField] private int _sharpnessPower = 5; // n = 5 (홀수 추천)
+        [SerializeField] private float _spikeWidth = 2.0f; // W (가시의 너비)
+        [SerializeField] private float _decaySpeed = 5.0f; // 줄어드는 속도
 
-        private const int SECTOR_COUNT = 32;
-        private const int NEIGHBOR_BLOCK = 3;
-        private const int MAX_LIFE = 16;
+        // 내부 클래스: 발생한 충격(Pulse) 관리
+        private class ActivePulse
+        {
+            public float Angle; // 타겟 각도 (Theta_target)
+            public float Power; // 진폭 (Power)
+        }
 
-        private int _currentLife;
-        private List<LineRenderer> _segments = new List<LineRenderer>();
-        private List<RingBulge> _activeBulges = new List<RingBulge>();
-        private bool[] _sectorOccupied = new bool[SECTOR_COUNT];
-
-        private EdgeCollider2D _edgeCollider;
-
-        public float Radius => _radius;
+        private List<ActivePulse> _pulses = new List<ActivePulse>();
+        private LineRenderer _lineRenderer;
 
         public void Initialize()
         {
-            _currentLife = MAX_LIFE;
-            foreach (Transform child in transform) Destroy(child.gameObject);
-            _segments.Clear();
-            _activeBulges.Clear();
-            System.Array.Clear(_sectorOccupied, 0, SECTOR_COUNT);
+            _lineRenderer = GetComponent<LineRenderer>();
 
-            // 물리 벽 & 비주얼 생성
-            _edgeCollider = GetComponent<EdgeCollider2D>();
-            if (_edgeCollider == null) _edgeCollider = gameObject.AddComponent<EdgeCollider2D>();
+            // 🛠️ 렌더러 필수 설정 강제 적용
+            _lineRenderer.positionCount = 128 + 1;
+            _lineRenderer.startWidth = _width;
+            _lineRenderer.endWidth = _width;
+            _lineRenderer.useWorldSpace = false;
+            _lineRenderer.loop = true;
 
-            CreatePhysicsBoundary();
-            CreateSegments();
+            // 쉐이더가 없으면 기본 스프라이트 쉐이더 생성 (보라색 박스 방지)
+            if (_lineRenderer.material == null || _lineRenderer.material.name.StartsWith("Default-Material"))
+            {
+                _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+            }
 
-            // [수정] 초기 색상 적용 (단일 테마 -> RingLine 사용)
-            SetColor(ThemeColors.RingLine);
-            UpdateVisual();
+            // 색상 적용 (골드)
+            _lineRenderer.startColor = _goldColor;
+            _lineRenderer.endColor = _goldColor;
+
+            UpdateRingVisual();
         }
 
         private void Update()
         {
-            if (_segments.Count == 0) return;
-
-            // 펀치 효과 업데이트
-            for (int i = _activeBulges.Count - 1; i >= 0; i--)
+            if (_pulses.Count > 0)
             {
-                var bulge = _activeBulges[i];
-                bulge.Update(Time.deltaTime);
-                if (bulge.IsFinished)
+                // 1. 펄스 감쇠 (시간이 지나면 줄어듦)
+                for (int i = _pulses.Count - 1; i >= 0; i--)
                 {
-                    _sectorOccupied[bulge.SectorIndex] = false;
-                    _activeBulges.RemoveAt(i);
+                    _pulses[i].Power -= Time.deltaTime * _decaySpeed;
+                    if (_pulses[i].Power <= 0.01f)
+                    {
+                        _pulses.RemoveAt(i);
+                    }
                 }
-            }
-            UpdateRingShape();
-        }
 
-        public void ApplyAudioImpulse(float power)
-        {
-            if (power < 0.3f) return;
-
-            float levelMultiplier = 1.0f;
-            if (power > 0.8f) levelMultiplier = 1.5f;
-
-            int targetSector = Random.Range(0, SECTOR_COUNT);
-            if (IsAreaClear(targetSector))
-            {
-                SpawnPunch(targetSector, _baseKickHeight * levelMultiplier);
+                // 2. 링 모양 갱신
+                UpdateRingVisual();
             }
         }
 
-        private bool IsAreaClear(int centerIndex)
+        // 외부(System)에서 비트가 감지되면 호출
+        public void ApplyBassImpulse(float power)
         {
-            for (int offset = -NEIGHBOR_BLOCK; offset <= NEIGHBOR_BLOCK; offset++)
-            {
-                int checkIndex = (centerIndex + offset + SECTOR_COUNT) % SECTOR_COUNT;
-                if (_sectorOccupied[checkIndex]) return false;
-            }
-            return true;
-        }
+            // 랜덤한 위치 혹은 정해진 위치에 가시 생성
+            // (여기선 시각적 효과를 위해 4방향 혹은 랜덤)
+            float randomAngle = Random.Range(0f, 360f);
 
-        private void SpawnPunch(int sectorIndex, float amplitude)
-        {
-            _sectorOccupied[sectorIndex] = true;
-            float angleStep = 360f / SECTOR_COUNT;
-            _activeBulges.Add(new RingBulge()
+            _pulses.Add(new ActivePulse
             {
-                SectorIndex = sectorIndex,
-                Angle = sectorIndex * angleStep,
-                Amplitude = amplitude,
-                Decay = _elasticity
+                Angle = randomAngle,
+                Power = power
             });
         }
 
-        private void CreatePhysicsBoundary()
+        // 📐 핵심 수학 공식 적용: R(theta) = R_base + Sum(Offset)
+        private void UpdateRingVisual()
         {
-            int pointsCount = 60;
-            Vector2[] points = new Vector2[pointsCount + 1];
-            for (int i = 0; i <= pointsCount; i++)
+            Vector3[] positions = new Vector3[_resolution + 1];
+            float angleStep = 360f / _resolution;
+
+            for (int i = 0; i <= _resolution; i++)
             {
-                float angle = (float)i / pointsCount * 360f * Mathf.Deg2Rad;
-                points[i] = new Vector2(Mathf.Cos(angle) * _radius, Mathf.Sin(angle) * _radius);
-            }
-            _edgeCollider.points = points;
-        }
+                float thetaDeg = i * angleStep;
+                float thetaRad = thetaDeg * Mathf.Deg2Rad;
 
-        private void CreateSegments()
-        {
-            for (int i = 0; i < MAX_LIFE; i++)
-            {
-                GameObject obj = new GameObject($"Seg_{i}");
-                obj.transform.localPosition = new Vector3(0, 0, 1.0f); // 뒤로
-                obj.transform.SetParent(transform, false);
-
-                LineRenderer lr = obj.AddComponent<LineRenderer>();
-                lr.useWorldSpace = false;
-                lr.material = new Material(Shader.Find("Sprites/Default"));
-                lr.startWidth = _width;
-                lr.endWidth = _width;
-                lr.positionCount = 20;
-                _segments.Add(lr);
-            }
-        }
-
-        private void UpdateRingShape()
-        {
-            float angleStep = 360f / MAX_LIFE;
-            float gap = 2.0f;
-
-            for (int i = 0; i < MAX_LIFE; i++)
-            {
-                LineRenderer lr = _segments[i];
-                if (!lr.enabled) continue;
-                float startAngle = 90f - (i * angleStep);
-                float endAngle = startAngle - angleStep;
-                DrawBulgedArc(lr, startAngle - gap / 2, endAngle + gap / 2);
-            }
-        }
-
-        private void DrawBulgedArc(LineRenderer lr, float startDeg, float endDeg)
-        {
-            int points = lr.positionCount;
-            for (int j = 0; j < points; j++)
-            {
-                float t = (float)j / (points - 1);
-                float currentDeg = Mathf.Lerp(startDeg, endDeg, t);
-
-                float offset = CalculateBulgeOffset(currentDeg);
-                float finalRadius = _radius + offset;
-
-                float rad = currentDeg * Mathf.Deg2Rad;
-                lr.SetPosition(j, new Vector3(Mathf.Cos(rad) * finalRadius, Mathf.Sin(rad) * finalRadius, 0));
-            }
-        }
-
-        private float CalculateBulgeOffset(float currentAngle)
-        {
-            float totalOffset = 0f;
-            float punchWidth = (360f / SECTOR_COUNT) * 0.6f;
-
-            foreach (var bulge in _activeBulges)
-            {
-                float diff = Mathf.DeltaAngle(currentAngle, bulge.Angle);
-                if (Mathf.Abs(diff) < punchWidth)
+                // 1. 오프셋 계산 (모든 활성 펄스의 영향 합산)
+                float totalOffset = 0f;
+                foreach (var pulse in _pulses)
                 {
-                    float ratio = diff / punchWidth;
-                    float baseShape = Mathf.Cos(ratio * Mathf.PI * 0.5f);
-                    float sharpShape = Mathf.Pow(baseShape, 5.0f); // 뾰족하게
-                    totalOffset += sharpShape * bulge.Amplitude;
+                    totalOffset += CalculateSpikeOffset(thetaDeg, pulse);
+                }
+
+                // 2. 최종 반지름
+                float r = _baseRadius + totalOffset;
+
+                // 3. 극좌표 -> 직교좌표 변환
+                float x = r * Mathf.Cos(thetaRad);
+                float y = r * Mathf.Sin(thetaRad);
+
+                positions[i] = new Vector3(x, y, 0f);
+            }
+
+            _lineRenderer.SetPositions(positions);
+        }
+
+        // 📐 뾰족한 형상 변형 함수 (The Sharpening Function)
+        private float CalculateSpikeOffset(float currentAngle, ActivePulse pulse)
+        {
+            // 각도 차이 (-180 ~ 180 보정)
+            float diff = Mathf.DeltaAngle(currentAngle, pulse.Angle);
+
+            // 범위 내에 있는지 확인 (|diff| < W)
+            // W를 조금 넉넉하게 잡고 Cos 변형
+            float range = 45f / _spikeWidth; // 너비 조절 계수
+
+            if (Mathf.Abs(diff) < 90f) // 90도 안쪽만 영향
+            {
+                // Cos 함수 적용 (0 ~ 1 사이 값)
+                // 각도 차이가 0일 때 1, 멀어질수록 0
+                float normalizedDiff = diff * Mathf.Deg2Rad * _spikeWidth;
+                float baseCos = Mathf.Cos(normalizedDiff);
+
+                if (baseCos > 0)
+                {
+                    // ⭐️ 핵심: 5제곱 (n=5) -> 뾰족하게 만듦
+                    float sharpShape = Mathf.Pow(baseCos, _sharpnessPower);
+                    return sharpShape * pulse.Power;
                 }
             }
-            return totalOffset;
-        }
-
-        // [수정] 테마 Enum 제거 -> 직접 Color 받도록 변경 (혹은 ThemeColors 직접 참조)
-        public void SetColor(Color color)
-        {
-            foreach (var s in _segments)
-            {
-                s.startColor = color;
-                s.endColor = color;
-            }
-        }
-
-        // [삭제] SetColor(NoteColor) 삭제
-        // [삭제] ShowTimerState 삭제 (안 씀)
-        // [삭제] RestoreLifeState 삭제 (안 씀)
-
-        public void ReduceLife()
-        {
-            if (_currentLife > 0) _currentLife--;
-            UpdateVisual();
-        }
-
-        private void UpdateVisual()
-        {
-            for (int i = 0; i < MAX_LIFE; i++)
-                _segments[i].enabled = i < _currentLife;
+            return 0f;
         }
     }
 }

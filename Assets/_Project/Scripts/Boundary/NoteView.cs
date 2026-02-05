@@ -1,174 +1,98 @@
 ﻿using UnityEngine;
 using TouchIT.Entity;
-using TouchIT.Control;
+using System;
 
 namespace TouchIT.Boundary
 {
     public class NoteView : MonoBehaviour, INoteView
     {
-        [Header("Components")]
-        [SerializeField] private SpriteRenderer _headSr;
-        [SerializeField] private SpriteRenderer _tailSr;
-        [SerializeField] private LineRenderer _connector;
-        [SerializeField] private Transform _visualRoot; // 회전시킬 부모 객체
+        [SerializeField] private SpriteRenderer _renderer;
 
-        private NoteData _data;
-        private GameBinder _binder;
-        private float _currentAngle;
-        private float _radius;
+        // 이동 관련
+        private double _targetTime;
+        private float _approachRate; // 전체 이동 시간
+        private float _ringRadius;
 
-        // Interface Properties
-        public NoteColor Color => _data.Color;
-        public NoteType Type => _data.Type;
-        public float CurrentAngle => _currentAngle;
+        // 각도: Unity는 오른쪽(3시)이 0도, 위(12시)가 90도, 아래(6시)가 270도(-90도)
+        private float _startAngleRad; // 시작: 6시 (-90도)
+        private float _targetAngleRad; // 도착: 12시 (90도)
+        private bool _isClockwise;     // 이동 방향 (우측통행 vs 좌측통행)
 
-        // [수정] TailAngle은 논리적 위치 (판정용)
-        public float TailAngle => _currentAngle + (_data.HoldDuration * _data.Speed);
+        private Action<INoteView> _onMissCallback;
+        private bool _isActive = false;
 
-        public Vector3 Position => _headSr.transform.position;
+        // 인터페이스 구현
+        public NoteType Type { get; private set; }
+        public double TargetTime => _targetTime;
+        public Transform Transform => transform;
+        public GameObject GameObject => gameObject;
 
-        // 180도(6시)를 지나면 히트 불가 (단, 홀드 중이면 예외 처리는 로직에서 함)
-        public bool IsHittable => _currentAngle <= 180f;
-
-        // NoteView.cs 내부 Initialize 메서드
-
-        public void Initialize(NoteData data, float radius, GameBinder binder)
+        public void Initialize(NoteInfo data, double dspTime, float approachRate, float ringRadius, Action<INoteView> onMiss)
         {
-            _data = data;
-            _binder = binder;
-            _currentAngle = data.StartAngle;
-            _radius = radius;
+            Type = data.Type;
+            _targetTime = dspTime + approachRate;
+            _approachRate = approachRate;
+            _ringRadius = ringRadius;
+            _onMissCallback = onMiss;
 
-            // [수정] Z를 -1.0f로 설정하여 카메라쪽으로 당김 (링보다 무조건 앞에 보임)
-            transform.localPosition = new Vector3(0, 0, -1.0f);
+            // 🎨 색상: 골드 (일반), 빨강 (하이퍼)
+            if (_renderer != null)
+                _renderer.color = (Type == NoteType.Hyper) ? Color.red : new Color(1f, 0.84f, 0f); // Gold
+
+            // 📐 이동 경로 결정 (6시 -> 12시)
+            // LaneIndex가 짝수면 왼쪽 길, 홀수면 오른쪽 길
+            _isClockwise = (data.LaneIndex % 2 != 0); // 홀수 -> 오른쪽(반시계) / 짝수 -> 왼쪽(시계)
+
+            // 시작점: 6시 (-90도 = 270도 * Deg2Rad)
+            _startAngleRad = -90f * Mathf.Deg2Rad;
+
+            // 목표점: 12시 (90도)
+            // 오른쪽 길(반시계): -90 -> 90 (증가)
+            // 왼쪽 길(시계): -90 -> -270 (감소)
+            _targetAngleRad = _isClockwise ? (90f * Mathf.Deg2Rad) : (-270f * Mathf.Deg2Rad);
+
+            // 초기 위치 설정
+            UpdatePosition(0f);
+
+            // 노트 회전 (진행 방향을 바라보게) - 선택사항
             transform.localRotation = Quaternion.identity;
 
-            // 시각적 루트(VisualRoot)만 회전시킴
-            if (_visualRoot == null) _visualRoot = transform;
-            _visualRoot.localRotation = Quaternion.Euler(0, 0, _currentAngle - 90f);
-
-            // 2. 머리 위치 (로컬 좌표계)
-            _headSr.transform.localPosition = new Vector3(0, _radius, -0.1f);
-            _headSr.transform.localRotation = Quaternion.identity;
-            _headSr.sortingOrder = 20;
-
-            // 3. [오류 수정] ThemeColors.GetColors() 삭제됨 -> 정적 필드 직접 접근
-            // 일반 노트는 NoteNormal, 홀드 노트는 NoteHold 색상 사용
-            Color mainColor = (data.Type == NoteType.Hold) ? ThemeColors.NoteHold : ThemeColors.NoteNormal;
-
-            _headSr.color = mainColor;
-            _headSr.enabled = true;
-
-            // 4. 홀드 노트 설정
-            if (data.Type == NoteType.Hold)
-            {
-                SetupHoldVisuals(mainColor);
-            }
-            else
-            {
-                if (_tailSr) _tailSr.enabled = false;
-                if (_connector) _connector.enabled = false;
-            }
-
-            gameObject.SetActive(true);
+            Activate();
         }
 
-        private void SetupHoldVisuals(Color color)
+        public void Activate() { _isActive = true; gameObject.SetActive(true); }
+        public void Deactivate() { _isActive = false; gameObject.SetActive(false); }
+
+        public void OnUpdate(double currentDspTime)
         {
-            // 홀드 길이 (각도)
-            float lengthAngle = _data.HoldDuration * _data.Speed;
+            if (!_isActive) return;
 
-            // A. 꼬리 설정
-            if (_tailSr == null)
+            // 진행률 (0.0 ~ 1.0)
+            float progress = 1.0f - (float)((_targetTime - currentDspTime) / _approachRate);
+
+            if (progress >= 1.1f) // 판정선(12시) 지남 -> Miss
             {
-                _tailSr = Instantiate(_headSr, _visualRoot);
-                _tailSr.name = "Tail";
+                _onMissCallback?.Invoke(this);
+                return;
             }
-            _tailSr.enabled = true;
-            _tailSr.color = color;
-            _tailSr.sortingOrder = 10;
 
-            // 꼬리 위치: 머리(0도)를 기준으로 lengthAngle만큼 '뒤(반시계)'에 있음
-            // 로컬 좌표계에서 각도로 위치 구하기
-            float rad = lengthAngle * Mathf.Deg2Rad;
-            // 유니티 2D에서 각도는 반시계가 양수 (0도 = 12시 기준이라 가정시 보정 필요)
-            // 여기선 _visualRoot가 돌기 때문에, 로컬에선 머리(0) -> 꼬리(length)로 배치
-            // Sin, Cos 좌표 변환 (12시가 0도라 치고, 각도만큼 회전)
-            // 12시 = (0, r). 각도 theta만큼 회전 = (-sin(t)*r, cos(t)*r) 
-            // *주의: 회전 방향에 따라 부호가 다름. 
-            // 노트가 시계방향(450->90)으로 오므로, 뒤쪽은 각도가 더 큼 -> 로컬에선 반시계 방향.
-
-            float tailX = -Mathf.Sin(rad) * _radius;
-            float tailY = Mathf.Cos(rad) * _radius;
-
-            _tailSr.transform.localPosition = new Vector3(tailX, tailY, -0.1f);
-            // 꼬리 스프라이트 자체 회전 (접선 방향)
-            _tailSr.transform.localRotation = Quaternion.Euler(0, 0, lengthAngle);
-
-
-            // B. 커넥터(라인) 설정
-            if (_connector)
-            {
-                _connector.enabled = true;
-                _connector.useWorldSpace = false; // [핵심] 로컬 좌표 사용
-                _connector.sortingOrder = 5;      // 노트 뒤
-
-                // 색상 (반투명)
-                Color lineCol = color;
-                lineCol.a = 0.6f;
-                _connector.startColor = lineCol;
-                _connector.endColor = lineCol;
-                _connector.startWidth = 0.15f;
-                _connector.endWidth = 0.15f;
-
-                DrawLocalArc(lengthAngle);
-            }
+            UpdatePosition(progress);
         }
 
-        private void DrawLocalArc(float totalAngle)
+        private void UpdatePosition(float progress)
         {
-            int segments = 15;
-            _connector.positionCount = segments + 1;
+            // 각도 보간 (Lerp)
+            float currentAngle = Mathf.Lerp(_startAngleRad, _targetAngleRad, progress);
 
-            for (int i = 0; i <= segments; i++)
-            {
-                float t = (float)i / segments;
-                float currentDeg = totalAngle * t; // 0도(머리) ~ total(꼬리)
-                float rad = currentDeg * Mathf.Deg2Rad;
+            // 극좌표 -> 직교좌표 (x = r*cos, y = r*sin)
+            float x = Mathf.Cos(currentAngle) * _ringRadius;
+            float y = Mathf.Sin(currentAngle) * _ringRadius;
 
-                // 머리(12시)를 기준으로 반시계 방향으로 그려나감
-                float x = -Mathf.Sin(rad) * _radius;
-                float y = Mathf.Cos(rad) * _radius;
+            transform.localPosition = new Vector3(x, y, 0f);
 
-                _connector.SetPosition(i, new Vector3(x, y, 0));
-            }
+            // (옵션) 노트가 링을 따라 회전하게 하려면
+            float degrees = currentAngle * Mathf.Rad2Deg;
+            transform.localRotation = Quaternion.Euler(0, 0, degrees - 90); // -90은 머리가 진행방향 보게
         }
-
-        public void UpdateRotation(float deltaTime)
-        {
-            // 각도 감소 (450 -> 90)
-            _currentAngle -= _data.Speed * deltaTime;
-
-            // [핵심] 비주얼 루트만 돌리면 자식들(머리,꼬리,라인) 다 같이 돔
-            if (_visualRoot)
-            {
-                _visualRoot.localRotation = Quaternion.Euler(0, 0, _currentAngle - 90f);
-            }
-
-            // 페이드 인 처리 (생략 가능하거나 기존 유지)
-            float alpha = 1f;
-            if (_currentAngle > 360f) alpha = Mathf.Clamp01((450f - _currentAngle) / 90f);
-
-            Color c = _headSr.color; c.a = alpha; _headSr.color = c;
-            if (_tailSr && _tailSr.enabled) { Color tc = _tailSr.color; tc.a = alpha; _tailSr.color = tc; }
-            if (_connector && _connector.enabled)
-            {
-                Color lc = _connector.startColor;
-                lc.a = 0.6f * alpha;
-                _connector.startColor = lc; _connector.endColor = lc;
-            }
-        }
-
-        public void ReturnToPool() => _binder.ReturnNote(this);
     }
 }

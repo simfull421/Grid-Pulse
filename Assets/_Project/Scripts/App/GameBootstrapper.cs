@@ -1,57 +1,88 @@
-﻿using UnityEngine;
-using TouchIT.Control;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using TouchIT.Boundary;
+using TouchIT.Control;
 using TouchIT.Entity;
+using System.Linq;
+using UniRx;
 
 namespace TouchIT.App
 {
-    // [순수 DI] 라이브러리 없이 직접 조립하는 공장
-    // 가장 먼저 실행되어야 함
-    [DefaultExecutionOrder(-9999)]
     public class GameBootstrapper : MonoBehaviour
     {
+        // POCO 클래스들은 가비지 컬렉터에 수집되지 않도록 멤버 변수로 유지
+        private NoteSpawnService _spawnService;
+        private GameController _gameController;
+
         private void Awake()
         {
-            Debug.Log("🚀 [Bootstrapper] System Start...");
+            Debug.Log("🚀 Bootstrapper: Initializing...");
 
-            // 1. Data Load (Resources 폴더 자동 로드)
-            var beatLib = Resources.Load<BeatLibrary>("Data/MainBeats");
-            if (beatLib == null) Debug.LogError("❌ BeatLibrary 못 찾음! 경로 확인: Resources/Data/MainBeats");
-
-            // 2. View 찾기 (씬에 있는거 자동 검색 - 드래그 앤 드롭 X)
-            // 2023 이후 버전은 FindFirstObjectByType, 이전은 FindObjectOfType
-            var binder = FindFirstObjectByType<GameBinder>();
-            if (binder == null) Debug.LogError("❌ 씬에 GameBinder 프리팹이 없습니다!");
-
-            // 3. Audio 찾기 (없으면 자동 생성)
+            // 1. Scene Components 찾기
+            var input = FindFirstObjectByType<InputAnalyzer>();
+            var mainView = FindFirstObjectByType<MainView>();
+            var noteFactory = FindFirstObjectByType<NoteFactory>();
             var audio = FindFirstObjectByType<AudioManager>();
-            if (audio == null)
-            {
-                var audioObj = new GameObject("AudioManager");
-                audio = audioObj.AddComponent<AudioManager>();
-            }
 
-            // 4. Controller 찾기 (없으면 자동 생성)
-            var controller = FindFirstObjectByType<GameController>();
-            if (controller == null)
-            {
-                var ctrlObj = new GameObject("GameController");
-                controller = ctrlObj.AddComponent<GameController>();
-            }
+            // 안전장치
+            if (noteFactory == null) Debug.LogError("❌ NoteFactory가 없습니다!");
+            if (audio == null) Debug.LogError("❌ AudioManager가 없습니다!");
+            if (input == null) Debug.LogError("❌ InputAnalyzer가 없습니다!");
+            if (mainView == null) Debug.LogError("❌ MainView가 없습니다!");
 
-            // ====================================================
-            // 5. [핵심] 의존성 주입 (Dependency Injection)
-            // VContainer가 해주던 걸 그냥 수동으로 한 줄 적으면 됨
-            // ====================================================
-
-            // 바운더리 초기화
-            binder.Initialize();
+            // 초기화 호출
+            noteFactory.Initialize();
             audio.Initialize();
 
-            // 컨트롤러에 꽂아넣기
-            controller.Initialize(binder, audio, beatLib);
+            // 2. Data Load
+            var loadedAlbums = Resources.LoadAll<MusicData>("MusicData").ToList();
+            if (loadedAlbums.Count == 0)
+            {
+                Debug.LogWarning("⚠️ No MusicData found in Resources/MusicData!");
+                var dummy = ScriptableObject.CreateInstance<MusicData>();
+                dummy.Title = "Dummy Track";
+                dummy.ThemeColor = Color.gray;
+                loadedAlbums.Add(dummy);
+            }
 
-            Debug.Log("✅ [Bootstrapper] All Systems Wired & Ready!");
+            // 3. Service Instantiation (POCO 생성)
+            var fireService = new FireService(mainView);
+            var saveDataService = new SaveDataService();
+            var adManager = FindFirstObjectByType<AdManager>();
+            if (adManager == null) adManager = new GameObject("AdManager").AddComponent<AdManager>();
+            adManager.Initialize();
+
+            // 🚨 [수정된 부분] var spawnService 가 아니라 _spawnService 멤버 변수에 직접 할당해야 합니다!
+            _spawnService = new NoteSpawnService(noteFactory, audio);
+
+            // 4. Controller 생성 (모두 주입)
+            // 여기서는 _spawnService 멤버 변수를 넘겨줍니다.
+            _gameController = new GameController(
+                mainView,
+                input,
+                audio,
+                _spawnService,
+                fireService,
+                saveDataService,
+                adManager,
+                loadedAlbums
+            );
+
+            // 5. Update Loop 연결 (Service Tick)
+            Observable.EveryUpdate()
+                .Subscribe(_ =>
+                {
+                    // 이제 _spawnService가 null이 아니므로 정상 작동합니다.
+                    _spawnService.OnUpdate();
+                })
+                .AddTo(this);
+
+            Debug.Log("✅ Bootstrapper: All Systems Go!");
+        }
+
+        private void OnDestroy()
+        {
+            _gameController?.Dispose();
         }
     }
 }
