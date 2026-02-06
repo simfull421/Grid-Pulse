@@ -18,10 +18,22 @@ namespace TouchIT.Control
 
 
         void SetInteractiveScale(float delta); // 수동 크기 조절
-        void CommitTransition(bool isZoomIn);  // 손 뗐을 때 결정 (진입 or 복귀)
+   
         void ResetScale();                     // 취소하고 원복
 
         // 🔥 생명력 크기 조절 (추가됨)
         void SetLifeScale(float ratio);
+        bool IsTransitioning { get; } // 🔒 현재 연출 중인가?
+
+        // ✅ [추가됨] 연결 안 되어 있던 기능들 등록
+        void OnNoteHitSuccess(float fuelRatio); // 타격감
+        void AnimateOsuReady();                 // 발광 (준비)
+        void AnimateEnterOsuMode();             // 진입 (하얀 화면)
+
+        void AnimatePortalClosing(float duration, System.Action onClosed);
+        // ✅ [추가됨] 링 끄고 켜기
+        void ShowRing(bool show);
+        void AnimatePortalClosingReady();
+        void AnimateExitOsuMode();
     }
 }

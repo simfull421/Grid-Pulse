@@ -10,70 +10,60 @@ namespace TouchIT.App
 {
     public class GameBootstrapper : MonoBehaviour
     {
-        // POCO 클래스들은 가비지 컬렉터에 수집되지 않도록 멤버 변수로 유지
-        private NoteSpawnService _spawnService;
+        // Controller 하나만 가지고 있으면 됨 (Update는 Controller가 돌림)
         private GameController _gameController;
 
         private void Awake()
         {
             Debug.Log("🚀 Bootstrapper: Initializing...");
 
-            // 1. Scene Components 찾기
+            // 1. Scene Components
             var input = FindFirstObjectByType<InputAnalyzer>();
             var mainView = FindFirstObjectByType<MainView>();
-            var noteFactory = FindFirstObjectByType<NoteFactory>();
+            var noteFactory = FindFirstObjectByType<NoteFactory>(); // 링 팩토리
+            var osuFactory = FindFirstObjectByType<OsuNoteFactory>(); // 오수 팩토리 (추가 필요!)
             var audio = FindFirstObjectByType<AudioManager>();
+            var vfxFactory = FindFirstObjectByType<VFXFactory>();
 
             // 안전장치
-            if (noteFactory == null) Debug.LogError("❌ NoteFactory가 없습니다!");
-            if (audio == null) Debug.LogError("❌ AudioManager가 없습니다!");
-            if (input == null) Debug.LogError("❌ InputAnalyzer가 없습니다!");
-            if (mainView == null) Debug.LogError("❌ MainView가 없습니다!");
+            if (noteFactory == null) Debug.LogError("❌ NoteFactory Missing!");
+            if (osuFactory == null) Debug.LogError("❌ OsuNoteFactory Missing!"); // 체크
 
-            // 초기화 호출
             noteFactory.Initialize();
+            if (osuFactory != null) osuFactory.Initialize(); // 초기화
             audio.Initialize();
+            if (vfxFactory != null) vfxFactory.Initialize();
 
             // 2. Data Load
             var loadedAlbums = Resources.LoadAll<MusicData>("MusicData").ToList();
-            if (loadedAlbums.Count == 0)
-            {
-                Debug.LogWarning("⚠️ No MusicData found in Resources/MusicData!");
-                var dummy = ScriptableObject.CreateInstance<MusicData>();
-                dummy.Title = "Dummy Track";
-                dummy.ThemeColor = Color.gray;
-                loadedAlbums.Add(dummy);
-            }
+            if (loadedAlbums.Count == 0) loadedAlbums.Add(ScriptableObject.CreateInstance<MusicData>());
 
-            // 3. Service Instantiation (POCO 생성)
+            // 3. Service Instantiation
             var fireService = new FireService(mainView);
             var saveDataService = new SaveDataService();
+            var vfxService = new VFXService(vfxFactory);
+
             var adManager = FindFirstObjectByType<AdManager>();
             if (adManager == null) adManager = new GameObject("AdManager").AddComponent<AdManager>();
             adManager.Initialize();
 
-            // 🚨 [수정된 부분] var spawnService 가 아니라 _spawnService 멤버 변수에 직접 할당해야 합니다!
-            _spawnService = new NoteSpawnService(noteFactory, audio);
+            // 🚨 [핵심] 두 가지 스폰 서비스 생성 (인터페이스 타입으로)
+            ISpawnService ringSpawner = new NoteSpawnService(noteFactory, audio);
+            ISpawnService osuSpawner = new OsuSpawnService(osuFactory, audio);
 
-            // 4. Controller 생성 (모두 주입)
-            // 여기서는 _spawnService 멤버 변수를 넘겨줍니다.
+            // 4. Controller 생성 (두 서비스 모두 주입)
             _gameController = new GameController(
-                mainView,
-                input,
-                audio,
-                _spawnService,
-                fireService,
-                saveDataService,
-                adManager,
+                mainView, input, audio,
+                ringSpawner, osuSpawner, // 👈 여기 변경됨!
+                fireService, saveDataService, adManager, vfxService,
                 loadedAlbums
             );
 
-            // 5. Update Loop 연결 (Service Tick)
+            // 5. Update Loop 연결 (Controller에게 위임)
             Observable.EveryUpdate()
                 .Subscribe(_ =>
                 {
-                    // 이제 _spawnService가 null이 아니므로 정상 작동합니다.
-                    _spawnService.OnUpdate();
+                    _gameController.OnUpdate(); // Controller가 현재 활성 스포너를 돌림
                 })
                 .AddTo(this);
 

@@ -9,65 +9,59 @@ namespace TouchIT.Control
         [SerializeField] private AudioSource _bgmSource;
         [SerializeField] private AudioSource _sfxSource;
 
-        [Header("Settings")]
-        [SerializeField] private float _defaultVolume = 0.8f;
+        // ⏱️ [핵심 수정] 노래 시작 시간 기록용 변수
+        private double _songStartTime;
+        private bool _isBgmPlaying = false;
 
         public void Initialize()
         {
             if (_bgmSource == null) _bgmSource = gameObject.AddComponent<AudioSource>();
             if (_sfxSource == null) _sfxSource = gameObject.AddComponent<AudioSource>();
 
-            _bgmSource.loop = true;
+            _bgmSource.loop = false; // 리듬게임은 보통 루프 안 함
             _bgmSource.playOnAwake = false;
-            _sfxSource.loop = false;
         }
 
         public void PlayBGM(AudioClip clip, float fadeDuration = 0.5f)
         {
             if (clip == null) return;
-            if (_bgmSource.clip == clip && _bgmSource.isPlaying) return;
 
-            // ✅ [수정] DOTween.To 사용 (안정성 확보)
-            Sequence seq = DOTween.Sequence();
+            // 이미 같은 곡 재생 중이면 패스하되, 시간은 리셋해야 할 수도 있음 (여기선 생략)
 
-            if (_bgmSource.isPlaying)
-            {
-                // 볼륨 0으로 줄이기
-                seq.Append(DOTween.To(() => _bgmSource.volume, x => _bgmSource.volume = x, 0f, fadeDuration));
-            }
+            _bgmSource.clip = clip;
+            _bgmSource.volume = 1.0f; // DOTween 없이 즉시 재생 테스트 권장 (버그 배제)
 
-            seq.AppendCallback(() =>
-            {
-                _bgmSource.clip = clip;
-                _bgmSource.volume = 0f; // 시작은 0부터
-                _bgmSource.Play();
-            });
-
-            // 볼륨 다시 올리기
-            seq.Append(DOTween.To(() => _bgmSource.volume, x => _bgmSource.volume = x, _defaultVolume, fadeDuration));
+            // [중요] 재생 직전 시간 기록
+            _songStartTime = AudioSettings.dspTime;
+            _bgmSource.Play();
+            _isBgmPlaying = true;
         }
 
         public void StopBGM(float fadeDuration = 0.5f)
         {
-            // ✅ [수정] DOTween.To 사용
-            DOTween.To(() => _bgmSource.volume, x => _bgmSource.volume = x, 0f, fadeDuration)
-                .OnComplete(() => _bgmSource.Stop());
+            _bgmSource.Stop();
+            _isBgmPlaying = false;
         }
 
-        public void PlaySFX(AudioClip clip, float volume = 1.0f)
+        // ⏱️ [핵심 수정] 현재 흐른 시간 = (시스템시간 - 노래시작시간)
+        public double GetAudioTime()
         {
-            if (clip == null) return;
-            _sfxSource.PlayOneShot(clip, volume);
+            if (!_isBgmPlaying) return 0.0;
+            return AudioSettings.dspTime - _songStartTime;
         }
-        // AudioManager 클래스 내부
+
         public void ResumeBGM()
         {
             if (_bgmSource != null && !_bgmSource.isPlaying)
             {
-                _bgmSource.UnPause(); // 또는 Play()
+                // 일시정지 후 복귀 시 시간 보정 로직이 필요하지만
+                // 지금은 일단 timeSamples 기반이나 단순 재개로 둡니다.
+                // 완벽한 싱크를 위해선 Pause 시점의 dspTime 차이를 저장해야 합니다.
+                // 여기서는 단순하게 다시 계산
+                _songStartTime = AudioSettings.dspTime - _bgmSource.time;
+                _bgmSource.Play();
+                _isBgmPlaying = true;
             }
         }
-        public double GetAudioTime() => AudioSettings.dspTime;
-        public AudioSource GetBGMSource() => _bgmSource;
     }
 }

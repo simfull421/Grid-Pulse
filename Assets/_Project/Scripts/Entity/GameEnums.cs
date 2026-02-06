@@ -7,4 +7,12 @@
         InGame,         // 리듬 게임 진행 중
         Result          // 결과 화면
     }
+
+    // 게임의 현재 페이즈 정의
+    public enum GamePhase
+    {
+        RingMode,       // 일반 링 모드
+        OsuMode,        // 오수 모드
+        Transitioning   // 전환 중 (입력 차단)
+    }
 }

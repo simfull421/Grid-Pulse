@@ -8,44 +8,48 @@ namespace TouchIT.Boundary
     public class LifeRingView : MonoBehaviour
     {
         [Header("Ring Settings")]
-        [SerializeField] private Color _goldColor = new Color(1f, 0.84f, 0f, 1f); // ✨ 골드
-        [SerializeField] private int _resolution = 128; // 원을 그리는 점의 개수
-        [SerializeField] private float _baseRadius = 3.0f; // 기본 반지름 R_base
+        [SerializeField] private Color _goldColor = new Color(1f, 0.84f, 0f, 1f);
+        [SerializeField] private int _resolution = 128;
+        [SerializeField] private float _baseRadius = 3.0f;
         [SerializeField] private float _width = 0.1f;
 
-        [Header("Spike Settings (Cos^5)")]
-        [SerializeField] private int _sharpnessPower = 5; // n = 5 (홀수 추천)
-        [SerializeField] private float _spikeWidth = 2.0f; // W (가시의 너비)
-        [SerializeField] private float _decaySpeed = 5.0f; // 줄어드는 속도
+        [Header("Reaction")]
+        [SerializeField] private float _impactScale = 0.3f; // 💥 타격 시 링이 커지는 정도
+        [SerializeField] private float _decaySpeed = 5.0f;  // 줄어드는 속도
 
-        // 내부 클래스: 발생한 충격(Pulse) 관리
+        [Header("Spike Settings (Cos^5)")]
+        [SerializeField] private int _sharpnessPower = 5;
+        [SerializeField] private float _spikeWidth = 2.0f;
+
+        // 펄스(가시) 관리 클래스
         private class ActivePulse
         {
-            public float Angle; // 타겟 각도 (Theta_target)
-            public float Power; // 진폭 (Power)
+            public float Angle;
+            public float Power;
         }
 
         private List<ActivePulse> _pulses = new List<ActivePulse>();
         private LineRenderer _lineRenderer;
 
+        // 💥 전체 링 튕김 효과 변수
+        private float _currentImpact = 0f;
+
         public void Initialize()
         {
+            Debug.Log($"💍 LifeRingView: Initialized! (GameObject: {gameObject.name})");
             _lineRenderer = GetComponent<LineRenderer>();
 
-            // 🛠️ 렌더러 필수 설정 강제 적용
             _lineRenderer.positionCount = 128 + 1;
             _lineRenderer.startWidth = _width;
             _lineRenderer.endWidth = _width;
             _lineRenderer.useWorldSpace = false;
             _lineRenderer.loop = true;
 
-            // 쉐이더가 없으면 기본 스프라이트 쉐이더 생성 (보라색 박스 방지)
             if (_lineRenderer.material == null || _lineRenderer.material.name.StartsWith("Default-Material"))
             {
                 _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
             }
 
-            // 색상 적용 (골드)
             _lineRenderer.startColor = _goldColor;
             _lineRenderer.endColor = _goldColor;
 
@@ -54,9 +58,19 @@ namespace TouchIT.Boundary
 
         private void Update()
         {
+            bool needsUpdate = false;
+
+            // 1. 전체 링 튕김 감쇠 (둠칫 -> 원래대로)
+            if (_currentImpact > 0.001f)
+            {
+                _currentImpact -= Time.deltaTime * _decaySpeed;
+                if (_currentImpact < 0) _currentImpact = 0f;
+                needsUpdate = true;
+            }
+
+            // 2. 가시(Pulse) 감쇠
             if (_pulses.Count > 0)
             {
-                // 1. 펄스 감쇠 (시간이 지나면 줄어듦)
                 for (int i = _pulses.Count - 1; i >= 0; i--)
                 {
                     _pulses[i].Power -= Time.deltaTime * _decaySpeed;
@@ -65,19 +79,27 @@ namespace TouchIT.Boundary
                         _pulses.RemoveAt(i);
                     }
                 }
+                needsUpdate = true;
+            }
 
-                // 2. 링 모양 갱신
+            // 변화가 있을 때만 다시 그림
+            if (needsUpdate)
+            {
                 UpdateRingVisual();
             }
         }
 
-        // 외부(System)에서 비트가 감지되면 호출
+        // ✅ [추가됨] MainView에서 호출하는 타격 반응 함수
+        public void OnHitEffect()
+        {
+            // 링 전체 반지름을 일시적으로 키움
+            _currentImpact = _impactScale;
+            UpdateRingVisual(); // 즉시 반영
+        }
+
         public void ApplyBassImpulse(float power)
         {
-            // 랜덤한 위치 혹은 정해진 위치에 가시 생성
-            // (여기선 시각적 효과를 위해 4방향 혹은 랜덤)
             float randomAngle = Random.Range(0f, 360f);
-
             _pulses.Add(new ActivePulse
             {
                 Angle = randomAngle,
@@ -85,28 +107,34 @@ namespace TouchIT.Boundary
             });
         }
 
-        // 📐 핵심 수학 공식 적용: R(theta) = R_base + Sum(Offset)
         private void UpdateRingVisual()
         {
             Vector3[] positions = new Vector3[_resolution + 1];
             float angleStep = 360f / _resolution;
+
+            // 💥 현재 반지름 = 기본 반지름 + 타격 임팩트
+            float currentRadius = _baseRadius + _currentImpact;
 
             for (int i = 0; i <= _resolution; i++)
             {
                 float thetaDeg = i * angleStep;
                 float thetaRad = thetaDeg * Mathf.Deg2Rad;
 
-                // 1. 오프셋 계산 (모든 활성 펄스의 영향 합산)
+                // 1. 가시(Spike) 오프셋 계산
                 float totalOffset = 0f;
                 foreach (var pulse in _pulses)
                 {
                     totalOffset += CalculateSpikeOffset(thetaDeg, pulse);
                 }
 
-                // 2. 최종 반지름
-                float r = _baseRadius + totalOffset;
+                // 2. 32각 그리드 느낌 (미세한 굴곡 추가)
+                // 32번 출렁이게 해서 각진 느낌을 줌
+                float gridEffect = Mathf.Cos(thetaRad * 32) * 0.03f;
 
-                // 3. 극좌표 -> 직교좌표 변환
+                // 최종 반지름 결정
+                float r = currentRadius + totalOffset + gridEffect;
+
+                // 극좌표 -> 직교좌표
                 float x = r * Mathf.Cos(thetaRad);
                 float y = r * Mathf.Sin(thetaRad);
 
@@ -116,28 +144,17 @@ namespace TouchIT.Boundary
             _lineRenderer.SetPositions(positions);
         }
 
-        // 📐 뾰족한 형상 변형 함수 (The Sharpening Function)
         private float CalculateSpikeOffset(float currentAngle, ActivePulse pulse)
         {
-            // 각도 차이 (-180 ~ 180 보정)
             float diff = Mathf.DeltaAngle(currentAngle, pulse.Angle);
-
-            // 범위 내에 있는지 확인 (|diff| < W)
-            // W를 조금 넉넉하게 잡고 Cos 변형
-            float range = 45f / _spikeWidth; // 너비 조절 계수
-
-            if (Mathf.Abs(diff) < 90f) // 90도 안쪽만 영향
+            if (Mathf.Abs(diff) < 90f)
             {
-                // Cos 함수 적용 (0 ~ 1 사이 값)
-                // 각도 차이가 0일 때 1, 멀어질수록 0
                 float normalizedDiff = diff * Mathf.Deg2Rad * _spikeWidth;
                 float baseCos = Mathf.Cos(normalizedDiff);
 
                 if (baseCos > 0)
                 {
-                    // ⭐️ 핵심: 5제곱 (n=5) -> 뾰족하게 만듦
-                    float sharpShape = Mathf.Pow(baseCos, _sharpnessPower);
-                    return sharpShape * pulse.Power;
+                    return Mathf.Pow(baseCos, _sharpnessPower) * pulse.Power;
                 }
             }
             return 0f;
