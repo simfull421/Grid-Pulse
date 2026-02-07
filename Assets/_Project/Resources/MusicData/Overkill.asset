@@ -17,4872 +17,3403 @@ MonoBehaviour:
   BPM: 174
   ThemeColor: {r: 1, g: 1, b: 1, a: 1}
   Notes:
-  - Time: 0.3448276
+  - Time: 4.913793
     Type: 0
-    LaneIndex: 6
-  - Time: 1.0344827
-    Type: 0
-    LaneIndex: 30
-  - Time: 1.724138
-    Type: 0
-    LaneIndex: 9
-  - Time: 2.413793
-    Type: 0
-    LaneIndex: 12
-  - Time: 3.1034484
-    Type: 0
-    LaneIndex: 19
-  - Time: 4.827586
-    Type: 0
-    LaneIndex: 22
-  - Time: 5.862069
-    Type: 0
-    LaneIndex: 30
-  - Time: 6.206897
-    Type: 0
-    LaneIndex: 18
-  - Time: 6.896552
-    Type: 0
-    LaneIndex: 6
-  - Time: 7.2413797
+    LaneIndex: 15
+    Duration: 0
+  - Time: 9.137931
     Type: 0
     LaneIndex: 7
-  - Time: 8.965517
-    Type: 0
-    LaneIndex: 23
-  - Time: 9.655172
-    Type: 0
-    LaneIndex: 19
-  - Time: 10.344828
-    Type: 0
-    LaneIndex: 31
-  - Time: 11.379311
-    Type: 0
-    LaneIndex: 11
-  - Time: 11.724138
+    Duration: 0
+  - Time: 11.9827585
+    Type: 1
+    LaneIndex: 24
+    Duration: 0.41724148
+  - Time: 12.5
     Type: 0
     LaneIndex: 20
-  - Time: 12.413794
+    Duration: 0
+  - Time: 20.603449
     Type: 0
-    LaneIndex: 17
-  - Time: 13.793104
-    Type: 0
-    LaneIndex: 28
-  - Time: 14.827587
-    Type: 0
-    LaneIndex: 19
-  - Time: 15.5172415
-    Type: 0
-    LaneIndex: 5
-  - Time: 15.862069
-    Type: 0
-    LaneIndex: 7
-  - Time: 17.241379
-    Type: 0
-    LaneIndex: 23
-  - Time: 17.586206
-    Type: 0
-    LaneIndex: 17
-  - Time: 17.931034
-    Type: 0
-    LaneIndex: 16
-  - Time: 18.62069
-    Type: 0
-    LaneIndex: 3
-  - Time: 19.310345
-    Type: 0
-    LaneIndex: 9
-  - Time: 20
-    Type: 0
-    LaneIndex: 23
-  - Time: 21.724138
-    Type: 0
-    LaneIndex: 4
-  - Time: 22.758621
-    Type: 0
-    LaneIndex: 27
-  - Time: 23.793104
-    Type: 0
-    LaneIndex: 1
-  - Time: 24.137932
-    Type: 0
-    LaneIndex: 10
-  - Time: 24.48276
-    Type: 0
-    LaneIndex: 6
-  - Time: 24.827587
-    Type: 0
-    LaneIndex: 23
-  - Time: 25.86207
-    Type: 0
-    LaneIndex: 20
-  - Time: 26.551725
-    Type: 0
-    LaneIndex: 11
-  - Time: 28.965517
-    Type: 0
-    LaneIndex: 8
-  - Time: 29.310345
-    Type: 0
-    LaneIndex: 13
-  - Time: 31.034483
-    Type: 0
-    LaneIndex: 29
-  - Time: 31.724138
-    Type: 0
-    LaneIndex: 6
-  - Time: 32.068966
-    Type: 0
-    LaneIndex: 16
-  - Time: 34.827583
-    Type: 0
-    LaneIndex: 1
-  - Time: 35.51724
-    Type: 0
-    LaneIndex: 11
-  - Time: 35.86207
-    Type: 0
-    LaneIndex: 5
-  - Time: 36.206894
-    Type: 0
-    LaneIndex: 12
-  - Time: 36.89655
-    Type: 0
-    LaneIndex: 10
-  - Time: 39.310345
-    Type: 0
-    LaneIndex: 20
-  - Time: 39.65517
-    Type: 0
-    LaneIndex: 18
-  - Time: 40.344826
-    Type: 0
-    LaneIndex: 18
-  - Time: 41.03448
-    Type: 0
-    LaneIndex: 4
-  - Time: 41.724136
-    Type: 0
-    LaneIndex: 16
-  - Time: 42.41379
+    LaneIndex: 21
+    Duration: 0
+  - Time: 23.448277
     Type: 0
     LaneIndex: 25
-  - Time: 43.103447
+    Duration: 0
+  - Time: 26.206898
     Type: 0
-    LaneIndex: 3
-  - Time: 44.13793
+    LaneIndex: 31
+    Duration: 0
+  - Time: 34.396553
+    Type: 0
+    LaneIndex: 27
+    Duration: 0
+  - Time: 34.655174
+    Type: 1
+    LaneIndex: 6
+    Duration: 1.2793106
+  - Time: 36.034485
+    Type: 0
+    LaneIndex: 4
+    Duration: 0
+  - Time: 36.206898
+    Type: 0
+    LaneIndex: 12
+    Duration: 0
+  - Time: 36.37931
+    Type: 1
+    LaneIndex: 0
+    Duration: 1.1931022
+  - Time: 37.672413
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 37.931034
     Type: 0
     LaneIndex: 24
-  - Time: 44.482758
+    Duration: 0
+  - Time: 44.051723
     Type: 0
-    LaneIndex: 25
-  - Time: 44.827587
+    LaneIndex: 16
+    Duration: 0
+  - Time: 57.068966
+    Type: 1
+    LaneIndex: 8
+    Duration: 1.4517235
+  - Time: 58.62069
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 58.96552
+    Type: 1
+    LaneIndex: 5
+    Duration: 1.1068977
+  - Time: 60.172417
     Type: 0
     LaneIndex: 11
-  - Time: 45.172413
-    Type: 0
-    LaneIndex: 30
-  - Time: 45.517242
-    Type: 0
-    LaneIndex: 15
-  - Time: 47.24138
-    Type: 0
-    LaneIndex: 23
-  - Time: 47.58621
-    Type: 0
-    LaneIndex: 17
-  - Time: 47.931034
-    Type: 0
-    LaneIndex: 20
-  - Time: 48.62069
-    Type: 0
-    LaneIndex: 27
-  - Time: 49.310345
-    Type: 0
-    LaneIndex: 12
-  - Time: 49.655174
-    Type: 0
-    LaneIndex: 10
-  - Time: 51.37931
-    Type: 0
-    LaneIndex: 9
-  - Time: 51.72414
-    Type: 0
-    LaneIndex: 1
-  - Time: 52.413795
-    Type: 0
-    LaneIndex: 31
-  - Time: 52.75862
-    Type: 0
-    LaneIndex: 21
-  - Time: 53.10345
-    Type: 0
-    LaneIndex: 15
-  - Time: 53.793106
-    Type: 0
-    LaneIndex: 14
-  - Time: 54.827587
-    Type: 0
-    LaneIndex: 18
-  - Time: 55.172417
-    Type: 0
-    LaneIndex: 14
-  - Time: 55.862072
-    Type: 0
-    LaneIndex: 31
-  - Time: 56.89655
-    Type: 0
-    LaneIndex: 9
-  - Time: 58.27586
-    Type: 0
-    LaneIndex: 7
-  - Time: 59.310345
-    Type: 0
-    LaneIndex: 5
-  - Time: 59.65517
-    Type: 0
-    LaneIndex: 13
-  - Time: 60.344826
-    Type: 0
-    LaneIndex: 3
-  - Time: 61.03448
-    Type: 0
-    LaneIndex: 31
-  - Time: 62.75862
-    Type: 0
-    LaneIndex: 2
-  - Time: 63.103447
-    Type: 0
-    LaneIndex: 30
-  - Time: 64.13793
-    Type: 0
-    LaneIndex: 26
-  - Time: 64.82759
-    Type: 0
-    LaneIndex: 5
-  - Time: 65.17242
-    Type: 0
-    LaneIndex: 25
-  - Time: 65.51724
+    Duration: 0
+  - Time: 60.34483
     Type: 0
     LaneIndex: 29
-  - Time: 66.55172
+    Duration: 0
+  - Time: 60.60345
     Type: 0
-    LaneIndex: 23
-  - Time: 66.896545
+    LaneIndex: 1
+    Duration: 0
+  - Time: 60.775864
     Type: 0
     LaneIndex: 11
-  - Time: 67.24138
+    Duration: 0
+  - Time: 60.948277
+    Type: 1
+    LaneIndex: 29
+    Duration: 1.8827575
+  - Time: 62.931034
     Type: 0
-    LaneIndex: 10
+    LaneIndex: 7
+    Duration: 0
+  - Time: 63.10345
+    Type: 0
+    LaneIndex: 15
+    Duration: 0
+  - Time: 63.362072
+    Type: 0
+    LaneIndex: 18
+    Duration: 0
+  - Time: 63.534485
+    Type: 0
+    LaneIndex: 30
+    Duration: 0
+  - Time: 65.60345
+    Type: 0
+    LaneIndex: 12
+    Duration: 0
+  - Time: 65.77586
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 66.12069
+    Type: 0
+    LaneIndex: 1
+    Duration: 0
+  - Time: 66.293106
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 66.465515
+    Type: 0
+    LaneIndex: 6
+    Duration: 0
+  - Time: 66.63793
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 66.81035
+    Type: 0
+    LaneIndex: 29
+    Duration: 0
+  - Time: 66.98276
+    Type: 0
+    LaneIndex: 16
+    Duration: 0
+  - Time: 67.32759
+    Type: 0
+    LaneIndex: 11
+    Duration: 0
   - Time: 67.586205
     Type: 0
-    LaneIndex: 7
-  - Time: 67.93103
+    LaneIndex: 2
+    Duration: 0
+  - Time: 67.844826
     Type: 0
-    LaneIndex: 26
+    LaneIndex: 25
+    Duration: 0
+  - Time: 68.01724
+    Type: 0
+    LaneIndex: 11
+    Duration: 0
+  - Time: 68.18966
+    Type: 0
+    LaneIndex: 23
+    Duration: 0
+  - Time: 68.36207
+    Type: 0
+    LaneIndex: 17
+    Duration: 0
   - Time: 68.62069
     Type: 0
-    LaneIndex: 25
-  - Time: 68.965515
+    LaneIndex: 31
+    Duration: 0
+  - Time: 68.87931
     Type: 0
-    LaneIndex: 25
-  - Time: 69.13793
+    LaneIndex: 26
+    Duration: 0
+  - Time: 69.05173
     Type: 0
-    LaneIndex: 30
-  - Time: 69.31034
-    Type: 0
-    LaneIndex: 11
-  - Time: 69.39655
-    Type: 0
-    LaneIndex: 19
-  - Time: 69.48276
-    Type: 0
-    LaneIndex: 1
-  - Time: 69.65517
-    Type: 0
-    LaneIndex: 7
-  - Time: 69.74138
-    Type: 0
-    LaneIndex: 4
-  - Time: 69.82758
-    Type: 0
-    LaneIndex: 11
-  - Time: 69.91379
-    Type: 0
-    LaneIndex: 30
-  - Time: 70
-    Type: 0
-    LaneIndex: 25
-  - Time: 70.17241
+    LaneIndex: 0
+    Duration: 0
+  - Time: 69.22414
     Type: 0
     LaneIndex: 21
-  - Time: 70.344826
+    Duration: 0
+  - Time: 69.39655
     Type: 0
-    LaneIndex: 19
-  - Time: 70.43103
+    LaneIndex: 12
+    Duration: 0
+  - Time: 69.56897
     Type: 0
-    LaneIndex: 7
-  - Time: 70.51724
+    LaneIndex: 28
+    Duration: 0
+  - Time: 69.74138
     Type: 0
-    LaneIndex: 1
+    LaneIndex: 0
+    Duration: 0
+  - Time: 70.086205
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 70.25862
+    Type: 0
+    LaneIndex: 9
+    Duration: 0
+  - Time: 70.43104
+    Type: 0
+    LaneIndex: 27
+    Duration: 0
   - Time: 70.60345
     Type: 0
     LaneIndex: 26
-  - Time: 70.68965
-    Type: 0
-    LaneIndex: 28
+    Duration: 0
   - Time: 70.86207
     Type: 0
-    LaneIndex: 28
-  - Time: 71.03448
-    Type: 0
-    LaneIndex: 3
-  - Time: 71.12069
-    Type: 0
-    LaneIndex: 9
-  - Time: 71.2931
-    Type: 0
-    LaneIndex: 15
-  - Time: 71.37931
-    Type: 0
-    LaneIndex: 21
-  - Time: 71.55172
-    Type: 0
-    LaneIndex: 20
-  - Time: 72.06896
-    Type: 0
-    LaneIndex: 13
-  - Time: 72.75862
+    LaneIndex: 18
+    Duration: 0
+  - Time: 71.034485
     Type: 0
     LaneIndex: 26
-  - Time: 73.18965
-    Type: 0
-    LaneIndex: 6
-  - Time: 73.36207
-    Type: 0
-    LaneIndex: 16
-  - Time: 73.44827
-    Type: 0
-    LaneIndex: 8
-  - Time: 73.534485
-    Type: 0
-    LaneIndex: 30
-  - Time: 73.706894
-    Type: 0
-    LaneIndex: 3
-  - Time: 73.7931
-    Type: 0
-    LaneIndex: 5
-  - Time: 73.87931
-    Type: 0
-    LaneIndex: 14
-  - Time: 73.965515
-    Type: 0
-    LaneIndex: 24
-  - Time: 74.13793
-    Type: 0
-    LaneIndex: 20
-  - Time: 74.22414
-    Type: 0
-    LaneIndex: 14
-  - Time: 74.39655
-    Type: 0
-    LaneIndex: 0
-  - Time: 74.48276
-    Type: 0
-    LaneIndex: 3
-  - Time: 74.655174
-    Type: 0
-    LaneIndex: 1
-  - Time: 74.82758
-    Type: 0
-    LaneIndex: 17
-  - Time: 74.913795
-    Type: 0
-    LaneIndex: 11
-  - Time: 75
-    Type: 0
-    LaneIndex: 27
-  - Time: 75.086205
-    Type: 0
-    LaneIndex: 1
-  - Time: 75.17241
-    Type: 0
-    LaneIndex: 21
-  - Time: 75.344826
-    Type: 0
-    LaneIndex: 20
-  - Time: 75.51724
-    Type: 0
-    LaneIndex: 1
-  - Time: 75.68965
-    Type: 0
-    LaneIndex: 12
-  - Time: 75.86207
-    Type: 0
-    LaneIndex: 30
-  - Time: 76.034485
-    Type: 0
-    LaneIndex: 25
-  - Time: 76.12069
-    Type: 0
-    LaneIndex: 26
-  - Time: 76.206894
-    Type: 0
-    LaneIndex: 6
-  - Time: 76.293106
-    Type: 0
-    LaneIndex: 24
-  - Time: 76.465515
-    Type: 0
-    LaneIndex: 20
-  - Time: 76.55172
-    Type: 0
-    LaneIndex: 9
-  - Time: 76.63793
-    Type: 0
-    LaneIndex: 31
-  - Time: 76.72414
-    Type: 0
-    LaneIndex: 10
-  - Time: 76.81034
-    Type: 0
-    LaneIndex: 26
-  - Time: 76.89655
-    Type: 0
-    LaneIndex: 29
-  - Time: 76.98276
-    Type: 0
-    LaneIndex: 4
-  - Time: 77.06896
-    Type: 0
-    LaneIndex: 28
-  - Time: 77.155174
-    Type: 0
-    LaneIndex: 13
-  - Time: 78.62069
-    Type: 0
-    LaneIndex: 19
-  - Time: 79.655174
-    Type: 0
-    LaneIndex: 10
-  - Time: 80.344826
-    Type: 0
-    LaneIndex: 31
-  - Time: 81.034485
-    Type: 0
-    LaneIndex: 17
-  - Time: 81.37931
-    Type: 0
-    LaneIndex: 1
-  - Time: 81.465515
-    Type: 0
-    LaneIndex: 4
-  - Time: 81.55173
-    Type: 0
-    LaneIndex: 25
-  - Time: 81.63793
-    Type: 0
-    LaneIndex: 29
-  - Time: 81.72414
+    Duration: 0
+  - Time: 71.293106
     Type: 0
     LaneIndex: 22
-  - Time: 81.81035
+    Duration: 0
+  - Time: 71.63793
     Type: 0
-    LaneIndex: 14
-  - Time: 81.98276
-    Type: 0
-    LaneIndex: 30
-  - Time: 82.06896
-    Type: 0
-    LaneIndex: 27
-  - Time: 82.24138
-    Type: 0
-    LaneIndex: 12
-  - Time: 82.32758
-    Type: 0
-    LaneIndex: 4
-  - Time: 82.413795
-    Type: 0
-    LaneIndex: 28
-  - Time: 82.67242
-    Type: 0
-    LaneIndex: 14
-  - Time: 84.82758
-    Type: 0
-    LaneIndex: 8
-  - Time: 85.51724
-    Type: 0
-    LaneIndex: 0
-  - Time: 85.68966
-    Type: 0
-    LaneIndex: 10
-  - Time: 85.86207
-    Type: 0
-    LaneIndex: 0
-  - Time: 86.034485
-    Type: 0
-    LaneIndex: 31
-  - Time: 86.206894
-    Type: 0
-    LaneIndex: 15
-  - Time: 86.293106
-    Type: 0
-    LaneIndex: 30
-  - Time: 86.465515
-    Type: 0
-    LaneIndex: 27
-  - Time: 86.55173
-    Type: 0
-    LaneIndex: 6
-  - Time: 86.72414
-    Type: 0
-    LaneIndex: 0
-  - Time: 86.81035
-    Type: 0
-    LaneIndex: 9
-  - Time: 86.89655
-    Type: 0
-    LaneIndex: 25
-  - Time: 86.98276
+    LaneIndex: 20
+    Duration: 0
+  - Time: 71.98276
     Type: 0
     LaneIndex: 23
-  - Time: 87.155174
-    Type: 0
-    LaneIndex: 19
-  - Time: 87.24138
-    Type: 0
-    LaneIndex: 4
-  - Time: 87.32759
-    Type: 0
-    LaneIndex: 30
-  - Time: 87.5
-    Type: 0
-    LaneIndex: 1
-  - Time: 87.586205
-    Type: 0
-    LaneIndex: 18
-  - Time: 87.67242
-    Type: 0
-    LaneIndex: 11
-  - Time: 87.844826
-    Type: 0
-    LaneIndex: 23
-  - Time: 87.93104
-    Type: 0
-    LaneIndex: 0
-  - Time: 88.01724
-    Type: 0
-    LaneIndex: 0
-  - Time: 88.18966
-    Type: 0
-    LaneIndex: 14
-  - Time: 88.27586
-    Type: 0
-    LaneIndex: 0
-  - Time: 88.62069
-    Type: 0
-    LaneIndex: 28
-  - Time: 89.31035
+    Duration: 0
+  - Time: 72.32759
     Type: 0
     LaneIndex: 21
-  - Time: 89.655174
+    Duration: 0
+  - Time: 72.67242
     Type: 0
-    LaneIndex: 3
-  - Time: 89.913795
+    LaneIndex: 6
+    Duration: 0
+  - Time: 72.844826
     Type: 0
-    LaneIndex: 9
-  - Time: 90
+    LaneIndex: 27
+    Duration: 0
+  - Time: 73.01724
+    Type: 0
+    LaneIndex: 5
+    Duration: 0
+  - Time: 73.18966
+    Type: 0
+    LaneIndex: 14
+    Duration: 0
+  - Time: 73.36207
     Type: 0
     LaneIndex: 20
-  - Time: 90.08621
+    Duration: 0
+  - Time: 73.7069
+    Type: 0
+    LaneIndex: 13
+    Duration: 0
+  - Time: 73.87931
+    Type: 1
+    LaneIndex: 4
+    Duration: 0.93448484
+  - Time: 74.913795
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
+  - Time: 75.086205
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 75.25862
+    Type: 0
+    LaneIndex: 13
+    Duration: 0
+  - Time: 75.43104
+    Type: 0
+    LaneIndex: 14
+    Duration: 0
+  - Time: 75.60345
+    Type: 0
+    LaneIndex: 25
+    Duration: 0
+  - Time: 75.77586
+    Type: 1
+    LaneIndex: 16
+    Duration: 0.41724244
+  - Time: 76.293106
+    Type: 0
+    LaneIndex: 13
+    Duration: 0
+  - Time: 76.55173
+    Type: 0
+    LaneIndex: 18
+    Duration: 0
+  - Time: 76.81035
+    Type: 0
+    LaneIndex: 16
+    Duration: 0
+  - Time: 77.06897
+    Type: 1
+    LaneIndex: 5
+    Duration: 0.50344694
+  - Time: 77.67242
+    Type: 1
+    LaneIndex: 24
+    Duration: 0.41724244
+  - Time: 78.18966
+    Type: 0
+    LaneIndex: 11
+    Duration: 0
+  - Time: 78.36207
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
+  - Time: 78.7069
+    Type: 0
+    LaneIndex: 25
+    Duration: 0
+  - Time: 78.87931
+    Type: 0
+    LaneIndex: 4
+    Duration: 0
+  - Time: 79.13793
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 79.39655
+    Type: 1
+    LaneIndex: 31
+    Duration: 1.1068939
+  - Time: 80.60345
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
+  - Time: 80.86207
+    Type: 0
+    LaneIndex: 26
+    Duration: 0
+  - Time: 81.034485
+    Type: 0
+    LaneIndex: 1
+    Duration: 0
+  - Time: 81.293106
+    Type: 0
+    LaneIndex: 23
+    Duration: 0
+  - Time: 81.465515
+    Type: 0
+    LaneIndex: 18
+    Duration: 0
+  - Time: 81.81035
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 82.06897
+    Type: 1
+    LaneIndex: 18
+    Duration: 0.33103028
+  - Time: 82.5
+    Type: 0
+    LaneIndex: 6
+    Duration: 0
+  - Time: 82.67242
+    Type: 0
+    LaneIndex: 19
+    Duration: 0
+  - Time: 82.844826
     Type: 0
     LaneIndex: 31
-  - Time: 90.17242
+    Duration: 0
+  - Time: 83.01724
     Type: 0
-    LaneIndex: 9
-  - Time: 90.344826
+    LaneIndex: 22
+    Duration: 0
+  - Time: 83.18966
     Type: 0
-    LaneIndex: 20
+    LaneIndex: 24
+    Duration: 0
+  - Time: 83.534485
+    Type: 0
+    LaneIndex: 14
+    Duration: 0
+  - Time: 83.7069
+    Type: 0
+    LaneIndex: 21
+    Duration: 0
+  - Time: 83.87931
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
+  - Time: 84.22414
+    Type: 0
+    LaneIndex: 11
+    Duration: 0
+  - Time: 84.56897
+    Type: 0
+    LaneIndex: 21
+    Duration: 0
+  - Time: 84.74138
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 84.913795
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 85.25862
+    Type: 0
+    LaneIndex: 31
+    Duration: 0
+  - Time: 85.43104
+    Type: 0
+    LaneIndex: 2
+    Duration: 0
+  - Time: 85.60345
+    Type: 0
+    LaneIndex: 27
+    Duration: 0
+  - Time: 85.94828
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
+  - Time: 86.293106
+    Type: 0
+    LaneIndex: 4
+    Duration: 0
+  - Time: 86.465515
+    Type: 0
+    LaneIndex: 19
+    Duration: 0
+  - Time: 86.63793
+    Type: 0
+    LaneIndex: 5
+    Duration: 0
+  - Time: 86.89655
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
+  - Time: 87.155174
+    Type: 0
+    LaneIndex: 15
+    Duration: 0
+  - Time: 87.32759
+    Type: 0
+    LaneIndex: 12
+    Duration: 0
+  - Time: 87.67242
+    Type: 0
+    LaneIndex: 6
+    Duration: 0
+  - Time: 87.844826
+    Type: 0
+    LaneIndex: 7
+    Duration: 0
+  - Time: 88.01724
+    Type: 0
+    LaneIndex: 4
+    Duration: 0
+  - Time: 88.18966
+    Type: 0
+    LaneIndex: 1
+    Duration: 0
+  - Time: 88.36207
+    Type: 0
+    LaneIndex: 11
+    Duration: 0
+  - Time: 88.534485
+    Type: 0
+    LaneIndex: 27
+    Duration: 0
+  - Time: 88.7069
+    Type: 0
+    LaneIndex: 2
+    Duration: 0
+  - Time: 88.87931
+    Type: 0
+    LaneIndex: 25
+    Duration: 0
+  - Time: 89.05173
+    Type: 0
+    LaneIndex: 31
+    Duration: 0
+  - Time: 89.22414
+    Type: 0
+    LaneIndex: 14
+    Duration: 0
+  - Time: 89.39655
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 89.74138
+    Type: 0
+    LaneIndex: 29
+    Duration: 0
+  - Time: 89.913795
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 90.08621
+    Type: 0
+    LaneIndex: 26
+    Duration: 0
+  - Time: 90.25862
+    Type: 0
+    LaneIndex: 8
+    Duration: 0
   - Time: 90.43104
     Type: 0
     LaneIndex: 4
+    Duration: 0
   - Time: 90.60345
     Type: 0
-    LaneIndex: 19
-  - Time: 90.68966
-    Type: 0
-    LaneIndex: 4
-  - Time: 90.86207
-    Type: 0
-    LaneIndex: 6
-  - Time: 91.37931
+    LaneIndex: 10
+    Duration: 0
+  - Time: 90.77586
     Type: 0
     LaneIndex: 27
-  - Time: 91.72414
+    Duration: 0
+  - Time: 90.94828
     Type: 0
-    LaneIndex: 1
-  - Time: 92.413795
+    LaneIndex: 8
+    Duration: 0
+  - Time: 91.12069
+    Type: 0
+    LaneIndex: 31
+    Duration: 0
+  - Time: 91.293106
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 91.55173
+    Type: 0
+    LaneIndex: 30
+    Duration: 0
+  - Time: 91.81035
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 91.98276
+    Type: 0
+    LaneIndex: 5
+    Duration: 0
+  - Time: 92.155174
+    Type: 0
+    LaneIndex: 19
+    Duration: 0
+  - Time: 92.32759
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
+  - Time: 92.5
     Type: 0
     LaneIndex: 20
-  - Time: 92.75862
+    Duration: 0
+  - Time: 92.844826
     Type: 0
-    LaneIndex: 21
-  - Time: 93.10345
+    LaneIndex: 11
+    Duration: 0
+  - Time: 93.18966
     Type: 0
-    LaneIndex: 12
-  - Time: 93.793106
+    LaneIndex: 10
+    Duration: 0
+  - Time: 93.36207
     Type: 0
-    LaneIndex: 27
+    LaneIndex: 24
+    Duration: 0
+  - Time: 93.534485
+    Type: 0
+    LaneIndex: 26
+    Duration: 0
+  - Time: 93.7069
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 93.87931
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
   - Time: 94.05173
     Type: 0
-    LaneIndex: 3
-  - Time: 94.13793
+    LaneIndex: 7
+    Duration: 0
+  - Time: 94.22414
     Type: 0
-    LaneIndex: 4
-  - Time: 94.31035
+    LaneIndex: 2
+    Duration: 0
+  - Time: 94.39655
     Type: 0
-    LaneIndex: 16
-  - Time: 94.48276
+    LaneIndex: 13
+    Duration: 0
+  - Time: 94.56897
     Type: 0
-    LaneIndex: 25
-  - Time: 94.655174
-    Type: 0
-    LaneIndex: 17
+    LaneIndex: 14
+    Duration: 0
   - Time: 94.74138
     Type: 0
-    LaneIndex: 21
-  - Time: 94.82759
-    Type: 0
     LaneIndex: 6
-  - Time: 95
-    Type: 0
-    LaneIndex: 25
-  - Time: 95.51724
-    Type: 0
-    LaneIndex: 3
-  - Time: 95.86207
-    Type: 0
-    LaneIndex: 11
-  - Time: 97.24138
-    Type: 0
-    LaneIndex: 28
-  - Time: 98.62069
+    Duration: 0
+  - Time: 94.913795
     Type: 0
     LaneIndex: 27
-  - Time: 99.31035
-    Type: 0
-    LaneIndex: 19
-  - Time: 99.655174
+    Duration: 0
+  - Time: 95.08621
     Type: 0
     LaneIndex: 29
-  - Time: 100
+    Duration: 0
+  - Time: 95.25862
+    Type: 0
+    LaneIndex: 23
+    Duration: 0
+  - Time: 95.43104
+    Type: 0
+    LaneIndex: 12
+    Duration: 0
+  - Time: 95.60345
+    Type: 0
+    LaneIndex: 1
+    Duration: 0
+  - Time: 95.77586
+    Type: 0
+    LaneIndex: 9
+    Duration: 0
+  - Time: 96.12069
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 96.293106
+    Type: 0
+    LaneIndex: 10
+    Duration: 0
+  - Time: 96.46552
+    Type: 0
+    LaneIndex: 31
+    Duration: 0
+  - Time: 96.63793
+    Type: 0
+    LaneIndex: 9
+    Duration: 0
+  - Time: 96.81035
+    Type: 0
+    LaneIndex: 14
+    Duration: 0
+  - Time: 96.98276
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
+  - Time: 97.155174
+    Type: 0
+    LaneIndex: 30
+    Duration: 0
+  - Time: 97.32759
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 97.5
     Type: 0
     LaneIndex: 27
-  - Time: 100.68966
+    Duration: 0
+  - Time: 97.67242
     Type: 0
-    LaneIndex: 7
+    LaneIndex: 31
+    Duration: 0
+  - Time: 97.844826
+    Type: 0
+    LaneIndex: 21
+    Duration: 0
+  - Time: 98.01724
+    Type: 0
+    LaneIndex: 16
+    Duration: 0
+  - Time: 98.18966
+    Type: 0
+    LaneIndex: 15
+    Duration: 0
+  - Time: 98.36207
+    Type: 0
+    LaneIndex: 1
+    Duration: 0
+  - Time: 98.534485
+    Type: 0
+    LaneIndex: 16
+    Duration: 0
+  - Time: 98.7069
+    Type: 0
+    LaneIndex: 8
+    Duration: 0
+  - Time: 98.87931
+    Type: 0
+    LaneIndex: 17
+    Duration: 0
+  - Time: 99.05173
+    Type: 0
+    LaneIndex: 3
+    Duration: 0
+  - Time: 99.22414
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 99.39655
+    Type: 1
+    LaneIndex: 28
+    Duration: 0.3310379
+  - Time: 99.82759
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 100.08621
+    Type: 0
+    LaneIndex: 23
+    Duration: 0
+  - Time: 100.25862
+    Type: 0
+    LaneIndex: 29
+    Duration: 0
+  - Time: 100.43104
+    Type: 0
+    LaneIndex: 8
+    Duration: 0
+  - Time: 100.60345
+    Type: 0
+    LaneIndex: 29
+    Duration: 0
   - Time: 100.77586
     Type: 0
-    LaneIndex: 13
+    LaneIndex: 4
+    Duration: 0
   - Time: 100.94828
     Type: 0
-    LaneIndex: 14
-  - Time: 101.034485
-    Type: 0
-    LaneIndex: 19
+    LaneIndex: 0
+    Duration: 0
   - Time: 101.2069
     Type: 0
-    LaneIndex: 6
+    LaneIndex: 17
+    Duration: 0
   - Time: 101.37931
     Type: 0
-    LaneIndex: 29
-  - Time: 101.46552
-    Type: 0
-    LaneIndex: 8
-  - Time: 101.63793
-    Type: 0
     LaneIndex: 3
-  - Time: 101.724144
+    Duration: 0
+  - Time: 101.55173
     Type: 0
-    LaneIndex: 5
+    LaneIndex: 21
+    Duration: 0
   - Time: 101.81035
     Type: 0
-    LaneIndex: 29
-  - Time: 101.89655
+    LaneIndex: 1
+    Duration: 0
+  - Time: 101.98276
     Type: 0
-    LaneIndex: 21
-  - Time: 101.982765
-    Type: 0
-    LaneIndex: 23
-  - Time: 102.06897
-    Type: 0
-    LaneIndex: 16
+    LaneIndex: 9
+    Duration: 0
   - Time: 102.155174
     Type: 0
-    LaneIndex: 20
+    LaneIndex: 4
+    Duration: 0
   - Time: 102.32759
     Type: 0
-    LaneIndex: 5
-  - Time: 102.413795
-    Type: 0
-    LaneIndex: 3
-  - Time: 102.58621
-    Type: 0
-    LaneIndex: 24
-  - Time: 102.75862
-    Type: 0
-    LaneIndex: 18
-  - Time: 102.93104
-    Type: 0
-    LaneIndex: 27
-  - Time: 103.103455
-    Type: 0
-    LaneIndex: 4
-  - Time: 103.18966
-    Type: 0
-    LaneIndex: 17
-  - Time: 103.362076
-    Type: 0
-    LaneIndex: 23
-  - Time: 103.44828
+    LaneIndex: 11
+    Duration: 0
+  - Time: 102.5
     Type: 0
     LaneIndex: 0
-  - Time: 103.534485
+    Duration: 0
+  - Time: 102.67242
     Type: 0
-    LaneIndex: 13
-  - Time: 103.6207
+    LaneIndex: 5
+    Duration: 0
+  - Time: 102.844826
     Type: 0
-    LaneIndex: 29
-  - Time: 103.793106
+    LaneIndex: 11
+    Duration: 0
+  - Time: 103.01724
+    Type: 1
+    LaneIndex: 3
+    Duration: 1.1068939
+  - Time: 104.22414
     Type: 0
-    LaneIndex: 12
-  - Time: 103.87932
+    LaneIndex: 22
+    Duration: 0
+  - Time: 104.48276
     Type: 0
-    LaneIndex: 4
-  - Time: 103.96552
-    Type: 0
-    LaneIndex: 14
-  - Time: 104.13793
-    Type: 0
-    LaneIndex: 6
-  - Time: 104.224144
-    Type: 0
-    LaneIndex: 25
-  - Time: 104.31035
-    Type: 0
-    LaneIndex: 31
-  - Time: 104.482765
-    Type: 0
-    LaneIndex: 26
-  - Time: 104.56897
-    Type: 0
-    LaneIndex: 28
+    LaneIndex: 9
+    Duration: 0
   - Time: 104.655174
     Type: 0
-    LaneIndex: 17
-  - Time: 104.82759
-    Type: 0
-    LaneIndex: 24
-  - Time: 105.00001
+    LaneIndex: 28
+    Duration: 0
+  - Time: 105
     Type: 0
     LaneIndex: 20
-  - Time: 105.08621
+    Duration: 0
+  - Time: 105.25862
     Type: 0
-    LaneIndex: 30
-  - Time: 105.17242
-    Type: 0
-    LaneIndex: 1
-  - Time: 105.51724
-    Type: 0
-    LaneIndex: 31
-  - Time: 105.68966
-    Type: 0
-    LaneIndex: 0
-  - Time: 105.77586
-    Type: 0
-    LaneIndex: 19
-  - Time: 105.862076
-    Type: 0
-    LaneIndex: 28
-  - Time: 106.034485
-    Type: 0
-    LaneIndex: 5
-  - Time: 106.2069
-    Type: 0
-    LaneIndex: 2
+    LaneIndex: 29
+    Duration: 0
+  - Time: 105.43104
+    Type: 1
+    LaneIndex: 18
+    Duration: 0.33103028
+  - Time: 105.86207
+    Type: 1
+    LaneIndex: 10
+    Duration: 0.3310379
   - Time: 106.293106
     Type: 0
-    LaneIndex: 21
-  - Time: 106.37932
-    Type: 0
     LaneIndex: 5
-  - Time: 106.55173
-    Type: 0
-    LaneIndex: 27
-  - Time: 106.63794
-    Type: 0
-    LaneIndex: 17
-  - Time: 106.81035
-    Type: 0
-    LaneIndex: 22
-  - Time: 106.89655
-    Type: 0
-    LaneIndex: 4
+    Duration: 0
+  - Time: 106.63793
+    Type: 1
+    LaneIndex: 6
+    Duration: 0.3310379
   - Time: 107.06897
-    Type: 0
-    LaneIndex: 25
-  - Time: 107.155174
-    Type: 0
-    LaneIndex: 8
-  - Time: 107.24139
-    Type: 0
-    LaneIndex: 8
-  - Time: 107.32759
-    Type: 0
-    LaneIndex: 22
-  - Time: 107.413795
-    Type: 0
-    LaneIndex: 24
-  - Time: 107.58621
-    Type: 0
-    LaneIndex: 30
+    Type: 1
+    LaneIndex: 5
+    Duration: 0.50344694
   - Time: 107.67242
     Type: 0
-    LaneIndex: 21
-  - Time: 107.75863
-    Type: 0
     LaneIndex: 23
-  - Time: 107.84483
+    Duration: 0
+  - Time: 108.01724
+    Type: 1
+    LaneIndex: 13
+    Duration: 0.76206815
+  - Time: 108.87931
     Type: 0
     LaneIndex: 17
-  - Time: 107.93104
-    Type: 0
-    LaneIndex: 12
-  - Time: 108.103455
-    Type: 0
-    LaneIndex: 28
-  - Time: 108.27586
-    Type: 0
-    LaneIndex: 29
-  - Time: 108.362076
-    Type: 0
-    LaneIndex: 12
-  - Time: 108.44828
-    Type: 0
-    LaneIndex: 0
-  - Time: 108.6207
-    Type: 0
-    LaneIndex: 28
-  - Time: 108.793106
-    Type: 0
-    LaneIndex: 1
-  - Time: 108.96552
-    Type: 0
-    LaneIndex: 30
+    Duration: 0
   - Time: 109.05173
     Type: 0
-    LaneIndex: 22
-  - Time: 109.13794
-    Type: 0
-    LaneIndex: 11
-  - Time: 109.31035
+    LaneIndex: 16
+    Duration: 0
+  - Time: 109.22414
     Type: 0
     LaneIndex: 18
-  - Time: 109.482765
-    Type: 0
-    LaneIndex: 15
-  - Time: 109.56897
-    Type: 0
-    LaneIndex: 17
-  - Time: 109.655174
-    Type: 0
-    LaneIndex: 7
-  - Time: 109.74139
-    Type: 0
-    LaneIndex: 4
-  - Time: 109.913795
-    Type: 0
-    LaneIndex: 24
-  - Time: 110.00001
-    Type: 0
-    LaneIndex: 12
-  - Time: 110.08621
-    Type: 0
-    LaneIndex: 13
-  - Time: 110.17242
-    Type: 0
-    LaneIndex: 26
-  - Time: 110.25863
-    Type: 0
-    LaneIndex: 24
-  - Time: 110.34483
-    Type: 0
-    LaneIndex: 9
-  - Time: 110.68966
-    Type: 0
-    LaneIndex: 6
-  - Time: 111.37932
-    Type: 0
-    LaneIndex: 30
-  - Time: 111.72414
+    Duration: 0
+  - Time: 109.39655
     Type: 0
     LaneIndex: 3
-  - Time: 111.81034
-    Type: 0
-    LaneIndex: 25
-  - Time: 111.98276
-    Type: 0
-    LaneIndex: 13
-  - Time: 112.06896
-    Type: 0
-    LaneIndex: 11
-  - Time: 112.155174
-    Type: 0
-    LaneIndex: 14
-  - Time: 112.32758
-    Type: 0
-    LaneIndex: 22
-  - Time: 112.41379
-    Type: 0
-    LaneIndex: 25
-  - Time: 112.5
-    Type: 0
-    LaneIndex: 17
-  - Time: 112.67241
-    Type: 0
-    LaneIndex: 12
-  - Time: 112.75862
-    Type: 0
-    LaneIndex: 8
-  - Time: 112.93103
-    Type: 0
-    LaneIndex: 16
-  - Time: 113.10345
-    Type: 0
-    LaneIndex: 27
-  - Time: 113.18965
-    Type: 0
-    LaneIndex: 11
-  - Time: 113.36207
-    Type: 0
-    LaneIndex: 8
-  - Time: 113.44827
-    Type: 0
-    LaneIndex: 10
-  - Time: 113.534485
-    Type: 0
-    LaneIndex: 10
-  - Time: 113.62069
-    Type: 0
-    LaneIndex: 10
-  - Time: 113.7931
-    Type: 0
-    LaneIndex: 29
-  - Time: 114.05172
-    Type: 0
-    LaneIndex: 5
-  - Time: 114.13793
-    Type: 0
-    LaneIndex: 5
-  - Time: 114.22414
-    Type: 0
-    LaneIndex: 25
-  - Time: 114.39655
-    Type: 0
-    LaneIndex: 29
-  - Time: 114.48276
-    Type: 0
-    LaneIndex: 31
-  - Time: 114.74138
-    Type: 0
-    LaneIndex: 14
-  - Time: 114.82758
-    Type: 0
-    LaneIndex: 11
-  - Time: 114.913795
-    Type: 0
-    LaneIndex: 1
-  - Time: 115.086205
-    Type: 0
-    LaneIndex: 28
-  - Time: 115.17241
-    Type: 0
-    LaneIndex: 1
-  - Time: 115.344826
-    Type: 0
-    LaneIndex: 13
-  - Time: 115.51724
-    Type: 0
-    LaneIndex: 5
-  - Time: 115.60345
-    Type: 0
-    LaneIndex: 6
-  - Time: 115.68965
-    Type: 0
-    LaneIndex: 9
-  - Time: 115.86207
+    Duration: 0
+  - Time: 109.56897
     Type: 0
     LaneIndex: 30
-  - Time: 115.94827
+    Duration: 0
+  - Time: 109.74138
     Type: 0
-    LaneIndex: 4
-  - Time: 116.206894
+    LaneIndex: 8
+    Duration: 0
+  - Time: 110.08621
+    Type: 1
+    LaneIndex: 20
+    Duration: 0.9344772
+  - Time: 111.12069
+    Type: 1
+    LaneIndex: 26
+    Duration: 0.5896591
+  - Time: 111.81035
     Type: 0
-    LaneIndex: 16
-  - Time: 116.293106
+    LaneIndex: 0
+    Duration: 0
+  - Time: 112.155174
     Type: 0
     LaneIndex: 9
-  - Time: 116.465515
+    Duration: 0
+  - Time: 112.413795
     Type: 0
-    LaneIndex: 18
-  - Time: 116.55172
-    Type: 0
-    LaneIndex: 26
-  - Time: 116.81034
-    Type: 0
-    LaneIndex: 14
-  - Time: 116.98276
-    Type: 0
-    LaneIndex: 17
-  - Time: 117.06896
-    Type: 0
-    LaneIndex: 1
-  - Time: 117.24138
-    Type: 0
-    LaneIndex: 5
-  - Time: 117.32758
-    Type: 0
-    LaneIndex: 29
-  - Time: 117.413795
-    Type: 0
-    LaneIndex: 14
-  - Time: 117.5
-    Type: 0
-    LaneIndex: 24
-  - Time: 117.586205
-    Type: 0
-    LaneIndex: 8
-  - Time: 117.67242
-    Type: 0
-    LaneIndex: 15
-  - Time: 117.844826
-    Type: 0
-    LaneIndex: 26
-  - Time: 117.93103
-    Type: 0
-    LaneIndex: 2
-  - Time: 118.01724
-    Type: 0
-    LaneIndex: 25
-  - Time: 118.10345
-    Type: 0
-    LaneIndex: 20
-  - Time: 118.18965
-    Type: 0
-    LaneIndex: 0
-  - Time: 118.27586
-    Type: 0
-    LaneIndex: 17
-  - Time: 118.36207
-    Type: 0
-    LaneIndex: 6
-  - Time: 118.534485
-    Type: 0
-    LaneIndex: 16
-  - Time: 118.62069
-    Type: 0
-    LaneIndex: 5
-  - Time: 118.965515
-    Type: 0
-    LaneIndex: 24
-  - Time: 119.05173
-    Type: 0
-    LaneIndex: 1
-  - Time: 119.22414
-    Type: 0
-    LaneIndex: 5
-  - Time: 119.31034
+    LaneIndex: 12
+    Duration: 0
+  - Time: 112.67242
     Type: 0
     LaneIndex: 28
-  - Time: 119.655174
+    Duration: 0
+  - Time: 113.01724
+    Type: 0
+    LaneIndex: 14
+    Duration: 0
+  - Time: 113.18966
+    Type: 0
+    LaneIndex: 9
+    Duration: 0
+  - Time: 113.36207
+    Type: 0
+    LaneIndex: 7
+    Duration: 0
+  - Time: 113.7069
+    Type: 0
+    LaneIndex: 3
+    Duration: 0
+  - Time: 113.87931
+    Type: 0
+    LaneIndex: 15
+    Duration: 0
+  - Time: 114.22414
+    Type: 0
+    LaneIndex: 20
+    Duration: 0
+  - Time: 114.56897
     Type: 0
     LaneIndex: 8
-  - Time: 119.82758
+    Duration: 0
+  - Time: 114.74138
     Type: 0
-    LaneIndex: 21
-  - Time: 119.913795
+    LaneIndex: 12
+    Duration: 0
+  - Time: 114.913795
     Type: 0
-    LaneIndex: 10
-  - Time: 120
+    LaneIndex: 24
+    Duration: 0
+  - Time: 115.25862
     Type: 0
-    LaneIndex: 27
-  - Time: 120.344826
+    LaneIndex: 11
+    Duration: 0
+  - Time: 115.43104
     Type: 0
-    LaneIndex: 23
-  - Time: 120.51724
+    LaneIndex: 9
+    Duration: 0
+  - Time: 115.60345
     Type: 0
-    LaneIndex: 23
-  - Time: 120.60345
-    Type: 0
-    LaneIndex: 22
-  - Time: 120.68965
-    Type: 0
-    LaneIndex: 19
-  - Time: 120.77586
-    Type: 0
-    LaneIndex: 20
-  - Time: 121.206894
-    Type: 0
-    LaneIndex: 4
-  - Time: 121.37931
-    Type: 0
-    LaneIndex: 20
-  - Time: 121.55173
-    Type: 0
-    LaneIndex: 0
-  - Time: 121.72414
+    LaneIndex: 11
+    Duration: 0
+  - Time: 115.77586
     Type: 0
     LaneIndex: 25
+    Duration: 0
+  - Time: 115.94828
+    Type: 1
+    LaneIndex: 17
+    Duration: 0.58965147
+  - Time: 116.63793
+    Type: 1
+    LaneIndex: 15
+    Duration: 0.5896591
+  - Time: 117.32759
+    Type: 0
+    LaneIndex: 17
+    Duration: 0
+  - Time: 117.67242
+    Type: 0
+    LaneIndex: 6
+    Duration: 0
+  - Time: 118.01724
+    Type: 0
+    LaneIndex: 3
+    Duration: 0
+  - Time: 118.18966
+    Type: 0
+    LaneIndex: 3
+    Duration: 0
+  - Time: 118.36207
+    Type: 0
+    LaneIndex: 12
+    Duration: 0
+  - Time: 118.7069
+    Type: 0
+    LaneIndex: 10
+    Duration: 0
+  - Time: 119.05173
+    Type: 0
+    LaneIndex: 29
+    Duration: 0
+  - Time: 119.39655
+    Type: 0
+    LaneIndex: 29
+    Duration: 0
+  - Time: 119.56897
+    Type: 0
+    LaneIndex: 31
+    Duration: 0
+  - Time: 119.913795
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 120.08621
+    Type: 1
+    LaneIndex: 22
+    Duration: 0.4172348
+  - Time: 120.60345
+    Type: 0
+    LaneIndex: 1
+    Duration: 0
+  - Time: 120.77586
+    Type: 0
+    LaneIndex: 11
+    Duration: 0
+  - Time: 121.12069
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 121.46552
+    Type: 0
+    LaneIndex: 30
+    Duration: 0
   - Time: 121.81035
     Type: 0
-    LaneIndex: 1
-  - Time: 121.89655
+    LaneIndex: 26
+    Duration: 0
+  - Time: 121.98276
     Type: 0
-    LaneIndex: 2
-  - Time: 122.06896
-    Type: 0
-    LaneIndex: 1
+    LaneIndex: 15
+    Duration: 0
   - Time: 122.155174
     Type: 0
     LaneIndex: 27
-  - Time: 122.32758
-    Type: 0
-    LaneIndex: 9
+    Duration: 0
   - Time: 122.413795
     Type: 0
-    LaneIndex: 19
-  - Time: 122.5
-    Type: 0
-    LaneIndex: 18
-  - Time: 122.586205
-    Type: 0
-    LaneIndex: 5
+    LaneIndex: 31
+    Duration: 0
   - Time: 122.67242
     Type: 0
-    LaneIndex: 26
-  - Time: 122.75862
+    LaneIndex: 21
+    Duration: 0
+  - Time: 122.84483
     Type: 0
-    LaneIndex: 30
-  - Time: 122.844826
-    Type: 0
-    LaneIndex: 23
-  - Time: 123.01724
+    LaneIndex: 19
+    Duration: 0
+  - Time: 123.18966
+    Type: 1
+    LaneIndex: 17
+    Duration: 0.76206815
+  - Time: 124.05173
     Type: 0
     LaneIndex: 14
-  - Time: 123.10345
+    Duration: 0
+  - Time: 124.22414
     Type: 0
-    LaneIndex: 5
-  - Time: 123.18966
-    Type: 0
-    LaneIndex: 11
-  - Time: 123.27586
-    Type: 0
-    LaneIndex: 30
-  - Time: 123.36207
-    Type: 0
-    LaneIndex: 26
-  - Time: 123.44827
-    Type: 0
-    LaneIndex: 25
-  - Time: 123.62069
-    Type: 0
-    LaneIndex: 24
-  - Time: 123.793106
-    Type: 0
-    LaneIndex: 31
-  - Time: 123.965515
-    Type: 0
-    LaneIndex: 25
-  - Time: 124.13793
-    Type: 0
-    LaneIndex: 24
-  - Time: 124.31035
-    Type: 0
-    LaneIndex: 26
+    LaneIndex: 4
+    Duration: 0
   - Time: 124.48276
     Type: 0
-    LaneIndex: 4
-  - Time: 124.56897
-    Type: 0
-    LaneIndex: 5
+    LaneIndex: 11
+    Duration: 0
   - Time: 124.655174
     Type: 0
-    LaneIndex: 5
-  - Time: 124.82758
+    LaneIndex: 11
+    Duration: 0
+  - Time: 124.913795
     Type: 0
-    LaneIndex: 10
-  - Time: 125.17242
+    LaneIndex: 11
+    Duration: 0
+  - Time: 125.08621
     Type: 0
-    LaneIndex: 16
-  - Time: 125.344826
-    Type: 0
-    LaneIndex: 24
+    LaneIndex: 15
+    Duration: 0
   - Time: 125.43104
     Type: 0
-    LaneIndex: 4
-  - Time: 125.51724
+    LaneIndex: 14
+    Duration: 0
+  - Time: 125.60345
     Type: 0
-    LaneIndex: 1
-  - Time: 125.68966
-    Type: 0
-    LaneIndex: 30
-  - Time: 125.77586
-    Type: 0
-    LaneIndex: 2
-  - Time: 125.86207
-    Type: 0
-    LaneIndex: 22
+    LaneIndex: 9
+    Duration: 0
   - Time: 125.94828
     Type: 0
-    LaneIndex: 25
-  - Time: 126.034485
-    Type: 0
-    LaneIndex: 14
-  - Time: 126.206894
-    Type: 0
-    LaneIndex: 2
+    LaneIndex: 8
+    Duration: 0
   - Time: 126.293106
-    Type: 0
-    LaneIndex: 31
-  - Time: 126.465515
-    Type: 0
-    LaneIndex: 15
-  - Time: 126.55173
-    Type: 0
-    LaneIndex: 23
-  - Time: 126.72414
-    Type: 0
-    LaneIndex: 24
-  - Time: 126.81035
-    Type: 0
-    LaneIndex: 2
-  - Time: 126.89655
-    Type: 0
-    LaneIndex: 12
+    Type: 1
+    LaneIndex: 4
+    Duration: 0.58965147
   - Time: 126.98276
     Type: 0
-    LaneIndex: 23
-  - Time: 127.24138
-    Type: 0
-    LaneIndex: 21
-  - Time: 127.5
-    Type: 0
-    LaneIndex: 1
-  - Time: 127.586205
-    Type: 0
-    LaneIndex: 24
-  - Time: 127.93104
-    Type: 0
-    LaneIndex: 23
-  - Time: 128.01724
-    Type: 0
+    LaneIndex: 4
+    Duration: 0
+  - Time: 127.155174
+    Type: 1
+    LaneIndex: 5
+    Duration: 0.41724244
+  - Time: 127.67242
+    Type: 1
     LaneIndex: 25
+    Duration: 0.4172348
   - Time: 128.18965
     Type: 0
-    LaneIndex: 17
-  - Time: 128.27586
-    Type: 0
-    LaneIndex: 9
+    LaneIndex: 31
+    Duration: 0
   - Time: 128.36208
     Type: 0
-    LaneIndex: 3
-  - Time: 128.44827
+    LaneIndex: 1
+    Duration: 0
+  - Time: 128.53448
     Type: 0
-    LaneIndex: 15
-  - Time: 128.6207
+    LaneIndex: 8
+    Duration: 0
+  - Time: 128.7069
     Type: 0
-    LaneIndex: 17
-  - Time: 128.7931
-    Type: 0
-    LaneIndex: 31
-  - Time: 128.87932
-    Type: 0
-    LaneIndex: 6
-  - Time: 128.96552
-    Type: 0
-    LaneIndex: 16
+    LaneIndex: 18
+    Duration: 0
   - Time: 129.05173
     Type: 0
-    LaneIndex: 30
+    LaneIndex: 7
+    Duration: 0
   - Time: 129.22414
     Type: 0
-    LaneIndex: 26
+    LaneIndex: 8
+    Duration: 0
   - Time: 129.39656
     Type: 0
-    LaneIndex: 29
-  - Time: 129.48276
-    Type: 0
-    LaneIndex: 14
+    LaneIndex: 23
+    Duration: 0
   - Time: 129.56897
     Type: 0
-    LaneIndex: 5
-  - Time: 129.65518
-    Type: 0
-    LaneIndex: 29
-  - Time: 129.7414
-    Type: 0
-    LaneIndex: 11
-  - Time: 129.82759
-    Type: 0
-    LaneIndex: 25
-  - Time: 129.9138
+    LaneIndex: 9
+    Duration: 0
+  - Time: 129.74138
+    Type: 1
+    LaneIndex: 21
+    Duration: 0.33103028
+  - Time: 130.17241
     Type: 0
     LaneIndex: 13
-  - Time: 130.00002
+    Duration: 0
+  - Time: 130.43103
     Type: 0
-    LaneIndex: 21
-  - Time: 130.08621
+    LaneIndex: 13
+    Duration: 0
+  - Time: 130.77586
     Type: 0
-    LaneIndex: 0
-  - Time: 130.25864
+    LaneIndex: 22
+    Duration: 0
+  - Time: 130.94827
     Type: 0
-    LaneIndex: 17
-  - Time: 130.34483
-    Type: 0
-    LaneIndex: 8
-  - Time: 130.43105
-    Type: 0
-    LaneIndex: 11
-  - Time: 130.51726
-    Type: 0
-    LaneIndex: 15
-  - Time: 130.68967
-    Type: 0
-    LaneIndex: 30
-  - Time: 130.77588
-    Type: 0
-    LaneIndex: 12
-  - Time: 130.86208
-    Type: 0
-    LaneIndex: 4
-  - Time: 131.03448
-    Type: 0
-    LaneIndex: 14
+    LaneIndex: 13
+    Duration: 0
   - Time: 131.1207
     Type: 0
-    LaneIndex: 20
-  - Time: 131.2069
-    Type: 0
-    LaneIndex: 13
+    LaneIndex: 14
+    Duration: 0
   - Time: 131.2931
     Type: 0
-    LaneIndex: 6
-  - Time: 131.37932
-    Type: 0
-    LaneIndex: 20
-  - Time: 131.55173
-    Type: 0
     LaneIndex: 19
-  - Time: 131.72414
+    Duration: 0
+  - Time: 131.63794
     Type: 0
-    LaneIndex: 17
+    LaneIndex: 7
+    Duration: 0
   - Time: 131.81035
     Type: 0
-    LaneIndex: 17
-  - Time: 132.06897
-    Type: 0
-    LaneIndex: 3
+    LaneIndex: 15
+    Duration: 0
   - Time: 132.15518
+    Type: 1
+    LaneIndex: 2
+    Duration: 0.9344696
+  - Time: 133.18965
     Type: 0
-    LaneIndex: 3
-  - Time: 132.32759
-    Type: 0
-    LaneIndex: 12
+    LaneIndex: 18
+    Duration: 0
   - Time: 133.44827
-    Type: 0
-    LaneIndex: 2
-  - Time: 133.7931
-    Type: 0
-    LaneIndex: 22
-  - Time: 133.87932
-    Type: 0
-    LaneIndex: 11
-  - Time: 133.96552
-    Type: 0
-    LaneIndex: 2
-  - Time: 134.13794
-    Type: 0
+    Type: 1
     LaneIndex: 20
+    Duration: 0.6758636
+  - Time: 134.22414
+    Type: 0
+    LaneIndex: 19
+    Duration: 0
   - Time: 134.39656
     Type: 0
-    LaneIndex: 0
-  - Time: 134.48276
+    LaneIndex: 5
+    Duration: 0
+  - Time: 134.56897
     Type: 0
-    LaneIndex: 31
-  - Time: 134.65518
-    Type: 0
-    LaneIndex: 16
+    LaneIndex: 2
+    Duration: 0
   - Time: 134.74138
     Type: 0
-    LaneIndex: 17
-  - Time: 134.82759
-    Type: 0
-    LaneIndex: 5
+    LaneIndex: 22
+    Duration: 0
   - Time: 134.9138
     Type: 0
-    LaneIndex: 24
+    LaneIndex: 27
+    Duration: 0
   - Time: 135.08621
     Type: 0
-    LaneIndex: 14
-  - Time: 135.17241
+    LaneIndex: 11
+    Duration: 0
+  - Time: 135.25862
     Type: 0
-    LaneIndex: 29
-  - Time: 135.34482
+    LaneIndex: 19
+    Duration: 0
+  - Time: 135.43103
     Type: 0
-    LaneIndex: 5
-  - Time: 135.51724
-    Type: 0
-    LaneIndex: 22
-  - Time: 135.68965
-    Type: 0
-    LaneIndex: 20
+    LaneIndex: 21
+    Duration: 0
   - Time: 135.77586
     Type: 0
-    LaneIndex: 13
-  - Time: 135.86206
+    LaneIndex: 14
+    Duration: 0
+  - Time: 135.94827
     Type: 0
-    LaneIndex: 31
-  - Time: 136.2069
-    Type: 0
-    LaneIndex: 21
+    LaneIndex: 12
+    Duration: 0
   - Time: 136.2931
     Type: 0
-    LaneIndex: 11
-  - Time: 136.46552
-    Type: 0
-    LaneIndex: 26
-  - Time: 136.55173
-    Type: 0
-    LaneIndex: 14
+    LaneIndex: 31
+    Duration: 0
   - Time: 136.63794
     Type: 0
-    LaneIndex: 29
-  - Time: 136.89656
+    LaneIndex: 8
+    Duration: 0
+  - Time: 136.81035
     Type: 0
-    LaneIndex: 5
+    LaneIndex: 14
+    Duration: 0
   - Time: 136.98276
     Type: 0
-    LaneIndex: 8
-  - Time: 137.06897
-    Type: 0
-    LaneIndex: 9
-  - Time: 137.24138
-    Type: 0
-    LaneIndex: 6
+    LaneIndex: 4
+    Duration: 0
   - Time: 137.32759
-    Type: 0
-    LaneIndex: 23
-  - Time: 137.5
-    Type: 0
+    Type: 1
     LaneIndex: 9
-  - Time: 137.58621
+    Duration: 0.41724244
+  - Time: 137.84483
     Type: 0
-    LaneIndex: 6
-  - Time: 137.67242
-    Type: 0
-    LaneIndex: 31
-  - Time: 137.75862
-    Type: 0
-    LaneIndex: 8
-  - Time: 137.93103
-    Type: 0
-    LaneIndex: 17
+    LaneIndex: 13
+    Duration: 0
   - Time: 138.01724
     Type: 0
-    LaneIndex: 8
-  - Time: 138.18965
+    LaneIndex: 19
+    Duration: 0
+  - Time: 138.36208
     Type: 0
-    LaneIndex: 30
-  - Time: 138.27586
-    Type: 0
-    LaneIndex: 14
-  - Time: 138.36206
-    Type: 0
-    LaneIndex: 10
-  - Time: 138.44827
-    Type: 0
-    LaneIndex: 9
-  - Time: 138.53448
-    Type: 0
-    LaneIndex: 13
-  - Time: 138.62068
-    Type: 0
-    LaneIndex: 15
+    LaneIndex: 2
+    Duration: 0
   - Time: 138.7069
     Type: 0
-    LaneIndex: 18
-  - Time: 138.8793
-    Type: 0
-    LaneIndex: 12
+    LaneIndex: 15
+    Duration: 0
   - Time: 138.96552
-    Type: 0
-    LaneIndex: 7
-  - Time: 139.13792
-    Type: 0
-    LaneIndex: 20
-  - Time: 139.22414
-    Type: 0
-    LaneIndex: 21
-  - Time: 139.31035
-    Type: 0
-    LaneIndex: 7
+    Type: 1
+    LaneIndex: 15
+    Duration: 0.33104554
   - Time: 139.39656
     Type: 0
-    LaneIndex: 21
-  - Time: 139.48276
+    LaneIndex: 15
+    Duration: 0
+  - Time: 139.74138
     Type: 0
-    LaneIndex: 9
-  - Time: 139.56897
+    LaneIndex: 31
+    Duration: 0
+  - Time: 140.08621
     Type: 0
-    LaneIndex: 3
-  - Time: 139.65518
-    Type: 0
-    LaneIndex: 29
-  - Time: 139.82759
-    Type: 0
-    LaneIndex: 24
-  - Time: 140
-    Type: 0
-    LaneIndex: 16
-  - Time: 140.17242
-    Type: 0
-    LaneIndex: 30
+    LaneIndex: 18
+    Duration: 0
   - Time: 140.25862
     Type: 0
-    LaneIndex: 30
-  - Time: 140.34483
+    LaneIndex: 31
+    Duration: 0
+  - Time: 140.43103
     Type: 0
-    LaneIndex: 12
-  - Time: 140.68965
-    Type: 0
-    LaneIndex: 11
+    LaneIndex: 18
+    Duration: 0
   - Time: 140.77586
     Type: 0
-    LaneIndex: 23
-  - Time: 141.03448
+    LaneIndex: 24
+    Duration: 0
+  - Time: 141.1207
     Type: 0
-    LaneIndex: 11
-  - Time: 141.2069
-    Type: 0
-    LaneIndex: 20
-  - Time: 141.3793
-    Type: 0
-    LaneIndex: 30
+    LaneIndex: 31
+    Duration: 0
   - Time: 141.46552
     Type: 0
-    LaneIndex: 25
-  - Time: 141.72414
-    Type: 0
-    LaneIndex: 20
-  - Time: 141.89655
-    Type: 0
-    LaneIndex: 13
-  - Time: 142.06897
-    Type: 0
     LaneIndex: 23
+    Duration: 0
+  - Time: 141.63794
+    Type: 0
+    LaneIndex: 2
+    Duration: 0
+  - Time: 141.98276
+    Type: 0
+    LaneIndex: 15
+    Duration: 0
   - Time: 142.15518
     Type: 0
-    LaneIndex: 26
-  - Time: 142.32759
-    Type: 0
-    LaneIndex: 21
+    LaneIndex: 25
+    Duration: 0
   - Time: 142.4138
     Type: 0
-    LaneIndex: 23
-  - Time: 142.5
+    LaneIndex: 3
+    Duration: 0
+  - Time: 142.67241
     Type: 0
-    LaneIndex: 15
-  - Time: 142.58621
-    Type: 0
-    LaneIndex: 24
-  - Time: 142.67242
-    Type: 0
-    LaneIndex: 22
-  - Time: 142.75862
-    Type: 0
-    LaneIndex: 12
-  - Time: 142.93105
-    Type: 0
-    LaneIndex: 28
-  - Time: 143.01724
+    LaneIndex: 18
+    Duration: 0
+  - Time: 142.84483
     Type: 0
     LaneIndex: 4
-  - Time: 143.10345
+    Duration: 0
+  - Time: 143.18965
     Type: 0
-    LaneIndex: 17
-  - Time: 143.18967
-    Type: 0
-    LaneIndex: 27
-  - Time: 143.27586
-    Type: 0
-    LaneIndex: 12
-  - Time: 143.44827
-    Type: 0
-    LaneIndex: 31
+    LaneIndex: 15
+    Duration: 0
   - Time: 143.53448
-    Type: 0
-    LaneIndex: 12
-  - Time: 143.62068
-    Type: 0
-    LaneIndex: 12
-  - Time: 143.7931
-    Type: 0
-    LaneIndex: 31
-  - Time: 143.8793
-    Type: 0
-    LaneIndex: 14
-  - Time: 144.05173
-    Type: 0
-    LaneIndex: 13
-  - Time: 144.13792
-    Type: 0
-    LaneIndex: 25
+    Type: 1
+    LaneIndex: 26
+    Duration: 0.58965147
   - Time: 144.22414
     Type: 0
-    LaneIndex: 29
+    LaneIndex: 1
+    Duration: 0
   - Time: 144.48276
     Type: 0
-    LaneIndex: 23
-  - Time: 144.56897
-    Type: 0
-    LaneIndex: 4
+    LaneIndex: 7
+    Duration: 0
   - Time: 144.74138
     Type: 0
-    LaneIndex: 23
-  - Time: 144.82759
+    LaneIndex: 22
+    Duration: 0
+  - Time: 144.9138
     Type: 0
-    LaneIndex: 10
-  - Time: 145.08621
+    LaneIndex: 16
+    Duration: 0
+  - Time: 145.25862
     Type: 0
-    LaneIndex: 21
-  - Time: 145.17242
-    Type: 0
-    LaneIndex: 25
-  - Time: 145.34483
-    Type: 0
-    LaneIndex: 20
-  - Time: 145.43105
-    Type: 0
-    LaneIndex: 19
-  - Time: 145.51724
-    Type: 0
-    LaneIndex: 20
-  - Time: 145.60345
-    Type: 0
-    LaneIndex: 2
-  - Time: 145.68967
-    Type: 0
-    LaneIndex: 4
-  - Time: 145.86208
-    Type: 0
-    LaneIndex: 15
-  - Time: 145.94829
-    Type: 0
-    LaneIndex: 17
-  - Time: 146.03448
-    Type: 0
-    LaneIndex: 30
+    LaneIndex: 6
+    Duration: 0
+  - Time: 145.43103
+    Type: 1
+    LaneIndex: 0
+    Duration: 0.5896667
   - Time: 146.1207
     Type: 0
-    LaneIndex: 18
-  - Time: 146.2069
-    Type: 0
-    LaneIndex: 17
+    LaneIndex: 14
+    Duration: 0
   - Time: 146.2931
     Type: 0
-    LaneIndex: 0
-  - Time: 146.3793
-    Type: 0
-    LaneIndex: 12
-  - Time: 146.46552
-    Type: 0
-    LaneIndex: 22
+    LaneIndex: 15
+    Duration: 0
   - Time: 146.55173
+    Type: 1
+    LaneIndex: 20
+    Duration: 0.33103028
+  - Time: 146.98276
     Type: 0
-    LaneIndex: 13
-  - Time: 146.63792
+    LaneIndex: 3
+    Duration: 0
+  - Time: 147.15518
     Type: 0
-    LaneIndex: 14
-  - Time: 146.72414
-    Type: 0
-    LaneIndex: 27
-  - Time: 146.81035
-    Type: 0
-    LaneIndex: 26
-  - Time: 146.89655
-    Type: 0
-    LaneIndex: 12
-  - Time: 147.06897
-    Type: 0
-    LaneIndex: 24
-  - Time: 147.24138
-    Type: 0
-    LaneIndex: 1
-  - Time: 147.32759
-    Type: 0
-    LaneIndex: 29
+    LaneIndex: 7
+    Duration: 0
   - Time: 147.5
     Type: 0
-    LaneIndex: 17
-  - Time: 147.58621
+    LaneIndex: 31
+    Duration: 0
+  - Time: 147.67241
     Type: 0
-    LaneIndex: 8
-  - Time: 147.67242
+    LaneIndex: 21
+    Duration: 0
+  - Time: 148.01724
     Type: 0
-    LaneIndex: 6
-  - Time: 147.75862
-    Type: 0
-    LaneIndex: 3
-  - Time: 147.93105
-    Type: 0
-    LaneIndex: 8
-  - Time: 148.10345
-    Type: 0
-    LaneIndex: 20
-  - Time: 148.18967
-    Type: 0
-    LaneIndex: 22
-  - Time: 148.27586
-    Type: 0
-    LaneIndex: 14
+    LaneIndex: 18
+    Duration: 0
   - Time: 148.36208
     Type: 0
-    LaneIndex: 10
-  - Time: 148.6207
+    LaneIndex: 14
+    Duration: 0
+  - Time: 148.53448
     Type: 0
-    LaneIndex: 6
+    LaneIndex: 1
+    Duration: 0
   - Time: 148.7931
     Type: 0
-    LaneIndex: 11
-  - Time: 148.96552
+    LaneIndex: 19
+    Duration: 0
+  - Time: 149.05173
     Type: 0
-    LaneIndex: 23
-  - Time: 149.13792
-    Type: 0
-    LaneIndex: 23
+    LaneIndex: 20
+    Duration: 0
   - Time: 149.22414
+    Type: 1
+    LaneIndex: 21
+    Duration: 0.41724244
+  - Time: 149.74138
     Type: 0
-    LaneIndex: 27
-  - Time: 149.31035
+    LaneIndex: 22
+    Duration: 0
+  - Time: 149.9138
     Type: 0
-    LaneIndex: 8
-  - Time: 149.39655
-    Type: 0
-    LaneIndex: 17
-  - Time: 149.48276
-    Type: 0
-    LaneIndex: 3
-  - Time: 149.65517
-    Type: 0
-    LaneIndex: 4
-  - Time: 149.82759
-    Type: 0
-    LaneIndex: 4
-  - Time: 149.91379
-    Type: 0
-    LaneIndex: 11
-  - Time: 150
-    Type: 0
-    LaneIndex: 17
+    LaneIndex: 10
+    Duration: 0
   - Time: 150.08621
     Type: 0
-    LaneIndex: 20
-  - Time: 150.17241
+    LaneIndex: 0
+    Duration: 0
+  - Time: 150.43103
     Type: 0
-    LaneIndex: 24
-  - Time: 150.34483
+    LaneIndex: 0
+    Duration: 0
+  - Time: 150.68965
     Type: 0
-    LaneIndex: 10
-  - Time: 150.68967
-    Type: 0
-    LaneIndex: 10
+    LaneIndex: 5
+    Duration: 0
   - Time: 150.86208
     Type: 0
-    LaneIndex: 1
-  - Time: 151.03448
+    LaneIndex: 25
+    Duration: 0
+  - Time: 151.1207
     Type: 0
-    LaneIndex: 28
-  - Time: 151.20691
-    Type: 0
-    LaneIndex: 4
-  - Time: 151.37932
-    Type: 0
-    LaneIndex: 1
-  - Time: 151.46553
-    Type: 0
-    LaneIndex: 9
-  - Time: 151.55173
-    Type: 0
-    LaneIndex: 2
-  - Time: 151.63794
-    Type: 0
-    LaneIndex: 30
-  - Time: 151.72414
+    LaneIndex: 11
+    Duration: 0
+  - Time: 151.2931
     Type: 0
     LaneIndex: 15
-  - Time: 152.06897
+    Duration: 0
+  - Time: 151.46552
     Type: 0
-    LaneIndex: 29
-  - Time: 152.15517
+    LaneIndex: 30
+    Duration: 0
+  - Time: 151.81035
     Type: 0
-    LaneIndex: 7
-  - Time: 152.24138
+    LaneIndex: 23
+    Duration: 0
+  - Time: 151.98276
+    Type: 1
+    LaneIndex: 28
+    Duration: 0.41724244
+  - Time: 152.5
     Type: 0
-    LaneIndex: 27
-  - Time: 152.41379
-    Type: 0
-    LaneIndex: 26
-  - Time: 152.75862
-    Type: 0
-    LaneIndex: 10
+    LaneIndex: 25
+    Duration: 0
   - Time: 152.84483
     Type: 0
-    LaneIndex: 5
-  - Time: 152.93103
+    LaneIndex: 20
+    Duration: 0
+  - Time: 153.18965
     Type: 0
-    LaneIndex: 2
-  - Time: 153.10345
-    Type: 0
-    LaneIndex: 2
-  - Time: 153.27586
-    Type: 0
-    LaneIndex: 26
+    LaneIndex: 3
+    Duration: 0
   - Time: 153.36208
     Type: 0
-    LaneIndex: 30
-  - Time: 153.44829
-    Type: 0
-    LaneIndex: 16
+    LaneIndex: 31
+    Duration: 0
   - Time: 153.53448
     Type: 0
-    LaneIndex: 22
-  - Time: 153.6207
+    LaneIndex: 26
+    Duration: 0
+  - Time: 153.7069
     Type: 0
-    LaneIndex: 14
-  - Time: 153.7931
+    LaneIndex: 10
+    Duration: 0
+  - Time: 153.96552
     Type: 0
-    LaneIndex: 13
-  - Time: 153.96553
-    Type: 0
-    LaneIndex: 11
+    LaneIndex: 28
+    Duration: 0
   - Time: 154.13794
     Type: 0
-    LaneIndex: 4
+    LaneIndex: 20
+    Duration: 0
   - Time: 154.31035
     Type: 0
-    LaneIndex: 5
-  - Time: 154.48276
-    Type: 0
-    LaneIndex: 25
+    LaneIndex: 7
+    Duration: 0
   - Time: 154.56897
     Type: 0
-    LaneIndex: 18
-  - Time: 154.65517
-    Type: 0
-    LaneIndex: 23
+    LaneIndex: 10
+    Duration: 0
   - Time: 154.74138
     Type: 0
-    LaneIndex: 27
-  - Time: 154.82759
+    LaneIndex: 21
+    Duration: 0
+  - Time: 154.9138
     Type: 0
-    LaneIndex: 2
-  - Time: 154.91379
-    Type: 0
-    LaneIndex: 12
+    LaneIndex: 18
+    Duration: 0
   - Time: 155.08621
     Type: 0
-    LaneIndex: 10
-  - Time: 155.17241
-    Type: 0
-    LaneIndex: 21
+    LaneIndex: 22
+    Duration: 0
   - Time: 155.25862
-    Type: 0
-    LaneIndex: 17
-  - Time: 155.51724
-    Type: 0
-    LaneIndex: 30
-  - Time: 155.60345
-    Type: 0
-    LaneIndex: 15
-  - Time: 155.68965
-    Type: 0
-    LaneIndex: 22
-  - Time: 155.77586
-    Type: 0
-    LaneIndex: 28
-  - Time: 155.86208
-    Type: 0
-    LaneIndex: 7
-  - Time: 155.94829
-    Type: 0
-    LaneIndex: 15
-  - Time: 156.20691
-    Type: 0
-    LaneIndex: 16
-  - Time: 156.46553
-    Type: 0
-    LaneIndex: 19
-  - Time: 156.55173
-    Type: 0
-    LaneIndex: 30
-  - Time: 156.63794
-    Type: 0
-    LaneIndex: 30
-  - Time: 156.81035
-    Type: 0
+    Type: 1
     LaneIndex: 4
-  - Time: 156.89656
+    Duration: 0.58965147
+  - Time: 155.94827
     Type: 0
-    LaneIndex: 19
-  - Time: 157.06897
+    LaneIndex: 27
+    Duration: 0
+  - Time: 156.2931
+    Type: 1
+    LaneIndex: 27
+    Duration: 0.58965147
+  - Time: 156.98276
     Type: 0
-    LaneIndex: 6
-  - Time: 157.15518
+    LaneIndex: 9
+    Duration: 0
+  - Time: 157.32759
     Type: 0
-    LaneIndex: 22
-  - Time: 157.24138
-    Type: 0
-    LaneIndex: 13
-  - Time: 157.41379
+    LaneIndex: 11
+    Duration: 0
+  - Time: 157.5
+    Type: 1
+    LaneIndex: 2
+    Duration: 0.41724244
+  - Time: 158.01724
+    Type: 1
+    LaneIndex: 27
+    Duration: 0.58965147
+  - Time: 158.7069
     Type: 0
     LaneIndex: 29
-  - Time: 157.58621
-    Type: 0
-    LaneIndex: 14
-  - Time: 157.67241
-    Type: 0
-    LaneIndex: 24
-  - Time: 157.75862
-    Type: 0
-    LaneIndex: 10
-  - Time: 157.84483
+    Duration: 0
+  - Time: 159.05173
+    Type: 1
+    LaneIndex: 21
+    Duration: 0.58965147
+  - Time: 159.74138
     Type: 0
     LaneIndex: 15
-  - Time: 157.93103
-    Type: 0
-    LaneIndex: 27
-  - Time: 158.10345
-    Type: 0
-    LaneIndex: 27
-  - Time: 158.44827
-    Type: 0
-    LaneIndex: 16
-  - Time: 158.6207
-    Type: 0
-    LaneIndex: 26
-  - Time: 158.70691
-    Type: 0
-    LaneIndex: 11
-  - Time: 158.96553
-    Type: 0
-    LaneIndex: 30
-  - Time: 159.05173
+    Duration: 0
+  - Time: 160.08621
+    Type: 1
+    LaneIndex: 0
+    Duration: 0.58965147
+  - Time: 160.77586
     Type: 0
     LaneIndex: 7
-  - Time: 159.22415
-    Type: 0
-    LaneIndex: 4
-  - Time: 159.31035
-    Type: 0
-    LaneIndex: 1
-  - Time: 159.39656
-    Type: 0
-    LaneIndex: 27
-  - Time: 159.56897
-    Type: 0
-    LaneIndex: 31
-  - Time: 159.65518
-    Type: 0
-    LaneIndex: 11
-  - Time: 159.9138
-    Type: 0
-    LaneIndex: 28
-  - Time: 160
-    Type: 0
-    LaneIndex: 27
-  - Time: 160.34483
-    Type: 0
-    LaneIndex: 24
-  - Time: 160.51724
-    Type: 0
-    LaneIndex: 7
-  - Time: 160.68965
-    Type: 0
-    LaneIndex: 13
+    Duration: 0
   - Time: 161.03448
-    Type: 0
-    LaneIndex: 26
-  - Time: 161.2069
-    Type: 0
-    LaneIndex: 27
-  - Time: 161.2931
-    Type: 0
-    LaneIndex: 6
-  - Time: 161.37932
-    Type: 0
-    LaneIndex: 17
-  - Time: 161.46553
+    Type: 1
+    LaneIndex: 1
+    Duration: 0.33103028
+  - Time: 161.46552
     Type: 0
     LaneIndex: 1
+    Duration: 0
   - Time: 161.63794
     Type: 0
-    LaneIndex: 25
-  - Time: 161.72415
-    Type: 0
-    LaneIndex: 23
-  - Time: 161.81035
-    Type: 0
     LaneIndex: 21
-  - Time: 162.06897
-    Type: 0
-    LaneIndex: 6
-  - Time: 162.2414
-    Type: 0
-    LaneIndex: 6
-  - Time: 162.32759
-    Type: 0
+    Duration: 0
+  - Time: 161.81035
+    Type: 1
     LaneIndex: 8
-  - Time: 162.4138
+    Duration: 0.58965147
+  - Time: 162.5
     Type: 0
-    LaneIndex: 7
-  - Time: 162.50002
-    Type: 0
-    LaneIndex: 10
-  - Time: 162.58621
-    Type: 0
-    LaneIndex: 30
-  - Time: 162.75862
-    Type: 0
-    LaneIndex: 2
-  - Time: 163.10345
-    Type: 0
-    LaneIndex: 11
-  - Time: 163.18965
-    Type: 0
-    LaneIndex: 6
-  - Time: 163.36208
-    Type: 0
-    LaneIndex: 20
-  - Time: 163.44827
-    Type: 0
-    LaneIndex: 27
+    LaneIndex: 18
+    Duration: 0
+  - Time: 162.84483
+    Type: 1
+    LaneIndex: 25
+    Duration: 0.58965147
   - Time: 163.53448
+    Type: 1
+    LaneIndex: 17
+    Duration: 0.41724244
+  - Time: 164.05173
     Type: 0
-    LaneIndex: 5
-  - Time: 163.7069
+    LaneIndex: 22
+    Duration: 0
+  - Time: 164.22414
     Type: 0
-    LaneIndex: 7
-  - Time: 163.7931
-    Type: 0
-    LaneIndex: 27
-  - Time: 163.96552
-    Type: 0
-    LaneIndex: 8
-  - Time: 164.13794
-    Type: 0
-    LaneIndex: 29
-  - Time: 164.22415
-    Type: 0
-    LaneIndex: 5
+    LaneIndex: 15
+    Duration: 0
   - Time: 164.39656
     Type: 0
-    LaneIndex: 28
-  - Time: 164.48277
-    Type: 0
-    LaneIndex: 27
+    LaneIndex: 6
+    Duration: 0
   - Time: 164.56897
-    Type: 0
-    LaneIndex: 9
-  - Time: 164.65518
-    Type: 0
-    LaneIndex: 20
-  - Time: 164.7414
-    Type: 0
-    LaneIndex: 29
-  - Time: 164.82759
-    Type: 0
-    LaneIndex: 19
-  - Time: 165.00002
-    Type: 0
-    LaneIndex: 18
-  - Time: 165.17242
-    Type: 0
-    LaneIndex: 11
-  - Time: 165.34483
-    Type: 0
-    LaneIndex: 29
-  - Time: 165.51724
-    Type: 0
-    LaneIndex: 4
-  - Time: 165.86208
-    Type: 0
-    LaneIndex: 15
-  - Time: 165.94827
-    Type: 0
-    LaneIndex: 21
-  - Time: 166.03448
-    Type: 0
+    Type: 1
     LaneIndex: 13
-  - Time: 166.1207
-    Type: 0
-    LaneIndex: 2
-  - Time: 166.2931
-    Type: 0
-    LaneIndex: 18
-  - Time: 166.55173
-    Type: 0
-    LaneIndex: 25
-  - Time: 166.63794
-    Type: 0
-    LaneIndex: 29
-  - Time: 166.72414
-    Type: 0
-    LaneIndex: 9
-  - Time: 166.81035
-    Type: 0
-    LaneIndex: 7
-  - Time: 166.89656
-    Type: 0
-    LaneIndex: 4
-  - Time: 166.98277
-    Type: 0
-    LaneIndex: 25
-  - Time: 167.58621
-    Type: 0
-    LaneIndex: 21
-  - Time: 167.75864
-    Type: 0
-    LaneIndex: 12
-  - Time: 167.84483
-    Type: 0
-    LaneIndex: 5
-  - Time: 167.93105
-    Type: 0
-    LaneIndex: 21
-  - Time: 168.10345
-    Type: 0
-    LaneIndex: 9
-  - Time: 168.18967
-    Type: 0
-    LaneIndex: 0
-  - Time: 168.27586
-    Type: 0
-    LaneIndex: 19
-  - Time: 168.53448
-    Type: 0
-    LaneIndex: 20
-  - Time: 168.6207
-    Type: 0
-    LaneIndex: 29
-  - Time: 168.7931
-    Type: 0
-    LaneIndex: 3
-  - Time: 168.87932
-    Type: 0
-    LaneIndex: 28
-  - Time: 168.96552
-    Type: 0
-    LaneIndex: 23
-  - Time: 169.13794
-    Type: 0
-    LaneIndex: 8
-  - Time: 169.31035
-    Type: 0
-    LaneIndex: 15
-  - Time: 169.39656
-    Type: 0
-    LaneIndex: 14
-  - Time: 169.48276
+    Duration: 0.58965147
+  - Time: 165.25862
     Type: 0
     LaneIndex: 27
-  - Time: 169.56897
-    Type: 0
-    LaneIndex: 14
-  - Time: 169.65518
-    Type: 0
-    LaneIndex: 0
-  - Time: 169.82759
-    Type: 0
-    LaneIndex: 11
-  - Time: 170.00002
-    Type: 0
-    LaneIndex: 0
-  - Time: 170.08621
-    Type: 0
-    LaneIndex: 2
-  - Time: 170.17242
-    Type: 0
-    LaneIndex: 15
-  - Time: 170.25864
-    Type: 0
-    LaneIndex: 20
-  - Time: 170.34483
-    Type: 0
-    LaneIndex: 31
-  - Time: 170.60345
-    Type: 0
-    LaneIndex: 13
-  - Time: 170.68967
+    Duration: 0
+  - Time: 165.60345
     Type: 0
     LaneIndex: 26
-  - Time: 170.77588
-    Type: 0
-    LaneIndex: 27
-  - Time: 170.86208
+    Duration: 0
+  - Time: 165.77586
+    Type: 1
+    LaneIndex: 26
+    Duration: 0.41724244
+  - Time: 166.2931
+    Type: 1
+    LaneIndex: 15
+    Duration: 0.58965147
+  - Time: 166.98276
     Type: 0
     LaneIndex: 21
-  - Time: 171.03448
+    Duration: 0
+  - Time: 167.32759
+    Type: 1
+    LaneIndex: 13
+    Duration: 0.58965147
+  - Time: 168.01724
     Type: 0
-    LaneIndex: 28
+    LaneIndex: 20
+    Duration: 0
+  - Time: 168.36208
+    Type: 1
+    LaneIndex: 10
+    Duration: 0.58965147
+  - Time: 169.05173
+    Type: 1
+    LaneIndex: 18
+    Duration: 0.58965147
+  - Time: 169.74138
+    Type: 0
+    LaneIndex: 4
+    Duration: 0
+  - Time: 170.08621
+    Type: 1
+    LaneIndex: 29
+    Duration: 0.58965147
+  - Time: 170.77586
+    Type: 0
+    LaneIndex: 6
+    Duration: 0
   - Time: 171.1207
     Type: 0
-    LaneIndex: 17
-  - Time: 171.2069
-    Type: 0
-    LaneIndex: 22
+    LaneIndex: 23
+    Duration: 0
   - Time: 171.2931
+    Type: 1
+    LaneIndex: 3
+    Duration: 0.41724244
+  - Time: 171.81035
+    Type: 1
+    LaneIndex: 13
+    Duration: 0.41724244
+  - Time: 172.32759
     Type: 0
-    LaneIndex: 9
-  - Time: 171.37932
+    LaneIndex: 20
+    Duration: 0
+  - Time: 172.5
     Type: 0
-    LaneIndex: 6
-  - Time: 171.55173
-    Type: 0
-    LaneIndex: 0
-  - Time: 172.06897
-    Type: 0
-    LaneIndex: 30
-  - Time: 172.15518
-    Type: 0
-    LaneIndex: 8
-  - Time: 172.24138
-    Type: 0
-    LaneIndex: 8
-  - Time: 172.4138
-    Type: 0
-    LaneIndex: 11
-  - Time: 172.58621
-    Type: 0
-    LaneIndex: 6
+    LaneIndex: 1
+    Duration: 0
   - Time: 172.67242
     Type: 0
-    LaneIndex: 0
-  - Time: 172.75864
-    Type: 0
-    LaneIndex: 6
+    LaneIndex: 13
+    Duration: 0
   - Time: 172.84483
     Type: 0
-    LaneIndex: 2
-  - Time: 173.10345
-    Type: 0
-    LaneIndex: 31
-  - Time: 173.18967
-    Type: 0
-    LaneIndex: 7
-  - Time: 173.27588
-    Type: 0
-    LaneIndex: 16
-  - Time: 173.44829
-    Type: 0
-    LaneIndex: 31
-  - Time: 173.5345
-    Type: 0
-    LaneIndex: 20
-  - Time: 173.7931
-    Type: 0
-    LaneIndex: 24
-  - Time: 173.87932
-    Type: 0
-    LaneIndex: 0
-  - Time: 174.13794
-    Type: 0
     LaneIndex: 22
-  - Time: 174.31035
+    Duration: 0
+  - Time: 173.01724
+    Type: 1
+    LaneIndex: 23
+    Duration: 0.41724244
+  - Time: 173.53448
     Type: 0
-    LaneIndex: 31
-  - Time: 174.39656
+    LaneIndex: 28
+    Duration: 0
+  - Time: 173.87932
+    Type: 1
+    LaneIndex: 20
+    Duration: 0.58965147
+  - Time: 174.56897
     Type: 0
-    LaneIndex: 17
-  - Time: 174.48276
-    Type: 0
-    LaneIndex: 8
+    LaneIndex: 2
+    Duration: 0
   - Time: 174.74138
     Type: 0
-    LaneIndex: 23
-  - Time: 174.82759
-    Type: 0
     LaneIndex: 28
-  - Time: 174.9138
-    Type: 0
-    LaneIndex: 2
+    Duration: 0
   - Time: 175
     Type: 0
-    LaneIndex: 31
-  - Time: 175.08621
+    LaneIndex: 8
+    Duration: 0
+  - Time: 175.25862
     Type: 0
-    LaneIndex: 19
-  - Time: 175.17242
+    LaneIndex: 6
+    Duration: 0
+  - Time: 175.60345
+    Type: 1
+    LaneIndex: 1
+    Duration: 0.58965147
+  - Time: 176.2931
     Type: 0
-    LaneIndex: 10
-  - Time: 175.25864
-    Type: 0
-    LaneIndex: 13
-  - Time: 175.43105
-    Type: 0
-    LaneIndex: 22
-  - Time: 175.51726
-    Type: 0
-    LaneIndex: 4
-  - Time: 175.68967
-    Type: 0
-    LaneIndex: 11
-  - Time: 175.86208
-    Type: 0
-    LaneIndex: 7
-  - Time: 176.0345
-    Type: 0
-    LaneIndex: 4
-  - Time: 176.1207
-    Type: 0
-    LaneIndex: 17
-  - Time: 176.20691
-    Type: 0
-    LaneIndex: 24
-  - Time: 176.29312
-    Type: 0
-    LaneIndex: 17
-  - Time: 176.46553
-    Type: 0
-    LaneIndex: 25
-  - Time: 176.55173
-    Type: 0
-    LaneIndex: 7
+    LaneIndex: 9
+    Duration: 0
   - Time: 176.63794
     Type: 0
-    LaneIndex: 21
+    LaneIndex: 20
+    Duration: 0
   - Time: 176.81035
-    Type: 0
-    LaneIndex: 17
-  - Time: 176.89656
-    Type: 0
-    LaneIndex: 3
-  - Time: 176.98276
-    Type: 0
-    LaneIndex: 14
-  - Time: 177.15518
-    Type: 0
-    LaneIndex: 0
-  - Time: 177.24138
-    Type: 0
+    Type: 1
     LaneIndex: 31
+    Duration: 0.41724244
   - Time: 177.32759
     Type: 0
-    LaneIndex: 1
-  - Time: 177.4138
-    Type: 0
     LaneIndex: 27
-  - Time: 177.5
+    Duration: 0
+  - Time: 182.84483
     Type: 0
-    LaneIndex: 27
-  - Time: 177.58621
-    Type: 0
-    LaneIndex: 17
-  - Time: 177.67242
-    Type: 0
-    LaneIndex: 31
-  - Time: 177.84483
-    Type: 0
-    LaneIndex: 21
-  - Time: 177.93103
-    Type: 0
-    LaneIndex: 15
-  - Time: 178.62068
-    Type: 0
-    LaneIndex: 15
-  - Time: 179.31035
-    Type: 0
-    LaneIndex: 20
-  - Time: 180.34483
-    Type: 0
-    LaneIndex: 19
-  - Time: 181.03448
-    Type: 0
-    LaneIndex: 16
-  - Time: 181.72414
+    LaneIndex: 9
+    Duration: 0
+  - Time: 186.03448
+    Type: 1
+    LaneIndex: 13
+    Duration: 1.5379394
+  - Time: 187.67242
+    Type: 1
+    LaneIndex: 9
+    Duration: 0.58965147
+  - Time: 188.36208
     Type: 0
     LaneIndex: 18
-  - Time: 182.4138
+    Duration: 0
+  - Time: 188.6207
     Type: 0
-    LaneIndex: 16
-  - Time: 182.75862
+    LaneIndex: 1
+    Duration: 0
+  - Time: 188.87932
     Type: 0
-    LaneIndex: 3
-  - Time: 183.10345
-    Type: 0
-    LaneIndex: 26
-  - Time: 183.44827
-    Type: 0
-    LaneIndex: 11
-  - Time: 184.13792
-    Type: 0
-    LaneIndex: 24
-  - Time: 184.82759
-    Type: 0
-    LaneIndex: 22
-  - Time: 185.17242
-    Type: 0
-    LaneIndex: 29
-  - Time: 185.86208
-    Type: 0
-    LaneIndex: 25
-  - Time: 186.2069
-    Type: 0
-    LaneIndex: 11
-  - Time: 186.55173
-    Type: 0
-    LaneIndex: 15
-  - Time: 188.27586
-    Type: 0
-    LaneIndex: 20
-  - Time: 188.96552
-    Type: 0
-    LaneIndex: 27
+    LaneIndex: 17
+    Duration: 0
   - Time: 189.05173
     Type: 0
-    LaneIndex: 17
-  - Time: 189.13792
-    Type: 0
-    LaneIndex: 29
+    LaneIndex: 28
+    Duration: 0
   - Time: 189.22414
     Type: 0
-    LaneIndex: 5
-  - Time: 189.31035
-    Type: 0
-    LaneIndex: 15
-  - Time: 189.48276
+    LaneIndex: 4
+    Duration: 0
+  - Time: 189.39656
     Type: 0
     LaneIndex: 9
-  - Time: 189.65517
-    Type: 0
-    LaneIndex: 8
+    Duration: 0
   - Time: 189.74138
     Type: 0
-    LaneIndex: 5
-  - Time: 189.82759
+    LaneIndex: 27
+    Duration: 0
+  - Time: 189.9138
     Type: 0
-    LaneIndex: 13
-  - Time: 189.91379
-    Type: 0
-    LaneIndex: 18
-  - Time: 190
-    Type: 0
-    LaneIndex: 6
+    LaneIndex: 23
+    Duration: 0
   - Time: 190.08621
     Type: 0
+    LaneIndex: 9
+    Duration: 0
+  - Time: 190.25862
+    Type: 0
+    LaneIndex: 29
+    Duration: 0
+  - Time: 190.43103
+    Type: 0
     LaneIndex: 4
-  - Time: 190.17241
+    Duration: 0
+  - Time: 190.60345
     Type: 0
-    LaneIndex: 18
-  - Time: 190.34483
-    Type: 0
-    LaneIndex: 6
-  - Time: 190.43105
-    Type: 0
-    LaneIndex: 1
-  - Time: 190.51724
-    Type: 0
-    LaneIndex: 18
-  - Time: 190.68967
-    Type: 0
-    LaneIndex: 25
+    LaneIndex: 5
+    Duration: 0
   - Time: 190.77586
     Type: 0
-    LaneIndex: 9
-  - Time: 190.86208
-    Type: 0
-    LaneIndex: 18
-  - Time: 190.94829
-    Type: 0
     LaneIndex: 24
+    Duration: 0
   - Time: 191.03448
+    Type: 1
+    LaneIndex: 18
+    Duration: 0.33103028
+  - Time: 191.46552
     Type: 0
-    LaneIndex: 4
-  - Time: 191.1207
-    Type: 0
-    LaneIndex: 3
-  - Time: 191.2931
-    Type: 0
-    LaneIndex: 22
-  - Time: 191.37932
-    Type: 0
-    LaneIndex: 31
-  - Time: 191.55173
-    Type: 0
-    LaneIndex: 12
+    LaneIndex: 30
+    Duration: 0
   - Time: 191.63794
     Type: 0
-    LaneIndex: 23
+    LaneIndex: 30
+    Duration: 0
   - Time: 191.81035
     Type: 0
-    LaneIndex: 13
+    LaneIndex: 10
+    Duration: 0
   - Time: 191.98276
     Type: 0
-    LaneIndex: 11
-  - Time: 192.06897
+    LaneIndex: 2
+    Duration: 0
+  - Time: 192.15518
+    Type: 0
+    LaneIndex: 30
+    Duration: 0
+  - Time: 192.32759
     Type: 0
     LaneIndex: 7
-  - Time: 192.24138
-    Type: 0
-    LaneIndex: 3
-  - Time: 192.41379
-    Type: 0
-    LaneIndex: 18
+    Duration: 0
   - Time: 192.5
     Type: 0
-    LaneIndex: 7
-  - Time: 192.67241
+    LaneIndex: 25
+    Duration: 0
+  - Time: 192.67242
     Type: 0
-    LaneIndex: 19
-  - Time: 192.75862
-    Type: 0
-    LaneIndex: 22
+    LaneIndex: 23
+    Duration: 0
   - Time: 192.84483
     Type: 0
-    LaneIndex: 11
+    LaneIndex: 25
+    Duration: 0
   - Time: 193.01724
     Type: 0
-    LaneIndex: 30
-  - Time: 193.10345
+    LaneIndex: 27
+    Duration: 0
+  - Time: 193.18965
     Type: 0
-    LaneIndex: 10
-  - Time: 193.18967
-    Type: 0
-    LaneIndex: 25
-  - Time: 193.27586
-    Type: 0
-    LaneIndex: 23
+    LaneIndex: 13
+    Duration: 0
   - Time: 193.36208
     Type: 0
-    LaneIndex: 8
-  - Time: 193.44829
-    Type: 0
-    LaneIndex: 28
-  - Time: 193.6207
-    Type: 0
-    LaneIndex: 27
-  - Time: 193.70691
-    Type: 0
-    LaneIndex: 15
-  - Time: 193.7931
-    Type: 0
-    LaneIndex: 25
-  - Time: 193.87932
-    Type: 0
-    LaneIndex: 31
-  - Time: 193.96553
-    Type: 0
-    LaneIndex: 1
-  - Time: 194.05173
-    Type: 0
-    LaneIndex: 2
-  - Time: 194.31035
-    Type: 0
-    LaneIndex: 29
-  - Time: 194.82759
-    Type: 0
-    LaneIndex: 29
-  - Time: 195.51724
-    Type: 0
-    LaneIndex: 7
-  - Time: 195.86208
-    Type: 0
-    LaneIndex: 2
-  - Time: 195.94829
-    Type: 0
-    LaneIndex: 21
-  - Time: 196.03448
-    Type: 0
-    LaneIndex: 10
-  - Time: 196.1207
-    Type: 0
-    LaneIndex: 7
-  - Time: 196.20691
-    Type: 0
-    LaneIndex: 1
-  - Time: 196.2931
-    Type: 0
-    LaneIndex: 29
-  - Time: 196.46553
-    Type: 0
-    LaneIndex: 3
-  - Time: 196.55173
-    Type: 0
-    LaneIndex: 26
-  - Time: 196.63794
-    Type: 0
-    LaneIndex: 1
-  - Time: 196.81035
-    Type: 0
-    LaneIndex: 11
-  - Time: 196.89656
-    Type: 0
-    LaneIndex: 4
-  - Time: 197.06897
-    Type: 0
-    LaneIndex: 15
-  - Time: 197.32759
-    Type: 0
-    LaneIndex: 15
-  - Time: 197.41379
-    Type: 0
-    LaneIndex: 17
-  - Time: 197.58621
-    Type: 0
-    LaneIndex: 31
-  - Time: 197.75862
-    Type: 0
-    LaneIndex: 9
-  - Time: 197.84483
-    Type: 0
-    LaneIndex: 26
-  - Time: 197.93103
-    Type: 0
-    LaneIndex: 20
-  - Time: 198.01724
+    LaneIndex: 30
+    Duration: 0
+  - Time: 193.53448
     Type: 0
     LaneIndex: 19
-  - Time: 198.18965
-    Type: 0
-    LaneIndex: 1
-  - Time: 198.27586
-    Type: 0
-    LaneIndex: 8
-  - Time: 198.44827
-    Type: 0
-    LaneIndex: 26
-  - Time: 198.6207
-    Type: 0
-    LaneIndex: 20
-  - Time: 198.70691
+    Duration: 0
+  - Time: 193.7931
     Type: 0
     LaneIndex: 16
-  - Time: 198.7931
-    Type: 0
-    LaneIndex: 6
-  - Time: 198.87932
-    Type: 0
-    LaneIndex: 27
-  - Time: 198.96553
-    Type: 0
-    LaneIndex: 23
-  - Time: 199.05173
-    Type: 0
-    LaneIndex: 2
-  - Time: 199.13794
-    Type: 0
-    LaneIndex: 20
-  - Time: 199.31035
-    Type: 0
-    LaneIndex: 16
-  - Time: 199.39656
-    Type: 0
-    LaneIndex: 30
-  - Time: 199.48277
-    Type: 0
-    LaneIndex: 10
-  - Time: 199.65518
-    Type: 0
-    LaneIndex: 26
-  - Time: 199.7414
-    Type: 0
-    LaneIndex: 28
-  - Time: 199.82759
-    Type: 0
-    LaneIndex: 18
-  - Time: 200
-    Type: 0
-    LaneIndex: 4
-  - Time: 200.08621
-    Type: 0
-    LaneIndex: 15
-  - Time: 200.25862
-    Type: 0
-    LaneIndex: 16
-  - Time: 200.34483
-    Type: 0
-    LaneIndex: 23
-  - Time: 200.43103
-    Type: 0
-    LaneIndex: 4
-  - Time: 200.51724
-    Type: 0
-    LaneIndex: 0
-  - Time: 200.60345
-    Type: 0
-    LaneIndex: 26
-  - Time: 200.68965
-    Type: 0
-    LaneIndex: 26
-  - Time: 200.77586
-    Type: 0
-    LaneIndex: 14
-  - Time: 200.86208
-    Type: 0
-    LaneIndex: 22
-  - Time: 201.03448
-    Type: 0
-    LaneIndex: 29
-  - Time: 201.1207
-    Type: 0
-    LaneIndex: 7
-  - Time: 201.2931
-    Type: 0
-    LaneIndex: 30
-  - Time: 201.37932
-    Type: 0
-    LaneIndex: 22
-  - Time: 201.55173
-    Type: 0
-    LaneIndex: 8
-  - Time: 201.63794
-    Type: 0
-    LaneIndex: 11
-  - Time: 201.72415
-    Type: 0
-    LaneIndex: 30
-  - Time: 201.81035
-    Type: 0
-    LaneIndex: 26
-  - Time: 201.98277
-    Type: 0
-    LaneIndex: 17
-  - Time: 202.06897
-    Type: 0
-    LaneIndex: 9
-  - Time: 202.2414
+    Duration: 0
+  - Time: 194.05173
     Type: 0
     LaneIndex: 3
+    Duration: 0
+  - Time: 194.39656
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 194.56897
+    Type: 0
+    LaneIndex: 8
+    Duration: 0
+  - Time: 194.74138
+    Type: 0
+    LaneIndex: 17
+    Duration: 0
+  - Time: 194.9138
+    Type: 0
+    LaneIndex: 23
+    Duration: 0
+  - Time: 195.08621
+    Type: 0
+    LaneIndex: 13
+    Duration: 0
+  - Time: 195.25862
+    Type: 0
+    LaneIndex: 1
+    Duration: 0
+  - Time: 195.43105
+    Type: 0
+    LaneIndex: 11
+    Duration: 0
+  - Time: 195.60345
+    Type: 0
+    LaneIndex: 13
+    Duration: 0
+  - Time: 195.77586
+    Type: 0
+    LaneIndex: 20
+    Duration: 0
+  - Time: 195.94827
+    Type: 0
+    LaneIndex: 19
+    Duration: 0
+  - Time: 196.1207
+    Type: 0
+    LaneIndex: 1
+    Duration: 0
+  - Time: 196.2931
+    Type: 0
+    LaneIndex: 20
+    Duration: 0
+  - Time: 196.55173
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 196.81035
+    Type: 0
+    LaneIndex: 26
+    Duration: 0
+  - Time: 196.98276
+    Type: 0
+    LaneIndex: 27
+    Duration: 0
+  - Time: 197.15518
+    Type: 0
+    LaneIndex: 20
+    Duration: 0
+  - Time: 197.32759
+    Type: 0
+    LaneIndex: 20
+    Duration: 0
+  - Time: 197.5
+    Type: 0
+    LaneIndex: 18
+    Duration: 0
+  - Time: 197.75862
+    Type: 0
+    LaneIndex: 1
+    Duration: 0
+  - Time: 198.01724
+    Type: 0
+    LaneIndex: 18
+    Duration: 0
+  - Time: 198.18965
+    Type: 0
+    LaneIndex: 27
+    Duration: 0
+  - Time: 198.36208
+    Type: 0
+    LaneIndex: 23
+    Duration: 0
+  - Time: 198.53448
+    Type: 0
+    LaneIndex: 18
+    Duration: 0
+  - Time: 198.7069
+    Type: 0
+    LaneIndex: 4
+    Duration: 0
+  - Time: 198.87932
+    Type: 0
+    LaneIndex: 29
+    Duration: 0
+  - Time: 199.13794
+    Type: 0
+    LaneIndex: 15
+    Duration: 0
+  - Time: 199.31035
+    Type: 1
+    LaneIndex: 15
+    Duration: 0.41724244
+  - Time: 199.82759
+    Type: 0
+    LaneIndex: 20
+    Duration: 0
+  - Time: 200.08621
+    Type: 0
+    LaneIndex: 10
+    Duration: 0
+  - Time: 200.25862
+    Type: 0
+    LaneIndex: 17
+    Duration: 0
+  - Time: 200.43105
+    Type: 0
+    LaneIndex: 9
+    Duration: 0
+  - Time: 200.77586
+    Type: 0
+    LaneIndex: 8
+    Duration: 0
+  - Time: 200.94827
+    Type: 0
+    LaneIndex: 16
+    Duration: 0
+  - Time: 201.1207
+    Type: 0
+    LaneIndex: 15
+    Duration: 0
+  - Time: 201.2931
+    Type: 0
+    LaneIndex: 6
+    Duration: 0
+  - Time: 201.46552
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 201.63794
+    Type: 0
+    LaneIndex: 31
+    Duration: 0
+  - Time: 201.81035
+    Type: 0
+    LaneIndex: 2
+    Duration: 0
+  - Time: 201.98276
+    Type: 0
+    LaneIndex: 2
+    Duration: 0
+  - Time: 202.15518
+    Type: 0
+    LaneIndex: 26
+    Duration: 0
   - Time: 202.32759
     Type: 0
     LaneIndex: 3
-  - Time: 202.4138
+    Duration: 0
+  - Time: 202.5
     Type: 0
-    LaneIndex: 6
-  - Time: 202.50002
+    LaneIndex: 21
+    Duration: 0
+  - Time: 202.67242
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
+  - Time: 202.84483
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 203.01724
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 203.18965
+    Type: 0
+    LaneIndex: 8
+    Duration: 0
+  - Time: 203.36208
     Type: 0
     LaneIndex: 26
-  - Time: 202.58621
-    Type: 0
-    LaneIndex: 17
-  - Time: 202.75862
-    Type: 0
-    LaneIndex: 19
-  - Time: 202.93103
-    Type: 0
-    LaneIndex: 20
-  - Time: 203.10345
-    Type: 0
-    LaneIndex: 11
-  - Time: 203.44827
-    Type: 0
-    LaneIndex: 31
+    Duration: 0
   - Time: 203.53448
     Type: 0
-    LaneIndex: 18
-  - Time: 203.6207
-    Type: 0
-    LaneIndex: 19
+    LaneIndex: 24
+    Duration: 0
   - Time: 203.7069
     Type: 0
-    LaneIndex: 0
-  - Time: 203.7931
-    Type: 0
-    LaneIndex: 24
+    LaneIndex: 20
+    Duration: 0
   - Time: 203.87932
     Type: 0
-    LaneIndex: 5
-  - Time: 203.96552
-    Type: 0
-    LaneIndex: 22
-  - Time: 204.13794
-    Type: 0
-    LaneIndex: 11
-  - Time: 204.48277
-    Type: 0
     LaneIndex: 16
-  - Time: 204.56897
+    Duration: 0
+  - Time: 204.05173
     Type: 0
-    LaneIndex: 10
+    LaneIndex: 14
+    Duration: 0
+  - Time: 204.22414
+    Type: 0
+    LaneIndex: 15
+    Duration: 0
+  - Time: 204.39656
+    Type: 0
+    LaneIndex: 18
+    Duration: 0
   - Time: 204.65518
     Type: 0
-    LaneIndex: 21
-  - Time: 204.82759
-    Type: 0
-    LaneIndex: 21
+    LaneIndex: 8
+    Duration: 0
   - Time: 204.9138
     Type: 0
-    LaneIndex: 22
+    LaneIndex: 20
+    Duration: 0
   - Time: 205.08621
     Type: 0
-    LaneIndex: 15
-  - Time: 205.17242
+    LaneIndex: 30
+    Duration: 0
+  - Time: 205.25862
     Type: 0
-    LaneIndex: 31
-  - Time: 205.25864
-    Type: 0
-    LaneIndex: 12
-  - Time: 205.34483
-    Type: 0
-    LaneIndex: 6
-  - Time: 205.51724
-    Type: 0
-    LaneIndex: 15
+    LaneIndex: 16
+    Duration: 0
   - Time: 205.60345
     Type: 0
-    LaneIndex: 30
-  - Time: 205.68965
+    LaneIndex: 8
+    Duration: 0
+  - Time: 205.77586
     Type: 0
-    LaneIndex: 7
-  - Time: 205.86208
-    Type: 0
-    LaneIndex: 17
+    LaneIndex: 28
+    Duration: 0
   - Time: 206.03448
     Type: 0
-    LaneIndex: 5
-  - Time: 206.1207
-    Type: 0
-    LaneIndex: 7
-  - Time: 206.2069
-    Type: 0
-    LaneIndex: 21
+    LaneIndex: 13
+    Duration: 0
   - Time: 206.2931
     Type: 0
-    LaneIndex: 24
+    LaneIndex: 27
+    Duration: 0
   - Time: 206.46552
     Type: 0
-    LaneIndex: 30
-  - Time: 206.55173
-    Type: 0
-    LaneIndex: 8
-  - Time: 206.89656
-    Type: 0
-    LaneIndex: 21
-  - Time: 207.06897
+    LaneIndex: 10
+    Duration: 0
+  - Time: 206.63794
     Type: 0
     LaneIndex: 6
+    Duration: 0
+  - Time: 206.81035
+    Type: 0
+    LaneIndex: 21
+    Duration: 0
+  - Time: 206.98276
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
   - Time: 207.15518
     Type: 0
-    LaneIndex: 3
-  - Time: 207.2414
-    Type: 0
-    LaneIndex: 22
+    LaneIndex: 6
+    Duration: 0
   - Time: 207.32759
     Type: 0
-    LaneIndex: 7
-  - Time: 207.4138
-    Type: 0
-    LaneIndex: 4
+    LaneIndex: 16
+    Duration: 0
   - Time: 207.58621
     Type: 0
-    LaneIndex: 2
-  - Time: 207.93105
-    Type: 0
     LaneIndex: 18
-  - Time: 208.01726
+    Duration: 0
+  - Time: 207.84483
     Type: 0
-    LaneIndex: 8
-  - Time: 208.18967
+    LaneIndex: 26
+    Duration: 0
+  - Time: 208.01724
     Type: 0
-    LaneIndex: 30
-  - Time: 208.44827
+    LaneIndex: 26
+    Duration: 0
+  - Time: 208.18965
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 208.36208
     Type: 0
     LaneIndex: 22
-  - Time: 208.6207
+    Duration: 0
+  - Time: 208.53448
     Type: 0
-    LaneIndex: 10
-  - Time: 208.7931
+    LaneIndex: 21
+    Duration: 0
+  - Time: 208.7069
     Type: 0
-    LaneIndex: 8
-  - Time: 208.96552
+    LaneIndex: 12
+    Duration: 0
+  - Time: 208.87932
     Type: 0
-    LaneIndex: 30
+    LaneIndex: 27
+    Duration: 0
   - Time: 209.05173
     Type: 0
-    LaneIndex: 12
+    LaneIndex: 6
+    Duration: 0
   - Time: 209.22414
     Type: 0
-    LaneIndex: 6
-  - Time: 209.31035
-    Type: 0
-    LaneIndex: 12
+    LaneIndex: 5
+    Duration: 0
   - Time: 209.39656
     Type: 0
-    LaneIndex: 11
-  - Time: 209.56897
-    Type: 0
-    LaneIndex: 29
-  - Time: 209.65518
-    Type: 0
-    LaneIndex: 2
-  - Time: 210.00002
-    Type: 0
-    LaneIndex: 17
-  - Time: 210.68967
-    Type: 0
-    LaneIndex: 20
-  - Time: 212.06897
-    Type: 0
-    LaneIndex: 9
-  - Time: 212.4138
-    Type: 0
-    LaneIndex: 0
-  - Time: 213.44829
+    LaneIndex: 13
+    Duration: 0
+  - Time: 209.74138
     Type: 0
     LaneIndex: 14
-  - Time: 213.7931
+    Duration: 0
+  - Time: 212.84483
     Type: 0
-    LaneIndex: 6
-  - Time: 213.96552
+    LaneIndex: 26
+    Duration: 0
+  - Time: 213.18965
+    Type: 0
+    LaneIndex: 31
+    Duration: 0
+  - Time: 213.36208
+    Type: 0
+    LaneIndex: 23
+    Duration: 0
+  - Time: 213.53448
+    Type: 0
+    LaneIndex: 17
+    Duration: 0
+  - Time: 213.7069
+    Type: 0
+    LaneIndex: 21
+    Duration: 0
+  - Time: 214.05173
     Type: 0
     LaneIndex: 3
-  - Time: 214.13794
-    Type: 0
-    LaneIndex: 28
+    Duration: 0
   - Time: 214.22414
     Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 214.39656
+    Type: 0
     LaneIndex: 3
-  - Time: 214.31035
-    Type: 0
-    LaneIndex: 31
-  - Time: 214.56897
-    Type: 0
-    LaneIndex: 29
-  - Time: 214.65518
-    Type: 0
-    LaneIndex: 17
-  - Time: 214.82759
-    Type: 0
-    LaneIndex: 1
-  - Time: 215
+    Duration: 0
+  - Time: 214.74138
     Type: 0
     LaneIndex: 25
-  - Time: 215.25864
+    Duration: 0
+  - Time: 214.9138
     Type: 0
-    LaneIndex: 23
-  - Time: 215.34483
+    LaneIndex: 20
+    Duration: 0
+  - Time: 215.08621
     Type: 0
-    LaneIndex: 27
-  - Time: 215.51726
+    LaneIndex: 5
+    Duration: 0
+  - Time: 215.25862
     Type: 0
-    LaneIndex: 3
+    LaneIndex: 16
+    Duration: 0
+  - Time: 215.43105
+    Type: 0
+    LaneIndex: 25
+    Duration: 0
   - Time: 215.60345
     Type: 0
-    LaneIndex: 19
-  - Time: 215.68967
+    LaneIndex: 2
+    Duration: 0
+  - Time: 215.77586
     Type: 0
-    LaneIndex: 3
-  - Time: 215.77588
+    LaneIndex: 1
+    Duration: 0
+  - Time: 215.94827
     Type: 0
-    LaneIndex: 3
-  - Time: 216.0345
-    Type: 0
-    LaneIndex: 7
+    LaneIndex: 23
+    Duration: 0
   - Time: 216.1207
     Type: 0
+    LaneIndex: 7
+    Duration: 0
+  - Time: 216.2931
+    Type: 0
     LaneIndex: 16
-  - Time: 216.20691
+    Duration: 0
+  - Time: 216.46552
     Type: 0
-    LaneIndex: 5
-  - Time: 216.29312
-    Type: 0
-    LaneIndex: 10
-  - Time: 216.37932
-    Type: 0
-    LaneIndex: 30
+    LaneIndex: 20
+    Duration: 0
   - Time: 216.63794
     Type: 0
-    LaneIndex: 15
-  - Time: 216.72414
-    Type: 0
-    LaneIndex: 6
+    LaneIndex: 30
+    Duration: 0
   - Time: 216.81035
     Type: 0
-    LaneIndex: 29
-  - Time: 216.89656
+    LaneIndex: 8
+    Duration: 0
+  - Time: 216.98276
     Type: 0
-    LaneIndex: 14
-  - Time: 217.06897
-    Type: 0
-    LaneIndex: 11
+    LaneIndex: 6
+    Duration: 0
   - Time: 217.15518
     Type: 0
-    LaneIndex: 8
-  - Time: 217.24138
-    Type: 0
-    LaneIndex: 26
-  - Time: 217.32759
-    Type: 0
-    LaneIndex: 10
-  - Time: 217.4138
-    Type: 0
-    LaneIndex: 23
+    LaneIndex: 28
+    Duration: 0
   - Time: 217.5
     Type: 0
-    LaneIndex: 11
-  - Time: 217.58621
-    Type: 0
-    LaneIndex: 15
+    LaneIndex: 8
+    Duration: 0
   - Time: 217.67242
     Type: 0
-    LaneIndex: 12
-  - Time: 217.84483
-    Type: 0
-    LaneIndex: 0
+    LaneIndex: 22
+    Duration: 0
   - Time: 217.93105
     Type: 0
-    LaneIndex: 16
-  - Time: 218.10345
+    LaneIndex: 19
+    Duration: 0
+  - Time: 218.18965
     Type: 0
-    LaneIndex: 3
-  - Time: 218.18967
-    Type: 0
-    LaneIndex: 0
-  - Time: 218.27588
-    Type: 0
-    LaneIndex: 30
+    LaneIndex: 31
+    Duration: 0
   - Time: 218.36208
     Type: 0
-    LaneIndex: 0
-  - Time: 218.5345
+    LaneIndex: 12
+    Duration: 0
+  - Time: 218.53448
     Type: 0
-    LaneIndex: 24
-  - Time: 218.6207
+    LaneIndex: 19
+    Duration: 0
+  - Time: 218.7931
     Type: 0
-    LaneIndex: 30
-  - Time: 218.70691
+    LaneIndex: 22
+    Duration: 0
+  - Time: 219.05173
     Type: 0
     LaneIndex: 25
-  - Time: 218.79312
-    Type: 0
-    LaneIndex: 14
-  - Time: 218.96553
-    Type: 0
-    LaneIndex: 6
-  - Time: 219.05174
-    Type: 0
-    LaneIndex: 29
-  - Time: 219.13794
-    Type: 0
-    LaneIndex: 3
-  - Time: 219.22415
-    Type: 0
-    LaneIndex: 0
-  - Time: 219.31035
-    Type: 0
-    LaneIndex: 17
+    Duration: 0
   - Time: 219.39656
     Type: 0
-    LaneIndex: 10
+    LaneIndex: 19
+    Duration: 0
   - Time: 219.56897
     Type: 0
-    LaneIndex: 2
-  - Time: 219.65518
-    Type: 0
-    LaneIndex: 19
+    LaneIndex: 5
+    Duration: 0
   - Time: 219.74138
     Type: 0
-    LaneIndex: 14
-  - Time: 219.9138
-    Type: 0
-    LaneIndex: 14
-  - Time: 220
-    Type: 0
-    LaneIndex: 1
+    LaneIndex: 30
+    Duration: 0
   - Time: 220.08621
     Type: 0
-    LaneIndex: 20
-  - Time: 220.17242
-    Type: 0
-    LaneIndex: 23
+    LaneIndex: 19
+    Duration: 0
   - Time: 220.25862
     Type: 0
-    LaneIndex: 16
-  - Time: 220.34483
+    LaneIndex: 29
+    Duration: 0
+  - Time: 220.51724
     Type: 0
-    LaneIndex: 13
-  - Time: 220.60345
+    LaneIndex: 15
+    Duration: 0
+  - Time: 220.77586
     Type: 0
-    LaneIndex: 16
-  - Time: 220.68967
+    LaneIndex: 6
+    Duration: 0
+  - Time: 221.03448
     Type: 0
     LaneIndex: 24
-  - Time: 220.77588
+    Duration: 0
+  - Time: 221.2931
     Type: 0
-    LaneIndex: 23
-  - Time: 220.86208
+    LaneIndex: 18
+    Duration: 0
+  - Time: 221.46552
     Type: 0
-    LaneIndex: 10
-  - Time: 220.94829
+    LaneIndex: 25
+    Duration: 0
+  - Time: 221.72414
     Type: 0
-    LaneIndex: 28
-  - Time: 221.0345
-    Type: 0
-    LaneIndex: 1
-  - Time: 221.20691
-    Type: 0
-    LaneIndex: 7
-  - Time: 221.37932
-    Type: 0
-    LaneIndex: 3
-  - Time: 221.46553
-    Type: 0
-    LaneIndex: 14
-  - Time: 221.55174
-    Type: 0
-    LaneIndex: 22
-  - Time: 221.72415
-    Type: 0
-    LaneIndex: 22
+    LaneIndex: 12
+    Duration: 0
   - Time: 221.89656
     Type: 0
-    LaneIndex: 16
+    LaneIndex: 20
+    Duration: 0
   - Time: 222.06897
-    Type: 0
-    LaneIndex: 6
-  - Time: 222.24138
+    Type: 1
+    LaneIndex: 31
+    Duration: 0.33103028
+  - Time: 222.5
     Type: 0
     LaneIndex: 8
-  - Time: 222.4138
-    Type: 0
-    LaneIndex: 20
-  - Time: 222.58621
-    Type: 0
-    LaneIndex: 19
+    Duration: 0
   - Time: 222.67242
     Type: 0
-    LaneIndex: 11
-  - Time: 222.75862
-    Type: 0
-    LaneIndex: 6
-  - Time: 222.93105
-    Type: 0
-    LaneIndex: 5
+    LaneIndex: 12
+    Duration: 0
   - Time: 223.01724
     Type: 0
-    LaneIndex: 12
-  - Time: 223.10345
+    LaneIndex: 31
+    Duration: 0
+  - Time: 223.18967
     Type: 0
-    LaneIndex: 7
+    LaneIndex: 29
+    Duration: 0
   - Time: 223.36208
     Type: 0
-    LaneIndex: 8
-  - Time: 223.44827
-    Type: 0
-    LaneIndex: 0
+    LaneIndex: 23
+    Duration: 0
   - Time: 223.53448
     Type: 0
-    LaneIndex: 26
-  - Time: 223.62068
-    Type: 0
-    LaneIndex: 18
+    LaneIndex: 9
+    Duration: 0
   - Time: 223.7069
     Type: 0
-    LaneIndex: 23
-  - Time: 223.8793
-    Type: 0
-    LaneIndex: 23
+    LaneIndex: 4
+    Duration: 0
   - Time: 224.05173
     Type: 0
-    LaneIndex: 18
+    LaneIndex: 1
+    Duration: 0
   - Time: 224.22414
     Type: 0
-    LaneIndex: 10
-  - Time: 224.31035
-    Type: 0
-    LaneIndex: 1
+    LaneIndex: 6
+    Duration: 0
   - Time: 224.48276
     Type: 0
-    LaneIndex: 19
-  - Time: 224.56897
-    Type: 0
-    LaneIndex: 28
+    LaneIndex: 10
+    Duration: 0
   - Time: 224.74138
     Type: 0
-    LaneIndex: 14
-  - Time: 224.82759
-    Type: 0
-    LaneIndex: 9
+    LaneIndex: 7
+    Duration: 0
   - Time: 224.9138
     Type: 0
-    LaneIndex: 0
+    LaneIndex: 8
+    Duration: 0
   - Time: 225.08621
     Type: 0
-    LaneIndex: 30
-  - Time: 225.34483
+    LaneIndex: 3
+    Duration: 0
+  - Time: 225.25862
     Type: 0
-    LaneIndex: 16
+    LaneIndex: 14
+    Duration: 0
   - Time: 225.43105
     Type: 0
-    LaneIndex: 10
-  - Time: 225.51724
-    Type: 0
-    LaneIndex: 26
-  - Time: 225.60345
-    Type: 0
-    LaneIndex: 19
-  - Time: 225.68967
-    Type: 0
-    LaneIndex: 15
+    LaneIndex: 20
+    Duration: 0
   - Time: 225.77586
     Type: 0
-    LaneIndex: 22
-  - Time: 226.03448
+    LaneIndex: 5
+    Duration: 0
+  - Time: 225.94827
     Type: 0
-    LaneIndex: 7
+    LaneIndex: 22
+    Duration: 0
   - Time: 226.2069
     Type: 0
-    LaneIndex: 8
-  - Time: 226.3793
+    LaneIndex: 20
+    Duration: 0
+  - Time: 226.46552
     Type: 0
-    LaneIndex: 12
-  - Time: 226.55173
+    LaneIndex: 20
+    Duration: 0
+  - Time: 226.63794
     Type: 0
-    LaneIndex: 10
-  - Time: 226.72414
-    Type: 0
-    LaneIndex: 30
+    LaneIndex: 29
+    Duration: 0
   - Time: 226.81035
     Type: 0
-    LaneIndex: 21
-  - Time: 227.06897
+    LaneIndex: 27
+    Duration: 0
+  - Time: 226.98276
     Type: 0
     LaneIndex: 30
-  - Time: 227.15517
-    Type: 0
-    LaneIndex: 11
+    Duration: 0
   - Time: 227.24138
     Type: 0
-    LaneIndex: 24
-  - Time: 227.32759
+    LaneIndex: 0
+    Duration: 0
+  - Time: 227.4138
     Type: 0
-    LaneIndex: 20
-  - Time: 227.41379
+    LaneIndex: 8
+    Duration: 0
+  - Time: 227.67242
     Type: 0
-    LaneIndex: 13
-  - Time: 227.58621
+    LaneIndex: 31
+    Duration: 0
+  - Time: 227.84483
     Type: 0
-    LaneIndex: 18
-  - Time: 227.75862
-    Type: 0
-    LaneIndex: 2
-  - Time: 227.93105
-    Type: 0
-    LaneIndex: 3
+    LaneIndex: 4
+    Duration: 0
   - Time: 228.01724
     Type: 0
-    LaneIndex: 23
-  - Time: 228.10345
-    Type: 0
-    LaneIndex: 29
+    LaneIndex: 14
+    Duration: 0
   - Time: 228.18967
     Type: 0
-    LaneIndex: 21
-  - Time: 228.27586
+    LaneIndex: 24
+    Duration: 0
+  - Time: 228.36208
     Type: 0
-    LaneIndex: 30
+    LaneIndex: 11
+    Duration: 0
   - Time: 228.53448
     Type: 0
-    LaneIndex: 11
-  - Time: 228.6207
+    LaneIndex: 30
+    Duration: 0
+  - Time: 228.7069
     Type: 0
-    LaneIndex: 27
-  - Time: 228.7931
+    LaneIndex: 19
+    Duration: 0
+  - Time: 228.87932
     Type: 0
-    LaneIndex: 23
-  - Time: 228.96552
-    Type: 0
-    LaneIndex: 5
+    LaneIndex: 19
+    Duration: 0
   - Time: 229.05173
     Type: 0
-    LaneIndex: 18
-  - Time: 229.31035
+    LaneIndex: 24
+    Duration: 0
+  - Time: 229.22414
     Type: 0
-    LaneIndex: 27
-  - Time: 229.48276
+    LaneIndex: 11
+    Duration: 0
+  - Time: 229.39656
     Type: 0
-    LaneIndex: 31
+    LaneIndex: 21
+    Duration: 0
+  - Time: 229.56897
+    Type: 0
+    LaneIndex: 23
+    Duration: 0
   - Time: 229.74138
     Type: 0
-    LaneIndex: 30
-  - Time: 229.82759
+    LaneIndex: 23
+    Duration: 0
+  - Time: 229.9138
     Type: 0
-    LaneIndex: 0
-  - Time: 230
+    LaneIndex: 15
+    Duration: 0
+  - Time: 230.08621
     Type: 0
-    LaneIndex: 31
-  - Time: 230.17241
+    LaneIndex: 18
+    Duration: 0
+  - Time: 230.25862
     Type: 0
-    LaneIndex: 31
-  - Time: 230.34483
-    Type: 0
-    LaneIndex: 28
+    LaneIndex: 10
+    Duration: 0
   - Time: 230.43105
     Type: 0
-    LaneIndex: 8
+    LaneIndex: 30
+    Duration: 0
   - Time: 230.60345
     Type: 0
-    LaneIndex: 17
-  - Time: 230.68967
-    Type: 0
-    LaneIndex: 5
+    LaneIndex: 9
+    Duration: 0
   - Time: 230.77586
     Type: 0
-    LaneIndex: 14
-  - Time: 230.86208
+    LaneIndex: 20
+    Duration: 0
+  - Time: 230.94827
     Type: 0
-    LaneIndex: 1
-  - Time: 230.94829
+    LaneIndex: 19
+    Duration: 0
+  - Time: 231.2069
     Type: 0
-    LaneIndex: 17
-  - Time: 231.03448
-    Type: 0
-    LaneIndex: 28
-  - Time: 231.1207
-    Type: 0
-    LaneIndex: 31
-  - Time: 231.20691
-    Type: 0
-    LaneIndex: 21
+    LaneIndex: 18
+    Duration: 0
   - Time: 231.37932
     Type: 0
-    LaneIndex: 23
+    LaneIndex: 13
+    Duration: 0
   - Time: 231.55173
     Type: 0
+    LaneIndex: 25
+    Duration: 0
+  - Time: 231.81035
+    Type: 0
+    LaneIndex: 7
+    Duration: 0
+  - Time: 231.98276
+    Type: 0
     LaneIndex: 24
-  - Time: 231.63794
+    Duration: 0
+  - Time: 232.24138
     Type: 0
-    LaneIndex: 6
-  - Time: 231.72414
+    LaneIndex: 22
+    Duration: 0
+  - Time: 232.5
+    Type: 1
+    LaneIndex: 17
+    Duration: 0.5896667
+  - Time: 233.18967
     Type: 0
-    LaneIndex: 12
-  - Time: 231.89655
+    LaneIndex: 13
+    Duration: 0
+  - Time: 233.53448
     Type: 0
-    LaneIndex: 31
-  - Time: 232.06897
+    LaneIndex: 10
+    Duration: 0
+  - Time: 233.87932
+    Type: 1
+    LaneIndex: 9
+    Duration: 0.58965147
+  - Time: 234.56897
     Type: 0
-    LaneIndex: 31
-  - Time: 232.15517
-    Type: 0
-    LaneIndex: 20
-  - Time: 232.32759
+    LaneIndex: 7
+    Duration: 0
+  - Time: 234.9138
     Type: 0
     LaneIndex: 4
-  - Time: 232.41379
+    Duration: 0
+  - Time: 235.08621
     Type: 0
-    LaneIndex: 24
-  - Time: 232.75862
+    LaneIndex: 6
+    Duration: 0
+  - Time: 235.43105
     Type: 0
-    LaneIndex: 15
-  - Time: 232.84483
+    LaneIndex: 3
+    Duration: 0
+  - Time: 235.60345
+    Type: 0
+    LaneIndex: 5
+    Duration: 0
+  - Time: 235.77586
     Type: 0
     LaneIndex: 1
-  - Time: 232.93103
+    Duration: 0
+  - Time: 235.94827
     Type: 0
-    LaneIndex: 12
-  - Time: 233.10345
+    LaneIndex: 1
+    Duration: 0
+  - Time: 236.1207
     Type: 0
+    LaneIndex: 3
+    Duration: 0
+  - Time: 236.2931
+    Type: 1
     LaneIndex: 0
-  - Time: 235.17241
+    Duration: 0.33103028
+  - Time: 236.72414
     Type: 0
     LaneIndex: 17
-  - Time: 236.89656
+    Duration: 0
+  - Time: 236.98276
     Type: 0
-    LaneIndex: 19
+    LaneIndex: 22
+    Duration: 0
+  - Time: 237.32759
+    Type: 0
+    LaneIndex: 26
+    Duration: 0
+  - Time: 237.5
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 237.67242
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 237.84483
+    Type: 0
+    LaneIndex: 13
+    Duration: 0
+  - Time: 238.10345
+    Type: 0
+    LaneIndex: 25
+    Duration: 0
+  - Time: 238.36208
+    Type: 0
+    LaneIndex: 18
+    Duration: 0
   - Time: 238.6207
     Type: 0
-    LaneIndex: 7
-  - Time: 238.96553
+    LaneIndex: 29
+    Duration: 0
+  - Time: 238.7931
     Type: 0
-    LaneIndex: 2
+    LaneIndex: 4
+    Duration: 0
+  - Time: 239.05173
+    Type: 0
+    LaneIndex: 13
+    Duration: 0
+  - Time: 239.22414
+    Type: 0
+    LaneIndex: 4
+    Duration: 0
+  - Time: 239.39656
+    Type: 0
+    LaneIndex: 23
+    Duration: 0
+  - Time: 239.56897
+    Type: 0
+    LaneIndex: 16
+    Duration: 0
+  - Time: 239.74138
+    Type: 0
+    LaneIndex: 11
+    Duration: 0
+  - Time: 239.9138
+    Type: 0
+    LaneIndex: 27
+    Duration: 0
+  - Time: 240.08621
+    Type: 0
+    LaneIndex: 27
+    Duration: 0
   - Time: 240.34483
     Type: 0
-    LaneIndex: 2
-  - Time: 241.37932
+    LaneIndex: 10
+    Duration: 0
+  - Time: 240.60345
     Type: 0
     LaneIndex: 2
-  - Time: 241.72415
+    Duration: 0
+  - Time: 240.86208
     Type: 0
-    LaneIndex: 3
+    LaneIndex: 19
+    Duration: 0
+  - Time: 241.03448
+    Type: 0
+    LaneIndex: 30
+    Duration: 0
+  - Time: 241.2069
+    Type: 1
+    LaneIndex: 2
+    Duration: 0.50345457
+  - Time: 241.81035
+    Type: 0
+    LaneIndex: 7
+    Duration: 0
   - Time: 242.06897
     Type: 0
-    LaneIndex: 17
-  - Time: 242.4138
-    Type: 0
+    LaneIndex: 1
+    Duration: 0
+  - Time: 242.32759
+    Type: 1
     LaneIndex: 24
-  - Time: 242.75862
+    Duration: 1.1068939
+  - Time: 243.53448
     Type: 0
-    LaneIndex: 21
-  - Time: 243.10345
+    LaneIndex: 13
+    Duration: 0
+  - Time: 243.87932
     Type: 0
-    LaneIndex: 15
-  - Time: 243.44827
+    LaneIndex: 10
+    Duration: 0
+  - Time: 244.05173
     Type: 0
-    LaneIndex: 26
-  - Time: 243.7931
+    LaneIndex: 31
+    Duration: 0
+  - Time: 244.22414
     Type: 0
-    LaneIndex: 16
-  - Time: 244.13794
-    Type: 0
-    LaneIndex: 3
-  - Time: 244.22415
-    Type: 0
-    LaneIndex: 21
+    LaneIndex: 10
+    Duration: 0
   - Time: 244.39656
     Type: 0
-    LaneIndex: 3
-  - Time: 244.48277
+    LaneIndex: 24
+    Duration: 0
+  - Time: 244.56897
     Type: 0
-    LaneIndex: 0
-  - Time: 244.65518
+    LaneIndex: 31
+    Duration: 0
+  - Time: 244.74138
     Type: 0
-    LaneIndex: 1
-  - Time: 244.82759
-    Type: 0
-    LaneIndex: 30
+    LaneIndex: 13
+    Duration: 0
   - Time: 244.9138
     Type: 0
-    LaneIndex: 20
-  - Time: 245.00002
-    Type: 0
-    LaneIndex: 16
-  - Time: 245.08621
+    LaneIndex: 31
+    Duration: 0
+  - Time: 245.25862
     Type: 0
     LaneIndex: 3
-  - Time: 245.17242
+    Duration: 0
+  - Time: 245.60345
     Type: 0
-    LaneIndex: 4
-  - Time: 245.25864
+    LaneIndex: 17
+    Duration: 0
+  - Time: 245.77586
     Type: 0
-    LaneIndex: 14
-  - Time: 245.34483
+    LaneIndex: 7
+    Duration: 0
+  - Time: 245.94827
     Type: 0
-    LaneIndex: 24
-  - Time: 245.86208
-    Type: 0
-    LaneIndex: 9
+    LaneIndex: 27
+    Duration: 0
   - Time: 246.2069
     Type: 0
-    LaneIndex: 11
-  - Time: 247.2414
+    LaneIndex: 1
+    Duration: 0
+  - Time: 246.46552
     Type: 0
-    LaneIndex: 9
-  - Time: 248.27586
+    LaneIndex: 2
+    Duration: 0
+  - Time: 246.63794
     Type: 0
-    LaneIndex: 19
-  - Time: 248.6207
-    Type: 0
-    LaneIndex: 28
-  - Time: 248.96552
-    Type: 0
-    LaneIndex: 20
-  - Time: 250.34483
+    LaneIndex: 4
+    Duration: 0
+  - Time: 246.98276
     Type: 0
     LaneIndex: 26
-  - Time: 251.03448
+    Duration: 0
+  - Time: 247.32759
     Type: 0
-    LaneIndex: 21
-  - Time: 251.2069
+    LaneIndex: 17
+    Duration: 0
+  - Time: 247.67242
     Type: 0
-    LaneIndex: 8
+    LaneIndex: 25
+    Duration: 0
+  - Time: 247.84483
+    Type: 0
+    LaneIndex: 10
+    Duration: 0
+  - Time: 248.01724
+    Type: 0
+    LaneIndex: 3
+    Duration: 0
+  - Time: 248.18967
+    Type: 0
+    LaneIndex: 15
+    Duration: 0
+  - Time: 248.36208
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 248.53448
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 248.7069
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 249.05173
+    Type: 0
+    LaneIndex: 15
+    Duration: 0
+  - Time: 249.31035
+    Type: 0
+    LaneIndex: 12
+    Duration: 0
+  - Time: 249.48276
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
+  - Time: 249.74138
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 250
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 250.17242
+    Type: 0
+    LaneIndex: 30
+    Duration: 0
+  - Time: 250.43105
+    Type: 0
+    LaneIndex: 6
+    Duration: 0
+  - Time: 250.60345
+    Type: 0
+    LaneIndex: 25
+    Duration: 0
+  - Time: 250.77586
+    Type: 0
+    LaneIndex: 9
+    Duration: 0
+  - Time: 250.94829
+    Type: 0
+    LaneIndex: 15
+    Duration: 0
+  - Time: 251.1207
+    Type: 0
+    LaneIndex: 12
+    Duration: 0
   - Time: 251.2931
     Type: 0
-    LaneIndex: 3
-  - Time: 251.37932
-    Type: 0
-    LaneIndex: 27
+    LaneIndex: 18
+    Duration: 0
   - Time: 251.55173
     Type: 0
-    LaneIndex: 6
-  - Time: 251.63794
-    Type: 0
-    LaneIndex: 15
+    LaneIndex: 7
+    Duration: 0
   - Time: 251.72414
     Type: 0
-    LaneIndex: 4
+    LaneIndex: 17
+    Duration: 0
   - Time: 251.89656
     Type: 0
-    LaneIndex: 9
-  - Time: 251.98276
-    Type: 0
-    LaneIndex: 4
-  - Time: 252.06897
-    Type: 0
-    LaneIndex: 25
+    LaneIndex: 6
+    Duration: 0
   - Time: 252.15518
     Type: 0
-    LaneIndex: 19
-  - Time: 252.24138
-    Type: 0
-    LaneIndex: 18
+    LaneIndex: 9
+    Duration: 0
   - Time: 252.32759
     Type: 0
-    LaneIndex: 22
-  - Time: 252.4138
-    Type: 0
-    LaneIndex: 22
-  - Time: 252.50002
-    Type: 0
     LaneIndex: 21
-  - Time: 252.67242
+    Duration: 0
+  - Time: 252.5
     Type: 0
-    LaneIndex: 13
-  - Time: 252.75864
-    Type: 0
-    LaneIndex: 9
+    LaneIndex: 14
+    Duration: 0
   - Time: 252.84483
     Type: 0
-    LaneIndex: 0
-  - Time: 253.01726
+    LaneIndex: 22
+    Duration: 0
+  - Time: 253.01724
     Type: 0
-    LaneIndex: 15
-  - Time: 253.10345
-    Type: 0
-    LaneIndex: 9
+    LaneIndex: 18
+    Duration: 0
   - Time: 253.18967
-    Type: 0
-    LaneIndex: 31
-  - Time: 253.27588
-    Type: 0
-    LaneIndex: 10
-  - Time: 253.36208
-    Type: 0
-    LaneIndex: 5
-  - Time: 253.44829
-    Type: 0
-    LaneIndex: 0
-  - Time: 253.5345
-    Type: 0
-    LaneIndex: 15
-  - Time: 253.70691
-    Type: 0
-    LaneIndex: 31
-  - Time: 253.7931
+    Type: 1
+    LaneIndex: 23
+    Duration: 1.279303
+  - Time: 254.56897
     Type: 0
     LaneIndex: 22
-  - Time: 254.13794
+    Duration: 0
+  - Time: 254.74138
     Type: 0
-    LaneIndex: 30
-  - Time: 254.48276
+    LaneIndex: 7
+    Duration: 0
+  - Time: 255
     Type: 0
-    LaneIndex: 26
-  - Time: 255.17242
-    Type: 0
-    LaneIndex: 23
-  - Time: 255.25864
-    Type: 0
-    LaneIndex: 31
+    LaneIndex: 28
+    Duration: 0
   - Time: 255.34483
     Type: 0
-    LaneIndex: 4
-  - Time: 255.51726
-    Type: 0
-    LaneIndex: 3
+    LaneIndex: 0
+    Duration: 0
   - Time: 255.60345
     Type: 0
-    LaneIndex: 23
-  - Time: 255.68967
-    Type: 0
-    LaneIndex: 15
-  - Time: 255.86208
+    LaneIndex: 19
+    Duration: 0
+  - Time: 255.77586
     Type: 0
     LaneIndex: 17
-  - Time: 256.0345
+    Duration: 0
+  - Time: 260.0862
     Type: 0
-    LaneIndex: 27
-  - Time: 256.2069
-    Type: 0
-    LaneIndex: 25
-  - Time: 256.29312
-    Type: 0
-    LaneIndex: 15
-  - Time: 256.4655
-    Type: 0
-    LaneIndex: 1
-  - Time: 256.55173
-    Type: 0
-    LaneIndex: 21
-  - Time: 256.63794
-    Type: 0
-    LaneIndex: 24
-  - Time: 256.81033
-    Type: 0
-    LaneIndex: 12
-  - Time: 256.89655
-    Type: 0
-    LaneIndex: 23
-  - Time: 256.98276
-    Type: 0
-    LaneIndex: 29
-  - Time: 257.06897
-    Type: 0
-    LaneIndex: 6
-  - Time: 257.15518
-    Type: 0
-    LaneIndex: 14
-  - Time: 257.2414
-    Type: 0
-    LaneIndex: 10
-  - Time: 257.4138
-    Type: 0
-    LaneIndex: 8
-  - Time: 257.5
-    Type: 0
-    LaneIndex: 29
-  - Time: 257.5862
-    Type: 0
-    LaneIndex: 25
-  - Time: 257.67242
+    LaneIndex: 7
+    Duration: 0
+  - Time: 260.43103
     Type: 0
     LaneIndex: 30
-  - Time: 257.75864
-    Type: 0
-    LaneIndex: 2
-  - Time: 257.93103
-    Type: 0
-    LaneIndex: 3
-  - Time: 258.01724
-    Type: 0
-    LaneIndex: 11
-  - Time: 258.10345
-    Type: 0
-    LaneIndex: 0
-  - Time: 258.27585
-    Type: 0
-    LaneIndex: 26
-  - Time: 258.44827
-    Type: 0
-    LaneIndex: 1
-  - Time: 258.6207
-    Type: 0
-    LaneIndex: 4
-  - Time: 258.7931
-    Type: 0
-    LaneIndex: 5
-  - Time: 258.8793
-    Type: 0
-    LaneIndex: 30
-  - Time: 258.9655
-    Type: 0
-    LaneIndex: 14
-  - Time: 259.13794
-    Type: 0
-    LaneIndex: 5
-  - Time: 259.31036
-    Type: 0
-    LaneIndex: 18
-  - Time: 259.39658
-    Type: 0
-    LaneIndex: 0
-  - Time: 259.4828
-    Type: 0
-    LaneIndex: 27
-  - Time: 259.65518
-    Type: 0
-    LaneIndex: 28
-  - Time: 259.7414
-    Type: 0
-    LaneIndex: 0
-  - Time: 259.91382
-    Type: 0
-    LaneIndex: 10
-  - Time: 260.00003
-    Type: 0
-    LaneIndex: 3
-  - Time: 260.25864
-    Type: 0
-    LaneIndex: 8
-  - Time: 260.51727
-    Type: 0
-    LaneIndex: 26
-  - Time: 260.60345
-    Type: 0
-    LaneIndex: 16
-  - Time: 260.68967
-    Type: 0
-    LaneIndex: 1
+    Duration: 0
   - Time: 260.77588
     Type: 0
-    LaneIndex: 19
-  - Time: 260.8621
-    Type: 0
-    LaneIndex: 20
-  - Time: 261.0345
-    Type: 0
-    LaneIndex: 19
+    LaneIndex: 14
+    Duration: 0
   - Time: 261.1207
     Type: 0
-    LaneIndex: 20
-  - Time: 261.29312
-    Type: 0
-    LaneIndex: 15
-  - Time: 261.37933
-    Type: 0
-    LaneIndex: 30
+    LaneIndex: 14
+    Duration: 0
   - Time: 261.4655
     Type: 0
-    LaneIndex: 8
-  - Time: 261.63794
+    LaneIndex: 12
+    Duration: 0
+  - Time: 261.81036
     Type: 0
-    LaneIndex: 22
-  - Time: 261.72415
-    Type: 0
-    LaneIndex: 2
-  - Time: 261.89658
-    Type: 0
-    LaneIndex: 1
-  - Time: 261.98276
-    Type: 0
-    LaneIndex: 2
-  - Time: 262.06897
-    Type: 0
-    LaneIndex: 11
+    LaneIndex: 3
+    Duration: 0
   - Time: 262.15518
     Type: 0
-    LaneIndex: 13
-  - Time: 262.32758
-    Type: 0
-    LaneIndex: 6
-  - Time: 262.4138
-    Type: 0
-    LaneIndex: 0
+    LaneIndex: 21
+    Duration: 0
   - Time: 262.5
     Type: 0
-    LaneIndex: 9
-  - Time: 262.5862
-    Type: 0
-    LaneIndex: 16
-  - Time: 262.67242
-    Type: 0
-    LaneIndex: 30
-  - Time: 262.75864
-    Type: 0
-    LaneIndex: 23
+    LaneIndex: 20
+    Duration: 0
   - Time: 262.84482
     Type: 0
-    LaneIndex: 3
-  - Time: 262.93103
-    Type: 0
-    LaneIndex: 13
-  - Time: 263.10345
-    Type: 0
-    LaneIndex: 25
-  - Time: 263.18967
-    Type: 0
-    LaneIndex: 2
-  - Time: 263.27588
-    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 263.01724
+    Type: 1
     LaneIndex: 23
-  - Time: 263.44827
-    Type: 0
-    LaneIndex: 27
-  - Time: 263.5345
-    Type: 0
-    LaneIndex: 16
+    Duration: 0.50345457
   - Time: 263.6207
     Type: 0
-    LaneIndex: 5
-  - Time: 263.70688
+    LaneIndex: 11
+    Duration: 0
+  - Time: 263.79312
     Type: 0
-    LaneIndex: 3
-  - Time: 263.7931
-    Type: 0
-    LaneIndex: 17
-  - Time: 263.8793
-    Type: 0
-    LaneIndex: 3
-  - Time: 263.9655
-    Type: 0
-    LaneIndex: 22
+    LaneIndex: 25
+    Duration: 0
   - Time: 264.05173
     Type: 0
-    LaneIndex: 13
-  - Time: 264.13794
-    Type: 0
-    LaneIndex: 26
-  - Time: 264.22412
-    Type: 0
-    LaneIndex: 21
-  - Time: 264.31033
-    Type: 0
-    LaneIndex: 30
-  - Time: 264.48276
-    Type: 0
-    LaneIndex: 21
-  - Time: 264.56897
-    Type: 0
-    LaneIndex: 25
-  - Time: 264.65518
-    Type: 0
-    LaneIndex: 23
+    LaneIndex: 16
+    Duration: 0
+  - Time: 264.39655
+    Type: 1
+    LaneIndex: 14
+    Duration: 0.33103028
   - Time: 264.82758
-    Type: 0
-    LaneIndex: 28
-  - Time: 264.9138
-    Type: 0
-    LaneIndex: 9
-  - Time: 265
-    Type: 0
-    LaneIndex: 2
-  - Time: 265.1724
-    Type: 0
-    LaneIndex: 23
-  - Time: 265.34482
-    Type: 0
+    Type: 1
     LaneIndex: 25
-  - Time: 265.43103
+    Duration: 0.6758789
+  - Time: 265.60345
     Type: 0
-    LaneIndex: 5
-  - Time: 265.51724
+    LaneIndex: 27
+    Duration: 0
+  - Time: 265.77588
     Type: 0
-    LaneIndex: 8
-  - Time: 265.60342
-    Type: 0
-    LaneIndex: 22
-  - Time: 265.68964
-    Type: 0
-    LaneIndex: 2
-  - Time: 265.77585
-    Type: 0
-    LaneIndex: 26
-  - Time: 265.94827
-    Type: 0
-    LaneIndex: 2
+    LaneIndex: 4
+    Duration: 0
   - Time: 266.0345
     Type: 0
-    LaneIndex: 20
-  - Time: 266.12067
-    Type: 0
-    LaneIndex: 5
+    LaneIndex: 12
+    Duration: 0
   - Time: 266.29312
     Type: 0
-    LaneIndex: 3
+    LaneIndex: 14
+    Duration: 0
   - Time: 266.4655
     Type: 0
-    LaneIndex: 15
-  - Time: 266.72415
+    LaneIndex: 20
+    Duration: 0
+  - Time: 266.63794
     Type: 0
-    LaneIndex: 29
+    LaneIndex: 22
+    Duration: 0
   - Time: 266.81036
     Type: 0
-    LaneIndex: 13
-  - Time: 266.89658
-    Type: 0
-    LaneIndex: 4
+    LaneIndex: 15
+    Duration: 0
   - Time: 266.98276
     Type: 0
-    LaneIndex: 16
-  - Time: 267.2414
-    Type: 0
-    LaneIndex: 23
+    LaneIndex: 4
+    Duration: 0
   - Time: 267.3276
     Type: 0
-    LaneIndex: 25
-  - Time: 267.5
-    Type: 0
-    LaneIndex: 17
-  - Time: 267.5862
-    Type: 0
-    LaneIndex: 28
+    LaneIndex: 8
+    Duration: 0
   - Time: 267.67242
     Type: 0
-    LaneIndex: 16
-  - Time: 267.75864
+    LaneIndex: 13
+    Duration: 0
+  - Time: 268.01724
     Type: 0
-    LaneIndex: 23
-  - Time: 267.93103
-    Type: 0
-    LaneIndex: 10
-  - Time: 268.10345
-    Type: 0
-    LaneIndex: 7
-  - Time: 268.27588
-    Type: 0
-    LaneIndex: 21
+    LaneIndex: 18
+    Duration: 0
   - Time: 268.36206
     Type: 0
-    LaneIndex: 14
-  - Time: 268.44827
-    Type: 0
-    LaneIndex: 31
-  - Time: 268.6207
-    Type: 0
-    LaneIndex: 16
+    LaneIndex: 7
+    Duration: 0
   - Time: 268.7069
     Type: 0
-    LaneIndex: 24
-  - Time: 268.79312
-    Type: 0
-    LaneIndex: 23
-  - Time: 268.8793
-    Type: 0
-    LaneIndex: 7
-  - Time: 268.9655
-    Type: 0
-    LaneIndex: 27
-  - Time: 269.13794
+    LaneIndex: 4
+    Duration: 0
+  - Time: 269.05173
     Type: 0
     LaneIndex: 21
-  - Time: 269.22412
-    Type: 0
-    LaneIndex: 10
-  - Time: 269.31033
-    Type: 0
-    LaneIndex: 12
+    Duration: 0
   - Time: 269.39655
     Type: 0
-    LaneIndex: 7
-  - Time: 269.56897
+    LaneIndex: 31
+    Duration: 0
+  - Time: 269.7414
     Type: 0
-    LaneIndex: 23
-  - Time: 269.65518
+    LaneIndex: 16
+    Duration: 0
+  - Time: 270.0862
     Type: 0
-    LaneIndex: 7
-  - Time: 269.82758
-    Type: 0
-    LaneIndex: 23
-  - Time: 269.9138
-    Type: 0
-    LaneIndex: 18
-  - Time: 270
-    Type: 0
-    LaneIndex: 13
-  - Time: 270.17242
-    Type: 0
-    LaneIndex: 27
-  - Time: 270.34482
-    Type: 0
-    LaneIndex: 1
+    LaneIndex: 4
+    Duration: 0
   - Time: 270.43103
     Type: 0
-    LaneIndex: 6
-  - Time: 270.51724
+    LaneIndex: 11
+    Duration: 0
+  - Time: 270.77588
     Type: 0
-    LaneIndex: 2
-  - Time: 270.60342
-    Type: 0
-    LaneIndex: 3
-  - Time: 270.68964
-    Type: 0
-    LaneIndex: 1
-  - Time: 270.77585
-    Type: 0
-    LaneIndex: 27
-  - Time: 270.94827
-    Type: 0
-    LaneIndex: 10
-  - Time: 271.0345
-    Type: 0
-    LaneIndex: 7
-  - Time: 271.12067
-    Type: 0
-    LaneIndex: 4
-  - Time: 271.20688
-    Type: 0
-    LaneIndex: 25
-  - Time: 271.2931
-    Type: 0
-    LaneIndex: 6
-  - Time: 271.3793
+    LaneIndex: 5
+    Duration: 0
+  - Time: 271.1207
     Type: 0
     LaneIndex: 3
+    Duration: 0
   - Time: 271.4655
     Type: 0
-    LaneIndex: 15
-  - Time: 271.6379
-    Type: 0
-    LaneIndex: 9
-  - Time: 271.72415
-    Type: 0
-    LaneIndex: 2
+    LaneIndex: 16
+    Duration: 0
   - Time: 271.81036
     Type: 0
-    LaneIndex: 27
-  - Time: 271.89658
+    LaneIndex: 10
+    Duration: 0
+  - Time: 272.15518
     Type: 0
-    LaneIndex: 1
-  - Time: 272.06897
-    Type: 0
-    LaneIndex: 19
-  - Time: 272.2414
-    Type: 0
-    LaneIndex: 12
+    LaneIndex: 6
+    Duration: 0
   - Time: 272.3276
     Type: 0
-    LaneIndex: 22
-  - Time: 272.41382
-    Type: 0
-    LaneIndex: 15
+    LaneIndex: 9
+    Duration: 0
   - Time: 272.5
     Type: 0
-    LaneIndex: 25
-  - Time: 272.75864
-    Type: 0
-    LaneIndex: 5
-  - Time: 272.93106
+    LaneIndex: 18
+    Duration: 0
+  - Time: 272.84482
     Type: 0
     LaneIndex: 11
-  - Time: 273.10345
-    Type: 0
-    LaneIndex: 20
+    Duration: 0
   - Time: 273.18967
     Type: 0
-    LaneIndex: 1
-  - Time: 273.27588
+    LaneIndex: 13
+    Duration: 0
+  - Time: 273.5345
     Type: 0
-    LaneIndex: 2
-  - Time: 273.36206
-    Type: 0
-    LaneIndex: 30
-  - Time: 273.44827
-    Type: 0
-    LaneIndex: 5
-  - Time: 273.79312
-    Type: 0
-    LaneIndex: 18
+    LaneIndex: 28
+    Duration: 0
   - Time: 273.8793
     Type: 0
-    LaneIndex: 28
-  - Time: 273.9655
-    Type: 0
     LaneIndex: 8
-  - Time: 274.13794
-    Type: 0
-    LaneIndex: 4
+    Duration: 0
   - Time: 274.22415
     Type: 0
-    LaneIndex: 8
-  - Time: 274.31036
+    LaneIndex: 3
+    Duration: 0
+  - Time: 274.56897
     Type: 0
-    LaneIndex: 12
-  - Time: 274.48276
-    Type: 0
-    LaneIndex: 21
-  - Time: 274.82758
-    Type: 0
-    LaneIndex: 13
+    LaneIndex: 22
+    Duration: 0
   - Time: 274.9138
     Type: 0
-    LaneIndex: 14
-  - Time: 275
-    Type: 0
-    LaneIndex: 13
-  - Time: 275.0862
-    Type: 0
-    LaneIndex: 11
-  - Time: 275.17242
-    Type: 0
-    LaneIndex: 1
-  - Time: 275.2586
-    Type: 0
-    LaneIndex: 31
-  - Time: 275.43103
-    Type: 0
-    LaneIndex: 17
-  - Time: 275.51724
-    Type: 0
-    LaneIndex: 22
-  - Time: 275.77585
-    Type: 0
-    LaneIndex: 25
-  - Time: 275.86206
-    Type: 0
-    LaneIndex: 3
-  - Time: 276.0345
-    Type: 0
-    LaneIndex: 17
-  - Time: 276.20688
-    Type: 0
-    LaneIndex: 28
-  - Time: 276.3793
-    Type: 0
-    LaneIndex: 26
-  - Time: 276.55173
-    Type: 0
-    LaneIndex: 8
-  - Time: 276.81033
-    Type: 0
-    LaneIndex: 23
-  - Time: 276.89655
-    Type: 0
     LaneIndex: 10
-  - Time: 277.06897
-    Type: 0
-    LaneIndex: 17
-  - Time: 277.2414
-    Type: 0
-    LaneIndex: 27
-  - Time: 277.3276
-    Type: 0
-    LaneIndex: 30
-  - Time: 277.41382
-    Type: 0
-    LaneIndex: 16
-  - Time: 277.5862
-    Type: 0
-    LaneIndex: 30
-  - Time: 277.67242
-    Type: 0
-    LaneIndex: 26
-  - Time: 277.84485
-    Type: 0
-    LaneIndex: 14
-  - Time: 277.93106
-    Type: 0
-    LaneIndex: 19
-  - Time: 278.27588
-    Type: 0
-    LaneIndex: 6
-  - Time: 278.4483
-    Type: 0
-    LaneIndex: 11
-  - Time: 278.7069
-    Type: 0
-    LaneIndex: 2
-  - Time: 278.8793
-    Type: 0
-    LaneIndex: 5
-  - Time: 278.9655
+    Duration: 0
+  - Time: 275.25864
     Type: 0
     LaneIndex: 15
-  - Time: 279.31036
-    Type: 0
-    LaneIndex: 10
-  - Time: 279.48276
-    Type: 0
-    LaneIndex: 27
-  - Time: 279.65518
-    Type: 0
-    LaneIndex: 15
-  - Time: 279.7414
-    Type: 0
-    LaneIndex: 19
-  - Time: 279.9138
-    Type: 0
-    LaneIndex: 27
-  - Time: 280
-    Type: 0
-    LaneIndex: 30
-  - Time: 280.0862
-    Type: 0
-    LaneIndex: 22
-  - Time: 280.2586
-    Type: 0
-    LaneIndex: 26
-  - Time: 280.34482
-    Type: 0
-    LaneIndex: 4
-  - Time: 280.43103
-    Type: 0
-    LaneIndex: 0
-  - Time: 280.51724
-    Type: 0
-    LaneIndex: 16
-  - Time: 280.60345
-    Type: 0
-    LaneIndex: 13
-  - Time: 280.68967
-    Type: 0
-    LaneIndex: 17
-  - Time: 280.77585
-    Type: 0
-    LaneIndex: 26
-  - Time: 280.94827
-    Type: 0
-    LaneIndex: 21
-  - Time: 281.0345
-    Type: 0
-    LaneIndex: 14
-  - Time: 281.1207
-    Type: 0
-    LaneIndex: 25
-  - Time: 281.2069
-    Type: 0
-    LaneIndex: 3
-  - Time: 281.2931
-    Type: 0
-    LaneIndex: 26
-  - Time: 281.3793
-    Type: 0
-    LaneIndex: 15
-  - Time: 281.4655
-    Type: 0
-    LaneIndex: 4
-  - Time: 281.55173
+    Duration: 0
+  - Time: 275.60345
     Type: 0
     LaneIndex: 9
-  - Time: 281.72412
-    Type: 0
-    LaneIndex: 25
-  - Time: 281.81033
-    Type: 0
-    LaneIndex: 24
-  - Time: 281.89655
-    Type: 0
-    LaneIndex: 6
-  - Time: 282.06897
-    Type: 0
-    LaneIndex: 14
-  - Time: 282.24136
-    Type: 0
-    LaneIndex: 26
-  - Time: 282.32758
-    Type: 0
-    LaneIndex: 18
-  - Time: 282.4138
-    Type: 0
-    LaneIndex: 6
-  - Time: 282.5
-    Type: 0
-    LaneIndex: 27
-  - Time: 282.5862
-    Type: 0
-    LaneIndex: 24
-  - Time: 282.6724
-    Type: 0
-    LaneIndex: 1
-  - Time: 282.75864
-    Type: 0
-    LaneIndex: 0
-  - Time: 282.84485
-    Type: 0
-    LaneIndex: 2
-  - Time: 283.01724
-    Type: 0
-    LaneIndex: 18
-  - Time: 283.10345
-    Type: 0
-    LaneIndex: 12
-  - Time: 283.18967
-    Type: 0
-    LaneIndex: 25
-  - Time: 283.27588
-    Type: 0
-    LaneIndex: 3
-  - Time: 283.3621
-    Type: 0
-    LaneIndex: 16
-  - Time: 283.4483
-    Type: 0
-    LaneIndex: 24
-  - Time: 283.7069
-    Type: 0
-    LaneIndex: 2
-  - Time: 283.87933
-    Type: 0
-    LaneIndex: 19
-  - Time: 284.05173
-    Type: 0
-    LaneIndex: 3
-  - Time: 284.13794
-    Type: 0
-    LaneIndex: 26
-  - Time: 284.22415
-    Type: 0
-    LaneIndex: 14
-  - Time: 284.39655
-    Type: 0
-    LaneIndex: 16
-  - Time: 284.48276
-    Type: 0
-    LaneIndex: 17
-  - Time: 284.56897
-    Type: 0
-    LaneIndex: 16
-  - Time: 284.65518
-    Type: 0
-    LaneIndex: 16
-  - Time: 284.8276
-    Type: 0
-    LaneIndex: 25
-  - Time: 284.9138
-    Type: 0
-    LaneIndex: 28
-  - Time: 285.17242
-    Type: 0
-    LaneIndex: 7
-  - Time: 285.25864
-    Type: 0
-    LaneIndex: 15
-  - Time: 285.43103
-    Type: 0
-    LaneIndex: 19
-  - Time: 285.51724
-    Type: 0
-    LaneIndex: 30
-  - Time: 285.60345
-    Type: 0
-    LaneIndex: 7
-  - Time: 285.68967
-    Type: 0
-    LaneIndex: 5
-  - Time: 285.77585
-    Type: 0
-    LaneIndex: 18
-  - Time: 285.86206
-    Type: 0
-    LaneIndex: 19
-  - Time: 285.94827
-    Type: 0
-    LaneIndex: 19
-  - Time: 286.0345
-    Type: 0
-    LaneIndex: 20
-  - Time: 286.2069
-    Type: 0
-    LaneIndex: 0
-  - Time: 286.2931
-    Type: 0
-    LaneIndex: 12
-  - Time: 286.55173
+    Duration: 0
+  - Time: 275.94827
     Type: 0
     LaneIndex: 22
-  - Time: 286.72415
+    Duration: 0
+  - Time: 276.29312
     Type: 0
-    LaneIndex: 24
-  - Time: 286.81033
-    Type: 0
-    LaneIndex: 31
-  - Time: 286.89655
-    Type: 0
-    LaneIndex: 20
-  - Time: 286.98276
-    Type: 0
-    LaneIndex: 27
-  - Time: 287.06897
-    Type: 0
-    LaneIndex: 11
-  - Time: 287.24136
-    Type: 0
-    LaneIndex: 0
-  - Time: 287.32758
+    LaneIndex: 16
+    Duration: 0
+  - Time: 276.63794
     Type: 0
     LaneIndex: 10
-  - Time: 287.4138
+    Duration: 0
+  - Time: 276.98276
     Type: 0
-    LaneIndex: 14
-  - Time: 287.5862
+    LaneIndex: 12
+    Duration: 0
+  - Time: 277.3276
+    Type: 1
+    LaneIndex: 30
+    Duration: 0.5896362
+  - Time: 278.01724
     Type: 0
-    LaneIndex: 2
-  - Time: 287.6724
+    LaneIndex: 15
+    Duration: 0
+  - Time: 278.36206
     Type: 0
-    LaneIndex: 29
-  - Time: 287.84482
+    LaneIndex: 12
+    Duration: 0
+  - Time: 278.5345
+    Type: 0
+    LaneIndex: 21
+    Duration: 0
+  - Time: 278.7069
     Type: 0
     LaneIndex: 0
+    Duration: 0
+  - Time: 279.05173
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 279.31036
+    Type: 0
+    LaneIndex: 21
+    Duration: 0
+  - Time: 279.56897
+    Type: 0
+    LaneIndex: 22
+    Duration: 0
+  - Time: 279.7414
+    Type: 0
+    LaneIndex: 26
+    Duration: 0
+  - Time: 279.9138
+    Type: 0
+    LaneIndex: 17
+    Duration: 0
+  - Time: 280.0862
+    Type: 0
+    LaneIndex: 25
+    Duration: 0
+  - Time: 280.25864
+    Type: 1
+    LaneIndex: 11
+    Duration: 0.41724244
+  - Time: 280.77588
+    Type: 0
+    LaneIndex: 14
+    Duration: 0
+  - Time: 281.0345
+    Type: 1
+    LaneIndex: 2
+    Duration: 0.33103028
+  - Time: 281.4655
+    Type: 0
+    LaneIndex: 28
+    Duration: 0
+  - Time: 281.81036
+    Type: 0
+    LaneIndex: 30
+    Duration: 0
+  - Time: 281.98276
+    Type: 0
+    LaneIndex: 16
+    Duration: 0
+  - Time: 282.15518
+    Type: 0
+    LaneIndex: 31
+    Duration: 0
+  - Time: 282.4138
+    Type: 0
+    LaneIndex: 20
+    Duration: 0
+  - Time: 282.5862
+    Type: 0
+    LaneIndex: 1
+    Duration: 0
+  - Time: 282.84482
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 283.10345
+    Type: 1
+    LaneIndex: 8
+    Duration: 0.33103028
+  - Time: 283.5345
+    Type: 0
+    LaneIndex: 4
+    Duration: 0
+  - Time: 283.8793
+    Type: 0
+    LaneIndex: 30
+    Duration: 0
+  - Time: 284.22415
+    Type: 0
+    LaneIndex: 27
+    Duration: 0
+  - Time: 284.56897
+    Type: 0
+    LaneIndex: 24
+    Duration: 0
+  - Time: 284.9138
+    Type: 0
+    LaneIndex: 29
+    Duration: 0
+  - Time: 285.0862
+    Type: 0
+    LaneIndex: 11
+    Duration: 0
+  - Time: 285.25864
+    Type: 0
+    LaneIndex: 23
+    Duration: 0
+  - Time: 285.60345
+    Type: 0
+    LaneIndex: 12
+    Duration: 0
+  - Time: 285.94827
+    Type: 0
+    LaneIndex: 21
+    Duration: 0
+  - Time: 286.29312
+    Type: 0
+    LaneIndex: 0
+    Duration: 0
+  - Time: 286.4655
+    Type: 0
+    LaneIndex: 19
+    Duration: 0
+  - Time: 286.63794
+    Type: 0
+    LaneIndex: 20
+    Duration: 0
+  - Time: 286.98276
+    Type: 0
+    LaneIndex: 26
+    Duration: 0
+  - Time: 287.2414
+    Type: 1
+    LaneIndex: 14
+    Duration: 0.33103028
+  - Time: 287.67242
+    Type: 0
+    LaneIndex: 4
+    Duration: 0
   - Time: 287.93103
     Type: 0
     LaneIndex: 9
+    Duration: 0
   - Time: 288.10345
     Type: 0
-    LaneIndex: 12
-  - Time: 288.18964
-    Type: 0
-    LaneIndex: 18
-  - Time: 288.27588
-    Type: 0
-    LaneIndex: 27
-  - Time: 288.3621
-    Type: 0
-    LaneIndex: 29
-  - Time: 288.5345
-    Type: 0
-    LaneIndex: 12
-  - Time: 288.6207
-    Type: 0
-    LaneIndex: 22
-  - Time: 288.7069
-    Type: 0
-    LaneIndex: 28
-  - Time: 288.79312
+    LaneIndex: 14
+    Duration: 0
+  - Time: 288.36206
+    Type: 1
+    LaneIndex: 14
+    Duration: 0.5896667
+  - Time: 289.05173
     Type: 0
     LaneIndex: 3
-  - Time: 288.87933
-    Type: 0
-    LaneIndex: 3
-  - Time: 288.96555
-    Type: 0
-    LaneIndex: 2
-  - Time: 289.13794
-    Type: 0
-    LaneIndex: 15
-  - Time: 289.22415
-    Type: 0
-    LaneIndex: 19
+    Duration: 0
   - Time: 289.31036
     Type: 0
-    LaneIndex: 23
-  - Time: 289.39658
-    Type: 0
-    LaneIndex: 23
+    LaneIndex: 13
+    Duration: 0
   - Time: 289.56897
     Type: 0
     LaneIndex: 15
+    Duration: 0
   - Time: 289.7414
     Type: 0
-    LaneIndex: 20
-  - Time: 289.8276
-    Type: 0
-    LaneIndex: 1
-  - Time: 290
-    Type: 0
-    LaneIndex: 9
+    LaneIndex: 26
+    Duration: 0
   - Time: 290.0862
     Type: 0
-    LaneIndex: 20
-  - Time: 290.17242
-    Type: 0
-    LaneIndex: 27
-  - Time: 290.34485
-    Type: 0
-    LaneIndex: 17
-  - Time: 290.51724
-    Type: 0
-    LaneIndex: 22
-  - Time: 290.60345
-    Type: 0
-    LaneIndex: 2
-  - Time: 290.68967
-    Type: 0
-    LaneIndex: 19
-  - Time: 290.77588
-    Type: 0
-    LaneIndex: 2
-  - Time: 290.8621
-    Type: 0
-    LaneIndex: 20
-  - Time: 290.94827
-    Type: 0
-    LaneIndex: 23
-  - Time: 291.0345
-    Type: 0
     LaneIndex: 30
+    Duration: 0
+  - Time: 290.25864
+    Type: 0
+    LaneIndex: 26
+    Duration: 0
+  - Time: 290.43103
+    Type: 0
+    LaneIndex: 8
+    Duration: 0
+  - Time: 290.68967
+    Type: 1
+    LaneIndex: 11
+    Duration: 0.33103028
   - Time: 291.1207
     Type: 0
-    LaneIndex: 16
-  - Time: 291.2069
+    LaneIndex: 27
+    Duration: 0
+  - Time: 291.29312
     Type: 0
-    LaneIndex: 6
-  - Time: 291.2931
-    Type: 0
-    LaneIndex: 2
-  - Time: 291.3793
-    Type: 0
-    LaneIndex: 23
-  - Time: 291.4655
-    Type: 0
-    LaneIndex: 6
+    LaneIndex: 10
+    Duration: 0
   - Time: 291.63794
     Type: 0
-    LaneIndex: 5
-  - Time: 291.72415
+    LaneIndex: 6
+    Duration: 0
+  - Time: 291.81036
     Type: 0
-    LaneIndex: 20
-  - Time: 291.81033
-    Type: 0
-    LaneIndex: 16
+    LaneIndex: 30
+    Duration: 0
   - Time: 291.98276
-    Type: 0
-    LaneIndex: 15
-  - Time: 292.06897
-    Type: 0
-    LaneIndex: 20
-  - Time: 292.2414
-    Type: 0
-    LaneIndex: 0
-  - Time: 292.4138
-    Type: 0
-    LaneIndex: 18
-  - Time: 292.7586
-    Type: 0
-    LaneIndex: 24
-  - Time: 292.84482
-    Type: 0
-    LaneIndex: 23
-  - Time: 292.93103
-    Type: 0
-    LaneIndex: 7
-  - Time: 293.10345
+    Type: 1
+    LaneIndex: 1
+    Duration: 0.41724244
+  - Time: 292.5
     Type: 0
     LaneIndex: 30
-  - Time: 293.18964
+    Duration: 0
+  - Time: 292.67242
+    Type: 1
+    LaneIndex: 17
+    Duration: 0.41724244
+  - Time: 293.18967
+    Type: 1
+    LaneIndex: 14
+    Duration: 0.41724244
+  - Time: 293.7069
     Type: 0
-    LaneIndex: 9
-  - Time: 293.27585
-    Type: 0
-    LaneIndex: 5
-  - Time: 293.36206
-    Type: 0
+    LaneIndex: 31
+    Duration: 0
+  - Time: 293.8793
+    Type: 1
     LaneIndex: 22
-  - Time: 293.44827
-    Type: 0
-    LaneIndex: 30
-  - Time: 293.6207
-    Type: 0
-    LaneIndex: 28
-  - Time: 293.70688
-    Type: 0
-    LaneIndex: 23
-  - Time: 293.79312
-    Type: 0
-    LaneIndex: 19
-  - Time: 293.87933
-    Type: 0
-    LaneIndex: 10
-  - Time: 294.05173
-    Type: 0
-    LaneIndex: 12
-  - Time: 294.13794
-    Type: 0
-    LaneIndex: 9
-  - Time: 294.22415
-    Type: 0
-    LaneIndex: 20
-  - Time: 294.31036
-    Type: 0
-    LaneIndex: 24
-  - Time: 294.4828
-    Type: 0
-    LaneIndex: 26
+    Duration: 0.5896667
   - Time: 294.56897
     Type: 0
-    LaneIndex: 8
-  - Time: 294.65518
+    LaneIndex: 11
+    Duration: 0
+  - Time: 294.9138
     Type: 0
-    LaneIndex: 0
-  - Time: 294.7414
-    Type: 0
-    LaneIndex: 21
-  - Time: 294.8276
-    Type: 0
-    LaneIndex: 24
-  - Time: 295.00003
-    Type: 0
-    LaneIndex: 4
+    LaneIndex: 30
+    Duration: 0
   - Time: 295.0862
     Type: 0
-    LaneIndex: 9
-  - Time: 295.17242
-    Type: 0
-    LaneIndex: 18
+    LaneIndex: 31
+    Duration: 0
   - Time: 295.25864
+    Type: 1
+    LaneIndex: 0
+    Duration: 0.33103028
+  - Time: 295.68967
     Type: 0
-    LaneIndex: 14
-  - Time: 295.34485
+    LaneIndex: 1
+    Duration: 0
+  - Time: 295.94827
     Type: 0
-    LaneIndex: 25
-  - Time: 295.51724
-    Type: 0
-    LaneIndex: 5
-  - Time: 295.60345
-    Type: 0
-    LaneIndex: 23
-  - Time: 295.77588
-    Type: 0
-    LaneIndex: 24
-  - Time: 295.8621
-    Type: 0
-    LaneIndex: 24
-  - Time: 296.0345
-    Type: 0
-    LaneIndex: 11
+    LaneIndex: 2
+    Duration: 0
   - Time: 296.1207
     Type: 0
-    LaneIndex: 8
-  - Time: 296.2069
-    Type: 0
-    LaneIndex: 21
+    LaneIndex: 9
+    Duration: 0
   - Time: 296.29312
     Type: 0
-    LaneIndex: 6
-  - Time: 296.37933
-    Type: 0
-    LaneIndex: 4
-  - Time: 296.55173
-    Type: 0
-    LaneIndex: 11
+    LaneIndex: 21
+    Duration: 0
   - Time: 296.63794
-    Type: 0
-    LaneIndex: 16
-  - Time: 296.81033
-    Type: 0
-    LaneIndex: 18
-  - Time: 296.89655
-    Type: 0
-    LaneIndex: 28
-  - Time: 297.06897
-    Type: 0
-    LaneIndex: 12
-  - Time: 297.15518
-    Type: 0
-    LaneIndex: 6
-  - Time: 297.2414
-    Type: 0
-    LaneIndex: 26
-  - Time: 297.5
-    Type: 0
-    LaneIndex: 16
-  - Time: 297.5862
-    Type: 0
-    LaneIndex: 10
+    Type: 1
+    LaneIndex: 3
+    Duration: 0.5896667
+  - Time: 297.3276
+    Type: 1
+    LaneIndex: 31
+    Duration: 0.33103028
   - Time: 297.75864
     Type: 0
-    LaneIndex: 24
-  - Time: 297.84482
-    Type: 0
-    LaneIndex: 25
-  - Time: 297.93103
-    Type: 0
-    LaneIndex: 30
-  - Time: 298.18964
-    Type: 0
-    LaneIndex: 18
-  - Time: 298.27585
-    Type: 0
-    LaneIndex: 7
-  - Time: 298.36206
-    Type: 0
-    LaneIndex: 23
-  - Time: 298.44827
-    Type: 0
-    LaneIndex: 14
-  - Time: 298.6207
-    Type: 0
-    LaneIndex: 31
-  - Time: 298.7931
-    Type: 0
-    LaneIndex: 15
-  - Time: 298.8793
-    Type: 0
-    LaneIndex: 8
-  - Time: 298.9655
-    Type: 0
-    LaneIndex: 15
-  - Time: 299.05173
-    Type: 0
-    LaneIndex: 28
-  - Time: 299.22412
-    Type: 0
     LaneIndex: 12
-  - Time: 299.31036
-    Type: 0
-    LaneIndex: 31
-  - Time: 299.39658
-    Type: 0
-    LaneIndex: 1
-  - Time: 299.56897
-    Type: 0
-    LaneIndex: 14
-  - Time: 299.65518
-    Type: 0
-    LaneIndex: 27
-  - Time: 299.8276
-    Type: 0
-    LaneIndex: 0
-  - Time: 300.00003
-    Type: 0
-    LaneIndex: 9
-  - Time: 300.34485
-    Type: 0
-    LaneIndex: 10
-  - Time: 300.51727
-    Type: 0
-    LaneIndex: 21
-  - Time: 300.60345
-    Type: 0
-    LaneIndex: 19
-  - Time: 302.06897
-    Type: 0
-    LaneIndex: 9
-  - Time: 302.4138
-    Type: 0
-    LaneIndex: 20
-  - Time: 303.44827
-    Type: 0
-    LaneIndex: 1
-  - Time: 305.17242
-    Type: 0
-    LaneIndex: 24
-  - Time: 305.51727
-    Type: 0
-    LaneIndex: 9
-  - Time: 305.8621
-    Type: 0
-    LaneIndex: 11
-  - Time: 307.93103
-    Type: 0
-    LaneIndex: 26
-  - Time: 308.27588
-    Type: 0
-    LaneIndex: 1
-  - Time: 308.6207
-    Type: 0
-    LaneIndex: 30
-  - Time: 308.9655
-    Type: 0
-    LaneIndex: 19
-  - Time: 310
-    Type: 0
-    LaneIndex: 5
-  - Time: 310.68964
-    Type: 0
-    LaneIndex: 4
-  - Time: 311.72415
-    Type: 0
-    LaneIndex: 15
-  - Time: 312.06897
-    Type: 0
-    LaneIndex: 30
-  - Time: 312.41382
-    Type: 0
-    LaneIndex: 29
-  - Time: 312.75864
-    Type: 0
-    LaneIndex: 7
-  - Time: 314.48276
-    Type: 0
-    LaneIndex: 6
-  - Time: 314.82758
-    Type: 0
-    LaneIndex: 19
-  - Time: 315.51724
-    Type: 0
-    LaneIndex: 5
-  - Time: 315.86206
-    Type: 0
-    LaneIndex: 26
-  - Time: 316.20688
-    Type: 0
-    LaneIndex: 25
-  - Time: 316.89655
-    Type: 0
-    LaneIndex: 22
-  - Time: 317.2414
-    Type: 0
-    LaneIndex: 15
-  - Time: 318.27588
-    Type: 0
-    LaneIndex: 9
-  - Time: 318.6207
-    Type: 0
-    LaneIndex: 21
-  - Time: 319.31036
-    Type: 0
-    LaneIndex: 22
-  - Time: 319.65518
-    Type: 0
-    LaneIndex: 4
-  - Time: 320
-    Type: 0
-    LaneIndex: 11
-  - Time: 320.34482
-    Type: 0
-    LaneIndex: 23
-  - Time: 320.68967
-    Type: 0
-    LaneIndex: 8
-  - Time: 322.06897
-    Type: 0
-    LaneIndex: 23
-  - Time: 322.4138
-    Type: 0
-    LaneIndex: 12
-  - Time: 324.48276
-    Type: 0
-    LaneIndex: 17
-  - Time: 324.8276
-    Type: 0
-    LaneIndex: 1
-  - Time: 325.17242
-    Type: 0
-    LaneIndex: 25
-  - Time: 325.51724
-    Type: 0
-    LaneIndex: 18
-  - Time: 327.24136
-    Type: 0
-    LaneIndex: 21
-  - Time: 328.96555
+    Duration: 0
+  - Time: 298.01724
     Type: 0
     LaneIndex: 16
-  - Time: 329.65518
+    Duration: 0
+  - Time: 298.36206
     Type: 0
-    LaneIndex: 4
-  - Time: 330.34485
+    LaneIndex: 27
+    Duration: 0
+  - Time: 298.6207
     Type: 0
-    LaneIndex: 25
-  - Time: 330.68967
-    Type: 0
-    LaneIndex: 15
-  - Time: 332.06897
-    Type: 0
-    LaneIndex: 22
-  - Time: 332.7586
-    Type: 0
-    LaneIndex: 15
-  - Time: 333.10345
-    Type: 0
-    LaneIndex: 3
-  - Time: 334.13794
+    LaneIndex: 29
+    Duration: 0
+  - Time: 298.79312
     Type: 0
     LaneIndex: 5
-  - Time: 334.4828
+    Duration: 0
+  - Time: 299.05173
     Type: 0
-    LaneIndex: 13
-  - Time: 334.8276
+    LaneIndex: 15
+    Duration: 0
+  - Time: 299.22415
     Type: 0
-    LaneIndex: 13
-  - Time: 335.8621
+    LaneIndex: 25
+    Duration: 0
+  - Time: 299.39655
     Type: 0
-    LaneIndex: 26
-  - Time: 336.55173
+    LaneIndex: 14
+    Duration: 0
+  - Time: 299.56897
     Type: 0
-    LaneIndex: 30
-  - Time: 337.2414
+    LaneIndex: 3
+    Duration: 0
+  - Time: 299.7414
     Type: 0
     LaneIndex: 11
-  - Time: 337.93103
+    Duration: 0
+  - Time: 299.9138
     Type: 0
-    LaneIndex: 0
-  - Time: 338.27585
+    LaneIndex: 4
+    Duration: 0
+  - Time: 300.0862
     Type: 0
-    LaneIndex: 20
-  - Time: 339.65518
+    LaneIndex: 23
+    Duration: 0
+  - Time: 300.43103
     Type: 0
-    LaneIndex: 30
-  - Time: 340.34485
-    Type: 0
-    LaneIndex: 9
-  - Time: 340.68967
-    Type: 0
-    LaneIndex: 26
-  - Time: 341.0345
-    Type: 0
-    LaneIndex: 21
-  - Time: 341.37933
+    LaneIndex: 29
+    Duration: 0
+  - Time: 300.60345
     Type: 0
     LaneIndex: 7
-  - Time: 341.72415
+    Duration: 0
+  - Time: 300.94827
     Type: 0
-    LaneIndex: 18
+    LaneIndex: 30
+    Duration: 0

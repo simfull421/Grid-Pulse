@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using TouchIT.Entity;
 
 namespace TouchIT.Boundary
 {
@@ -13,15 +12,11 @@ namespace TouchIT.Boundary
         [SerializeField] private float _baseRadius = 3.0f;
         [SerializeField] private float _width = 0.1f;
 
-        [Header("Reaction")]
-        [SerializeField] private float _impactScale = 0.3f; // 💥 타격 시 링이 커지는 정도
-        [SerializeField] private float _decaySpeed = 5.0f;  // 줄어드는 속도
+        [Header("Spike Settings (Cos^5 Magic)")]
+        [SerializeField] private int _sharpnessPower = 5; // 뾰족함의 핵심 (홀수)
+        [SerializeField] private float _spikeWidth = 2.0f; // 가시 너비
+        [SerializeField] private float _decaySpeed = 8.0f; // 사라지는 속도
 
-        [Header("Spike Settings (Cos^5)")]
-        [SerializeField] private int _sharpnessPower = 5;
-        [SerializeField] private float _spikeWidth = 2.0f;
-
-        // 펄스(가시) 관리 클래스
         private class ActivePulse
         {
             public float Angle;
@@ -31,24 +26,20 @@ namespace TouchIT.Boundary
         private List<ActivePulse> _pulses = new List<ActivePulse>();
         private LineRenderer _lineRenderer;
 
-        // 💥 전체 링 튕김 효과 변수
-        private float _currentImpact = 0f;
+        // 전체 링이 둠칫하는 반응 (MainView 호환용)
+        private float _globalExpand = 0f;
 
         public void Initialize()
         {
-            Debug.Log($"💍 LifeRingView: Initialized! (GameObject: {gameObject.name})");
             _lineRenderer = GetComponent<LineRenderer>();
-
-            _lineRenderer.positionCount = 128 + 1;
+            _lineRenderer.positionCount = _resolution + 1;
             _lineRenderer.startWidth = _width;
             _lineRenderer.endWidth = _width;
             _lineRenderer.useWorldSpace = false;
             _lineRenderer.loop = true;
 
             if (_lineRenderer.material == null || _lineRenderer.material.name.StartsWith("Default-Material"))
-            {
                 _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            }
 
             _lineRenderer.startColor = _goldColor;
             _lineRenderer.endColor = _goldColor;
@@ -60,11 +51,10 @@ namespace TouchIT.Boundary
         {
             bool needsUpdate = false;
 
-            // 1. 전체 링 튕김 감쇠 (둠칫 -> 원래대로)
-            if (_currentImpact > 0.001f)
+            // 1. 전체 링 반응 감쇠
+            if (_globalExpand > 0.001f)
             {
-                _currentImpact -= Time.deltaTime * _decaySpeed;
-                if (_currentImpact < 0) _currentImpact = 0f;
+                _globalExpand -= Time.deltaTime * 5.0f;
                 needsUpdate = true;
             }
 
@@ -74,36 +64,38 @@ namespace TouchIT.Boundary
                 for (int i = _pulses.Count - 1; i >= 0; i--)
                 {
                     _pulses[i].Power -= Time.deltaTime * _decaySpeed;
-                    if (_pulses[i].Power <= 0.01f)
-                    {
-                        _pulses.RemoveAt(i);
-                    }
+                    if (_pulses[i].Power <= 0.01f) _pulses.RemoveAt(i);
                 }
                 needsUpdate = true;
             }
 
-            // 변화가 있을 때만 다시 그림
-            if (needsUpdate)
-            {
-                UpdateRingVisual();
-            }
+            if (needsUpdate) UpdateRingVisual();
         }
 
-        // ✅ [추가됨] MainView에서 호출하는 타격 반응 함수
-        public void OnHitEffect()
-        {
-            // 링 전체 반지름을 일시적으로 키움
-            _currentImpact = _impactScale;
-            UpdateRingVisual(); // 즉시 반영
-        }
-
+        // 🔊 음악 비트에 반응 (짧은 가시)
         public void ApplyBassImpulse(float power)
         {
             float randomAngle = Random.Range(0f, 360f);
             _pulses.Add(new ActivePulse
             {
                 Angle = randomAngle,
-                Power = power
+                Power = power * 1.5f // 적당한 크기
+            });
+        }
+
+        // 💥 [추가] 터치 성공 시 호출 (MainView 에러 해결)
+        // 더 길고 강력한 가시를 만듭니다.
+        public void OnHitEffect()
+        {
+            // 1. 전체 링 살짝 커짐
+            _globalExpand = 0.15f;
+
+            // 2. 랜덤 위치에 아주 긴 가시 생성 (피크 느낌)
+            float randomAngle = Random.Range(0f, 360f);
+            _pulses.Add(new ActivePulse
+            {
+                Angle = randomAngle,
+                Power = 0.8f // BassImpulse보다 훨씬 큼 (길게 찌름)
             });
         }
 
@@ -111,50 +103,46 @@ namespace TouchIT.Boundary
         {
             Vector3[] positions = new Vector3[_resolution + 1];
             float angleStep = 360f / _resolution;
-
-            // 💥 현재 반지름 = 기본 반지름 + 타격 임팩트
-            float currentRadius = _baseRadius + _currentImpact;
+            float currentBaseRadius = _baseRadius + _globalExpand;
 
             for (int i = 0; i <= _resolution; i++)
             {
                 float thetaDeg = i * angleStep;
                 float thetaRad = thetaDeg * Mathf.Deg2Rad;
 
-                // 1. 가시(Spike) 오프셋 계산
+                // 1. 가시 오프셋 계산 (Cos^5 방식)
                 float totalOffset = 0f;
                 foreach (var pulse in _pulses)
                 {
                     totalOffset += CalculateSpikeOffset(thetaDeg, pulse);
                 }
 
-                // 2. 32각 그리드 느낌 (미세한 굴곡 추가)
-                // 32번 출렁이게 해서 각진 느낌을 줌
-                float gridEffect = Mathf.Cos(thetaRad * 32) * 0.03f;
+                // 2. 32각 그리드 (미세 떨림)
+                float staticGrid = Mathf.Cos(thetaRad * 32) * 0.03f;
 
-                // 최종 반지름 결정
-                float r = currentRadius + totalOffset + gridEffect;
-
-                // 극좌표 -> 직교좌표
-                float x = r * Mathf.Cos(thetaRad);
-                float y = r * Mathf.Sin(thetaRad);
-
-                positions[i] = new Vector3(x, y, 0f);
+                float r = currentBaseRadius + totalOffset + staticGrid;
+                positions[i] = new Vector3(Mathf.Cos(thetaRad) * r, Mathf.Sin(thetaRad) * r, 0f);
             }
-
             _lineRenderer.SetPositions(positions);
         }
 
+        // 📐 [복구됨] 오리지널 Cos^5 공식
         private float CalculateSpikeOffset(float currentAngle, ActivePulse pulse)
         {
             float diff = Mathf.DeltaAngle(currentAngle, pulse.Angle);
-            if (Mathf.Abs(diff) < 90f)
-            {
-                float normalizedDiff = diff * Mathf.Deg2Rad * _spikeWidth;
-                float baseCos = Mathf.Cos(normalizedDiff);
 
+            // _spikeWidth가 클수록 좁고 날카로움
+            float normalizedDiff = diff * Mathf.Deg2Rad * _spikeWidth;
+
+            // -90도 ~ 90도 범위 내에서만 코사인 적용
+            if (Mathf.Abs(normalizedDiff) < Mathf.PI * 0.5f)
+            {
+                float baseCos = Mathf.Cos(normalizedDiff);
                 if (baseCos > 0)
                 {
-                    return Mathf.Pow(baseCos, _sharpnessPower) * pulse.Power;
+                    // 5제곱 -> 뾰족한 바늘 모양
+                    float sharpShape = Mathf.Pow(baseCos, _sharpnessPower);
+                    return sharpShape * pulse.Power;
                 }
             }
             return 0f;

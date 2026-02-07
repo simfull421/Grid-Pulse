@@ -18,6 +18,8 @@ namespace TouchIT.Entity
         public float Time;      // 재생 시간 (초)
         public NoteType Type;   // 노트 타입
         public int LaneIndex;   // (0~31) 링의 어느 위치에서 나올지 (각도)
+        // ✅ [추가] 홀드 노트를 위한 지속 시간
+        public float Duration;
     }
 
     [CreateAssetMenu(fileName = "NewMusicData", menuName = "TouchIT/Music Data")]

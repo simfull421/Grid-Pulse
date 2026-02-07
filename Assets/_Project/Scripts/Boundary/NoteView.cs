@@ -17,7 +17,9 @@ namespace TouchIT.Boundary
 
         private Action<INoteView> _onMissCallback;
         private bool _isActive = false;
-
+        // ⏱️ [설정] 유예 기간 (Overrun)
+        // 1.0이 목표 지점. 1.2까지는 살려둠 (Late 판정용)
+        private const float MAX_PROGRESS = 1.2f;
         // 인터페이스 구현
         public NoteType Type { get; private set; }
         public double TargetTime => _targetTime;
@@ -50,7 +52,12 @@ namespace TouchIT.Boundary
             UpdatePosition(0f); // 초기 위치 잡기
         }
 
-        public void Activate() { _isActive = true; gameObject.SetActive(true); }
+        public void Activate()
+        {
+            _isActive = true;
+            gameObject.SetActive(true);
+            if (_renderer != null) _renderer.enabled = true; // ✅ 초기화
+        }
         public void Deactivate() { _isActive = false; gameObject.SetActive(false); }
 
         // 서비스가 매 프레임 호출해줌
@@ -58,23 +65,34 @@ namespace TouchIT.Boundary
         {
             if (!_isActive) return;
 
-            // 진행률 계산 (0.0 ~ 1.0)
-            // TargetTime까지 남은 시간이 ApproachRate의 몇 %인가?
-            // 공식: 1 - ((도착시간 - 현재시간) / 전체시간)
+            // 진행률 계산
             float progress = 1.0f - (float)((_targetTime - currentDspTime) / _approachRate);
 
-            // 디버깅용: progress가 안 변하면 시간이 안 흐르는 것
-            // Debug.Log($"Progress: {progress}"); 
-
-            if (progress >= 1.0f) // 도착! (Miss 처리)
+            // 💀 [수정] 완전히 늦었을 때 (Miss)
+            // 기존 1.0f -> 1.2f (Late 판정 여유분 확보)
+            if (progress >= MAX_PROGRESS)
             {
                 _onMissCallback?.Invoke(this);
                 return;
             }
 
-            UpdatePosition(progress);
-        }
+            // 👻 [추가] 12시를 넘겼다면? (Late 구간) -> 모습만 숨김
+            if (progress >= 1.0f)
+            {
+                // 안 보이게 처리 (이미 껐으면 다시 끌 필요 없음)
+                if (_renderer.enabled) _renderer.enabled = false;
 
+                // 위치는 12시에 고정하거나, 계속 가게 둬도 됨 (안보이니까)
+                // 여기선 계산 낭비 줄이게 위치 갱신 안 함
+                return;
+            }
+            else
+            {
+                // 정상 구간: 보이게 설정
+                if (!_renderer.enabled) _renderer.enabled = true;
+                UpdatePosition(progress);
+            }
+        }
         private void UpdatePosition(float progress)
         {
             // 각도 보간

@@ -17,7 +17,11 @@ namespace TouchIT.Control
         private double _preemptTime = 2.5f; // 노트가 날아가는 시간 (Approach Rate)
 
         private bool _isPlaying = false;
-
+        // 🎯 판정 범위 설정 (초 단위)
+        // 0.15f (150ms) -> 조금 빡빡함 (리듬게임 고수용)
+        // 0.20f (200ms) -> 넉넉함 (일반인용)
+        // 0.25f (250ms) -> 아주 너그러움 (접대용)
+        private const float HIT_THRESHOLD = 0.2f;
         // 🔥 [중요] 현재 화면에 나와있는 노트들 (매 프레임 움직여줘야 함)
         private List<INoteView> _activeNotes = new List<INoteView>();
 
@@ -130,12 +134,17 @@ namespace TouchIT.Control
             INoteView target = null;
             double minDiff = double.MaxValue;
 
+            // 노트 리스트 검사
             for (int i = 0; i < _activeNotes.Count; i++)
             {
                 var note = _activeNotes[i];
+
+                // diff = |목표시간 - 현재시간|
+                // 0에 가까울수록 정확, 값이 크면 Early/Late
                 double diff = System.Math.Abs(note.TargetTime - currentTime);
 
-                if (diff < 0.15f && diff < minDiff)
+                // [핵심] 범위 안에 들어오면 후보로 등록
+                if (diff <= HIT_THRESHOLD && diff < minDiff)
                 {
                     minDiff = diff;
                     target = note;
@@ -144,10 +153,12 @@ namespace TouchIT.Control
 
             if (target != null)
             {
+                // 성공 처리 (노트 제거 & 반환)
                 OnNoteHit(target);
-                return target; // ✅ 맞춘 노트 반환
+                return target;
             }
-            return null; // 실패
+
+            return null; // 헛손질 (Miss는 아님, 그냥 무시)
         }
         private void OnNoteHit(INoteView note)
         {
