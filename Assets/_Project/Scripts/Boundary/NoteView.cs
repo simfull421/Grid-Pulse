@@ -4,109 +4,191 @@ using System;
 
 namespace TouchIT.Boundary
 {
+    [RequireComponent(typeof(LineRenderer))]
     public class NoteView : MonoBehaviour, INoteView
     {
         [SerializeField] private SpriteRenderer _renderer;
+        [SerializeField] private LineRenderer _lineRenderer;
 
-        private double _targetTime;   // 도착해야 할 시간 (노트 타임)
-        private float _approachRate;  // 날아가는 시간 (_preemptTime)
-        private float _ringRadius;    // 도착 반지름
+        private double _targetTime;
+        private float _approachRate;
+        private float _ringRadius;
+        private float _duration; // 홀드 길이
 
         private float _startAngleRad;
         private float _targetAngleRad;
+        private float _travelAngle;
 
         private Action<INoteView> _onMissCallback;
         private bool _isActive = false;
-        // ⏱️ [설정] 유예 기간 (Overrun)
-        // 1.0이 목표 지점. 1.2까지는 살려둠 (Late 판정용)
+
+        // 🧬 [상태 추가] 현재 홀딩 중인가?
+        private bool _isHolding = false;
+
+        // 판정 여유 (Late)
         private const float MAX_PROGRESS = 1.2f;
-        // 인터페이스 구현
+
         public NoteType Type { get; private set; }
         public double TargetTime => _targetTime;
+        public float Duration => _duration; // 서비스에서 참조용
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
+
+        private void Awake()
+        {
+            if (_lineRenderer == null) _lineRenderer = GetComponent<LineRenderer>();
+
+            // 🎨 [수정 1] 두꺼운 아크 형태 (올챙이 탈출)
+            _lineRenderer.positionCount = 20;
+            _lineRenderer.useWorldSpace = false;
+
+            // 시작과 끝 두께를 동일하게 (0.2f 추천)
+            _lineRenderer.startWidth = 0.2f;
+            _lineRenderer.endWidth = 0.2f;
+
+            // 끝부분을 둥글게 처리 (CapVertices)
+            _lineRenderer.numCapVertices = 5;
+            _lineRenderer.numCornerVertices = 5;
+
+            if (_lineRenderer.material == null || _lineRenderer.material.name.StartsWith("Default"))
+                _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        }
 
         public void Initialize(NoteInfo data, double currentDspTime, float approachRate, float ringRadius, Action<INoteView> onMiss)
         {
             Type = data.Type;
+            _duration = data.Duration;
             _approachRate = approachRate;
             _ringRadius = ringRadius;
             _onMissCallback = onMiss;
-
-            // 도착 시간 = 현재 시간 + 날아가는 시간
-            // (주의: 이미 SpawnService에서 계산해서 넘겨준 게 아니라면 여기서 계산)
-            // SpawnLogic: currentTime >= Time - Preempt 
-            // 즉, Time (Target) = currentTime + Preempt (약간의 오차 보정)
-            // 정확히는 data.Time이 TargetTime입니다.
             _targetTime = data.Time;
+            _isHolding = false; // 초기화
 
+            // 색상 설정
+            Color noteColor = (Type == NoteType.Hold) ? Color.cyan : new Color(1f, 0.84f, 0f);
             if (_renderer != null)
-                _renderer.color = (Type == NoteType.Hyper) ? Color.red : new Color(1f, 0.84f, 0f);
+            {
+                _renderer.color = noteColor;
+                _renderer.enabled = true; // 머리 보이기
+            }
 
-            // 6시 -> 12시 경로 계산 (이전과 동일)
+            if (_lineRenderer != null)
+            {
+                _lineRenderer.startColor = noteColor;
+                // 끝부분을 약간 투명하게 할지, 불투명하게 할지 결정 (여기선 약간 투명)
+                _lineRenderer.endColor = new Color(noteColor.r, noteColor.g, noteColor.b, 0.8f);
+                _lineRenderer.enabled = (Type == NoteType.Hold);
+            }
+
+            // 경로 계산
             bool isClockwise = (data.LaneIndex % 2 != 0);
             _startAngleRad = -90f * Mathf.Deg2Rad;
-            _targetAngleRad = _startAngleRad + (isClockwise ? Mathf.PI : -Mathf.PI);
+            float targetAngleRad = _startAngleRad + (isClockwise ? Mathf.PI : -Mathf.PI);
+            _travelAngle = targetAngleRad - _startAngleRad;
 
             Activate();
-            UpdatePosition(0f); // 초기 위치 잡기
+            UpdatePosition(0f);
         }
 
         public void Activate()
         {
             _isActive = true;
             gameObject.SetActive(true);
-            if (_renderer != null) _renderer.enabled = true; // ✅ 초기화
         }
-        public void Deactivate() { _isActive = false; gameObject.SetActive(false); }
 
-        // 서비스가 매 프레임 호출해줌
+        public void Deactivate()
+        {
+            _isActive = false;
+            gameObject.SetActive(false);
+        }
+
+        // 🖱️ [추가] 홀드 시작 시 호출 (머리만 숨김)
+        public void OnHoldStart()
+        {
+            _isHolding = true;
+            if (_renderer != null) _renderer.enabled = false; // 머리 숨기기
+            // 꼬리(_lineRenderer)는 계속 켜둠
+        }
+
         public void OnUpdate(double currentDspTime)
         {
             if (!_isActive) return;
 
-            // 진행률 계산
+            // 진행률 계산 (현재 시간이 타겟 타임보다 얼마나 지났는지)
             float progress = 1.0f - (float)((_targetTime - currentDspTime) / _approachRate);
 
-            // 💀 [수정] 완전히 늦었을 때 (Miss)
-            // 기존 1.0f -> 1.2f (Late 판정 여유분 확보)
-            if (progress >= MAX_PROGRESS)
+            // 1. 미스 판정 (홀드 중이 아닌데 너무 지나침)
+            if (!_isHolding && progress >= MAX_PROGRESS)
             {
                 _onMissCallback?.Invoke(this);
                 return;
             }
 
-            // 👻 [추가] 12시를 넘겼다면? (Late 구간) -> 모습만 숨김
-            if (progress >= 1.0f)
+            // 2. 홀드 노트의 수명 관리 (머리 + 꼬리 시간까지 다 지났는지?)
+            // 홀드 끝나는 시간 = TargetTime + Duration
+            if (Type == NoteType.Hold)
             {
-                // 안 보이게 처리 (이미 껐으면 다시 끌 필요 없음)
-                if (_renderer.enabled) _renderer.enabled = false;
+                // 홀드 종료 시점 계산
+                double holdEndTime = _targetTime + _duration;
 
-                // 위치는 12시에 고정하거나, 계속 가게 둬도 됨 (안보이니까)
-                // 여기선 계산 낭비 줄이게 위치 갱신 안 함
-                return;
+                // 완전히 다 지나갔으면 비활성화 (성공 처리는 서비스가 함)
+                if (currentDspTime > holdEndTime)
+                {
+                    // 서비스에서 제거해야 하므로 여기선 시각적 처리만
+                    if (_lineRenderer != null) _lineRenderer.enabled = false;
+                }
             }
-            else
+            else if (progress >= 1.0f) // 일반 노트
             {
-                // 정상 구간: 보이게 설정
-                if (!_renderer.enabled) _renderer.enabled = true;
-                UpdatePosition(progress);
+                if (_renderer.enabled) _renderer.enabled = false;
             }
+
+            UpdatePosition(progress);
         }
+
         private void UpdatePosition(float progress)
         {
-            // 각도 보간
-            float currentAngle = Mathf.Lerp(_startAngleRad, _targetAngleRad, progress);
+            // 헤드 위치 (홀드 중이어도 계산은 계속해서 꼬리 기준점을 잡음)
+            float currentAngle = _startAngleRad + (_travelAngle * progress);
 
-            // 좌표 변환 (반지름 3.0f 유지)
             float x = Mathf.Cos(currentAngle) * _ringRadius;
             float y = Mathf.Sin(currentAngle) * _ringRadius;
 
             transform.localPosition = new Vector3(x, y, 0f);
 
-            // 회전
             float degrees = currentAngle * Mathf.Rad2Deg;
             transform.localRotation = Quaternion.Euler(0, 0, degrees - 90f);
+
+            // 꼬리 그리기 (홀드 노트만)
+            // 홀드 중(_isHolding)이어도 꼬리는 계속 그려야 함 (점점 사라지게 하거나 지나가게)
+            if (Type == NoteType.Hold && _lineRenderer.enabled)
+            {
+                DrawHoldTail(currentAngle);
+            }
+        }
+
+        private void DrawHoldTail(float headAngle)
+        {
+            float tailLengthRad = (_duration / _approachRate) * _travelAngle;
+            int points = _lineRenderer.positionCount;
+            Vector3[] positions = new Vector3[points];
+
+            for (int i = 0; i < points; i++)
+            {
+                float t = (float)i / (points - 1);
+                float angle = headAngle - (tailLengthRad * t);
+
+                float px = Mathf.Cos(angle) * _ringRadius;
+                float py = Mathf.Sin(angle) * _ringRadius;
+
+                // 부모(Ring) 기준 월드 -> 로컬 변환
+                Vector3 ringPos = new Vector3(px, py, 0f);
+                if (transform.parent != null)
+                    positions[i] = transform.InverseTransformPoint(transform.parent.TransformPoint(ringPos));
+                else
+                    positions[i] = new Vector3(px, py, 0f);
+            }
+            _lineRenderer.SetPositions(positions);
         }
     }
 }

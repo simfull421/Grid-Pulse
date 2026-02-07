@@ -82,14 +82,14 @@ namespace TouchIT.Control
 
         private void SpawnOsuNote(NoteInfo noteData, double currentTime)
         {
-            // 🗺️ [좌표 변환] LaneIndex (0~31) -> 화면 좌표 (x, y)
-            // 랜덤함수를 쓰되, Seed를 LaneIndex로 고정하여 항상 같은 위치에 나오게 함
+            // 🗺️ [좌표 변환] (기존 로직 유지)
             Vector3 spawnPos = CalculateDeterministicPosition(noteData.LaneIndex);
 
             // 팩토리를 통해 생성 (초기화 데이터 전달)
+            // 🚨 [수정] noteData.Time -> noteData (객체 통째로 전달!)
             var noteView = _factory.CreateOsuNote(
                 spawnPos,
-                noteData.Time,
+                noteData, // ✅ 여기를 수정했습니다! (double -> NoteInfo)
                 (float)_preemptTime,
                 OnNoteMiss
             );

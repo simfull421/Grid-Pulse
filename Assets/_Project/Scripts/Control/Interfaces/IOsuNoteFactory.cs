@@ -1,13 +1,17 @@
-﻿using UnityEngine;
-using System;
-using TouchIT.Boundary; // INoteView 참조
+﻿using System;
+using TouchIT.Boundary;
+using TouchIT.Entity;
+using UnityEngine;
 
-namespace TouchIT.Control
+namespace TouchIT.Control // 혹은 Boundary
 {
     public interface IOsuNoteFactory
     {
-        // 생성과 동시에 초기화 데이터를 넘깁니다.
-        INoteView CreateOsuNote(Vector3 position, double targetTime, float approachTime, Action<INoteView> onMiss);
+        void Initialize();
+
+        // [수정] double targetTime -> NoteInfo data로 변경
+        INoteView CreateOsuNote(Vector3 position, NoteInfo data, float approachTime, Action<INoteView> onMiss);
+
         void ReturnOsuNote(INoteView note);
     }
 }

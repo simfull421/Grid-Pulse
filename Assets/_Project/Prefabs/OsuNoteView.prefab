@@ -136,7 +136,7 @@ LineRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 1
   m_ApplyActiveColorSpace: 1
 --- !u!1 &4324614653917486335
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bodyRenderer: {fileID: 7052544473073990609, guid: 59a3d9d4ef9dab3499fcd02a0354aa78, type: 3}
-  _approachLine: {fileID: 3948461966539574653}
+  _fixedRing: {fileID: 3948461966539574653}
   _segments: 64
-  _ringWidth: 0.05
   _baseRadius: 0.6
+  _ringWidth: 0.05

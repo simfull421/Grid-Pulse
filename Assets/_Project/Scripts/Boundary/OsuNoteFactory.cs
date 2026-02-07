@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using TouchIT.Control;
+using TouchIT.Entity; // NoteInfo 사용을 위해 추가
 using System;
 
 namespace TouchIT.Boundary
@@ -10,7 +11,7 @@ namespace TouchIT.Boundary
         [SerializeField] private OsuNoteView _osuNotePrefab;
         [SerializeField] private int _poolSize = 20;
 
-        private Queue<OsuNoteView> _pool = new Queue<OsuNoteView>(); // 타입 명시
+        private Queue<OsuNoteView> _pool = new Queue<OsuNoteView>();
         private Transform _container;
 
         public void Initialize()
@@ -30,15 +31,15 @@ namespace TouchIT.Boundary
             return note;
         }
 
-        // 인터페이스 구현: 여기서 구체적인 초기화(InitializeOsu)를 수행
-        public INoteView CreateOsuNote(Vector3 position, double targetTime, float approachTime, Action<INoteView> onMiss)
+        // [수정] 매개변수 타입을 NoteInfo로 변경
+        public INoteView CreateOsuNote(Vector3 position, NoteInfo data, float approachTime, Action<INoteView> onMiss)
         {
             if (_pool.Count == 0) CreateNewInstance();
 
             OsuNoteView note = _pool.Dequeue();
 
-            // 팩토리가 뷰의 구체적인 메서드를 호출
-            note.InitializeOsu(position, targetTime, approachTime, onMiss);
+            // 이제 타입이 맞으므로 에러가 사라집니다.
+            note.InitializeOsu(position, data, approachTime, onMiss);
 
             return note;
         }
