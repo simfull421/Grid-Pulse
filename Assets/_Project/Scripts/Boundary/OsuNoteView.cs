@@ -129,11 +129,27 @@ namespace TouchIT.Boundary
         private void DrawFixedRing()
         {
             if (_fixedRing == null) return;
-            _fixedRing.positionCount = _segments + 1;
-            _fixedRing.useWorldSpace = false; // 로컬 좌표 (노트 중심)
-                                              // ... (기존 설정 코드 유지) ...
 
-            // ... (원 그리기 로직 유지) ...
+            _fixedRing.positionCount = _segments + 1;
+            _fixedRing.useWorldSpace = false;
+            _fixedRing.startWidth = _ringWidth;
+            _fixedRing.endWidth = _ringWidth;
+            _fixedRing.loop = true;
+
+            _fixedRing.startColor = Color.gray;
+            _fixedRing.endColor = Color.gray;
+
+            if (_fixedRing.material == null || _fixedRing.material.name.StartsWith("Default"))
+                _fixedRing.material = new Material(Shader.Find("Sprites/Default"));
+
+            float angleStep = 360f / _segments;
+            Vector3[] positions = new Vector3[_segments + 1];
+            for (int i = 0; i <= _segments; i++)
+            {
+                float rad = Mathf.Deg2Rad * (i * angleStep);
+                positions[i] = new Vector3(Mathf.Cos(rad) * _baseRadius, Mathf.Sin(rad) * _baseRadius, 0f);
+            }
+            _fixedRing.SetPositions(positions);
         }
 
         public void OnUpdate(double currentDspTime)
@@ -175,3 +191,4 @@ namespace TouchIT.Boundary
         public void Initialize(NoteInfo d, double t, float a, float r, Action<INoteView> c) { }
     }
 }
+
