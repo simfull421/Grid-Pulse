@@ -143,29 +143,55 @@ namespace TouchIT.Boundary
             });
         }
         // ⚔️ 오수 모드 진입 확정
-        // ⚔️ 오수 모드 진입 확정 (성공)
         public void AnimateEnterOsuMode()
         {
-            // 진행 중이던 축소(Game Over 타이머) 중단
             _sphereObj.DOKill();
             _breathingTweener?.Kill();
 
             Sequence seq = DOTween.Sequence();
 
-            // 1. 순간적으로 확! 커지면서 카메라를 덮침 (빨려들어가는 느낌)
+            // 1. 줌인 연출
             seq.Append(_sphereObj.DOScale(Vector3.one * 100f, 0.4f).SetEase(Ease.InExpo));
-            seq.Join(_mainCamera.transform.DOMoveZ(_originalCamPos.z + 5f, 0.4f).SetEase(Ease.InExpo));
+            seq.Append(_mainCamera.transform.DOMoveZ(_originalCamPos.z + 5f, 0.4f).SetEase(Ease.InExpo));
 
-            // 2. 화이트 아웃
+            // 2. 화이트 아웃 & 색상 반전 (확실하게 설정)
             seq.AppendCallback(() =>
             {
-                _mainCamera.backgroundColor = Color.white;
+                // 배경을 검정(Black)으로 유지하고 싶으시다면:
+                _mainCamera.backgroundColor = Color.black;
+
+                // 구체는 눈에 띄는 색(Cyan 등)으로 변경 + 크기 재설정
+                _sphereMat.color = Color.cyan;
+                _sphereObj.localScale = Vector3.one * 0.8f; // 플레이하기 좋은 크기로 초기화
+
                 if (_portalEffect != null) _portalEffect.Stop();
             });
 
             seq.OnComplete(() => {
-                Debug.Log("⚔️ View: Welcome to the Osu World (Grid Pulse)");
+                Debug.Log("⚔️ View: Osu Mode Visuals Ready (Sphere Visible)");
             });
+        }
+        // 🕹️ [추가] 구체 이동 함수
+        public void MoveSphere(Vector2 screenDelta)
+        {
+            if (_isTransitioning) return;
+
+            // 화면 델타값을 월드 좌표로 변환 (감도 조절)
+            // Orthographic Size에 비례하여 이동 속도 보정
+            float sensitivity = _mainCamera.orthographicSize * 2.0f / Screen.height;
+
+            Vector3 moveAmount = new Vector3(screenDelta.x, screenDelta.y, 0) * sensitivity;
+
+            // 현재 위치에 더하기
+            Vector3 newPos = _sphereObj.position + moveAmount;
+
+            // (선택사항) 화면 밖으로 못 나가게 가두기 (Clamp)
+            float xLimit = 2.5f;
+            float yLimit = 4.5f;
+            newPos.x = Mathf.Clamp(newPos.x, -xLimit, xLimit);
+            newPos.y = Mathf.Clamp(newPos.y, -yLimit, yLimit);
+
+            _sphereObj.position = newPos;
         }
         // 🔄 Main -> Stage
         public void AnimateMainToStage(Color ignoredColor)
@@ -294,7 +320,12 @@ namespace TouchIT.Boundary
                 _breathingTweener.timeScale = 1.0f;
             }
         }
-
+        // 구체(Player)의 실시간 위치 반환
+        public Vector3 GetSpherePosition()
+        {
+            // _sphereObj는 MainView가 가지고 있는 구체 Transform 변수명
+            return _sphereObj.position;
+        }
         public void AnimateGameEnd()
         {
             ShowRing(false); // 🔕 [추가] 게임 끝나면 링 끄기

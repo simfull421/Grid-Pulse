@@ -1,181 +1,159 @@
 ﻿using UnityEngine;
-using TouchIT.Entity;
-using System;
 using DG.Tweening;
+using TouchIT.Entity;
+using TouchIT.Control;
+using System;
 
 namespace TouchIT.Boundary
 {
-    public class OsuNoteView : MonoBehaviour, INoteView
+    [RequireComponent(typeof(LineRenderer))] // 도넛 테두리용
+    public class OsuNoteView : MonoBehaviour, IOsuNoteView
     {
-        [Header("Visual Components")]
-        [SerializeField] private SpriteRenderer _bodyRenderer;
-        [SerializeField] private LineRenderer _fixedRing;
-        [SerializeField] private LineRenderer _dragPathRenderer; // ✅ 필수!
+        [Header("Components")]
+        [SerializeField] private SpriteRenderer _coreRenderer; // 가운데 차오르는 녀석 (자식으로 넣으세요)
 
         [Header("Settings")]
-        [SerializeField] private int _segments = 64;
-        [SerializeField] private float _baseRadius = 0.6f;
-        [SerializeField] private float _ringWidth = 0.05f;
+        [SerializeField] private float _baseRadius = 0.8f;      // 노트 반지름 (충돌 범위)
+        [SerializeField] private float _ringWidth = 0.1f;       // 도넛 두께
+        [SerializeField] private int _segments = 50;            // 원 해상도
+        [SerializeField] private float _hitCooldown = 0.15f;    // 3타 노트 연타 간격 (비비기용)
 
+        // 내부 변수
+        private LineRenderer _lineRenderer;
         private double _targetTime;
         private Action<INoteView> _onMissCallback;
         private bool _isActive = false;
+        private float _lastHitTime;
 
-        // 슬라이더 관련 변수
-        private Vector3 _startPos;
-        private Vector3 _endPos;
-        private Vector3 _controlPos; // 베지어 제어점
-        private bool _isSlider = false;
-
-        public float Duration { get; private set; }
-        public NoteType Type => NoteType.Hyper;
+        // 인터페이스 구현 속성
+        public Vector3 Position => transform.position;
+        public float Radius => _baseRadius;
         public double TargetTime => _targetTime;
         public Transform Transform => transform;
         public GameObject GameObject => gameObject;
+        public float Duration { get; private set; }
+        public NoteType Type { get; private set; }
+        public int CurrentHP { get; private set; }
+        public bool IsHardNote => CurrentHP > 1;
 
-        public void OnHoldStart()
+        private void Awake()
         {
-            if (Duration > 0)
+            // 1. 라인 렌더러(도넛) 설정
+            _lineRenderer = GetComponent<LineRenderer>();
+            _lineRenderer.useWorldSpace = false;
+            _lineRenderer.loop = true;
+            _lineRenderer.positionCount = _segments + 1;
+            _lineRenderer.startWidth = _ringWidth;
+            _lineRenderer.endWidth = _ringWidth;
+
+            // 기본 마테리얼 할당 (없으면 핑크색 나오니까)
+            if (_lineRenderer.material == null || _lineRenderer.material.name.StartsWith("Default"))
+                _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+
+            // 2. 코어 렌더러 설정 (없으면 자동 생성 시도)
+            if (_coreRenderer == null)
             {
-                // 드래그 중 시각적 피드백 (색상 변경 등)
-                _bodyRenderer.color = Color.cyan;
+                GameObject coreObj = new GameObject("CoreSprite");
+                coreObj.transform.SetParent(transform);
+                coreObj.transform.localPosition = Vector3.zero;
+                _coreRenderer = coreObj.AddComponent<SpriteRenderer>();
+
+                // 유니티 기본 Knob 스프라이트 로드 시도 (없으면 네모라도 나옴)
+                _coreRenderer.sprite = Resources.Load<Sprite>("Knob");
             }
         }
 
         public void InitializeOsu(Vector3 position, NoteInfo data, float approachTime, Action<INoteView> onMiss)
         {
             transform.position = position;
-            _startPos = position;
             _targetTime = data.Time;
             Duration = data.Duration;
+            Type = data.Type;
             _onMissCallback = onMiss;
 
-            // 초기화
-            _isSlider = (Duration > 0);
-            _dragPathRenderer.enabled = _isSlider;
-            _dragPathRenderer.positionCount = 0;
+            // 🩸 HP 설정: Hard(홀드 변환됨)는 3, 나머지는 1
+            CurrentHP = (Type == NoteType.Hard) ? 3 : 1;
 
-            // 1. 고정 링 그리기
-            DrawFixedRing();
-
-            // 2. 슬라이더 경로 생성 및 그리기
-            if (_isSlider)
-            {
-                GenerateSliderPath();
-                DrawSliderPath();
-            }
-
-            // 3. 애니메이션 (Body 크기 & 색상)
-            _bodyRenderer.transform.localScale = Vector3.zero;
-            _bodyRenderer.transform.localPosition = Vector3.zero; // 로컬 위치 초기화
-
-            _bodyRenderer.transform
-                .DOScale(Vector3.one, approachTime)
-                .SetEase(Ease.Linear);
-
-            Color startCol = new Color(0, 0, 0, 0);
-            _bodyRenderer.color = startCol;
-            DOTween.To(() => _bodyRenderer.color, x => _bodyRenderer.color = x, Color.black, approachTime * 0.2f);
-
+            InitializeVisuals(approachTime);
             Activate();
         }
 
-        // 🧮 슬라이더 경로 생성 (베지어 곡선)
-        private void GenerateSliderPath()
+        private void InitializeVisuals(float approachTime)
         {
-            // 끝점은 랜덤하게 정하되, 화면 밖으로 안 나가게 제한
-            // (실제로는 NoteInfo에 EndPosition이 있는 게 좋지만, 지금은 랜덤 생성)
-            Vector3 randomOffset = new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.5f, 1.5f), 0);
-            _endPos = _startPos + randomOffset;
+            // 색상 테마 결정
+            Color themeColor = IsHardNote ? Color.red : Color.cyan; // 하드: 빨강, 노말: 시안
+            Color coreColor = themeColor;
+            coreColor.a = 0.7f; // 코어는 약간 투명하게
 
-            // 제어점(P1): 시작점과 끝점의 중간에서 수직으로 살짝 휨
-            Vector3 midPoint = (_startPos + _endPos) * 0.5f;
-            Vector3 direction = (_endPos - _startPos).normalized;
-            Vector3 perpendicular = new Vector3(-direction.y, direction.x, 0) * UnityEngine.Random.Range(-1.0f, 1.0f);
+            // 1. 도넛 (LineRenderer) 그리기
+            DrawCircle(_baseRadius);
+            _lineRenderer.startColor = themeColor;
+            _lineRenderer.endColor = themeColor;
 
-            _controlPos = midPoint + perpendicular;
+            // 2. 코어 (Sprite) 애니메이션
+            _coreRenderer.color = coreColor;
+            _coreRenderer.transform.localScale = Vector3.zero; // 0에서 시작
+
+            _coreRenderer.transform.DOKill();
+            // 타겟 타임에 딱 맞춰서 도넛 안쪽(0.9배)까지 꽉 차게 커짐
+            _coreRenderer.transform
+                .DOScale(Vector3.one * (_baseRadius * 2f * 0.9f), approachTime)
+                .SetEase(Ease.Linear);
         }
 
-        // 🖌️ 라인 렌더러로 경로 그리기
-        private void DrawSliderPath()
+        // ⭕ 라인 렌더러로 원 그리기
+        private void DrawCircle(float radius)
         {
-            int points = 30;
-            _dragPathRenderer.positionCount = points;
-            _dragPathRenderer.useWorldSpace = true; // 월드 좌표 사용
-            _dragPathRenderer.startWidth = 0.2f; // 경로 두께
-            _dragPathRenderer.endWidth = 0.2f;
-
-            // 회색 반투명 경로
-            _dragPathRenderer.startColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-            _dragPathRenderer.endColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-
-            for (int i = 0; i < points; i++)
-            {
-                float t = i / (float)(points - 1);
-                Vector3 p = CalculateBezierPoint(t, _startPos, _controlPos, _endPos);
-                _dragPathRenderer.SetPosition(i, p);
-            }
-        }
-
-        // 📐 베지어 곡선 공식: (1-t)^2 * P0 + 2(1-t)t * P1 + t^2 * P2
-        private Vector3 CalculateBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
-        {
-            float u = 1 - t;
-            float tt = t * t;
-            float uu = u * u;
-            return (uu * p0) + (2 * u * t * p1) + (tt * p2);
-        }
-
-        private void DrawFixedRing()
-        {
-            if (_fixedRing == null) return;
-
-            _fixedRing.positionCount = _segments + 1;
-            _fixedRing.useWorldSpace = false;
-            _fixedRing.startWidth = _ringWidth;
-            _fixedRing.endWidth = _ringWidth;
-            _fixedRing.loop = true;
-
-            _fixedRing.startColor = Color.gray;
-            _fixedRing.endColor = Color.gray;
-
-            if (_fixedRing.material == null || _fixedRing.material.name.StartsWith("Default"))
-                _fixedRing.material = new Material(Shader.Find("Sprites/Default"));
-
             float angleStep = 360f / _segments;
             Vector3[] positions = new Vector3[_segments + 1];
+
             for (int i = 0; i <= _segments; i++)
             {
                 float rad = Mathf.Deg2Rad * (i * angleStep);
-                positions[i] = new Vector3(Mathf.Cos(rad) * _baseRadius, Mathf.Sin(rad) * _baseRadius, 0f);
+                positions[i] = new Vector3(Mathf.Cos(rad) * radius, Mathf.Sin(rad) * radius, 0f);
             }
-            _fixedRing.SetPositions(positions);
+            _lineRenderer.SetPositions(positions);
         }
 
         public void OnUpdate(double currentDspTime)
         {
             if (!_isActive) return;
 
-            // 1. 슬라이더 공 이동 로직
-            if (_isSlider && currentDspTime >= _targetTime)
-            {
-                // 진행률 (0 ~ 1)
-                // Duration 동안 이동
-                float t = (float)((currentDspTime - _targetTime) / Duration);
-
-                if (t <= 1.0f)
-                {
-                    // 곡선을 따라 이동 (월드 좌표 -> 로컬 좌표 변환 필요)
-                    Vector3 worldPos = CalculateBezierPoint(t, _startPos, _controlPos, _endPos);
-                    transform.position = worldPos; // 노트 자체를 이동시킴 (간단함)
-                }
-            }
-
-            // 2. 종료 체크
-            double endTime = _targetTime + (Duration > 0 ? Duration : 0.15f);
-            if (currentDspTime > endTime)
+            // 미스 판정: 타겟 타임보다 0.2초 이상 지났는데 아직 살아있다면
+            if (currentDspTime > _targetTime + 0.2f)
             {
                 _onMissCallback?.Invoke(this);
+            }
+        }
+
+        // 💥 충돌 처리 (비비기 로직 포함)
+        public bool TakeDamage()
+        {
+            // 쿨타임 체크 (3타 노트의 경우 연속 타격을 위해 간격 필요)
+            if (Time.time - _lastHitTime < _hitCooldown) return false;
+
+            _lastHitTime = Time.time;
+            CurrentHP--;
+
+            PlayHitFeedback();
+
+            return (CurrentHP <= 0); // HP가 0이 되면 true 반환 (파괴)
+        }
+
+        private void PlayHitFeedback()
+        {
+            // 1. 쉐이크 효과
+            transform.DOKill(true);
+            transform.DOPunchScale(Vector3.one * 0.3f, 0.15f, 10, 1);
+
+            // 2. 색상 변화 (하드 노트는 맞을수록 더 진해지거나 검게 변함)
+            if (IsHardNote)
+            {
+                float darken = (float)CurrentHP / 3f; // 3->2->1 갈수록 어두워짐
+                Color hitColor = Color.Lerp(Color.black, Color.red, darken);
+                _lineRenderer.startColor = hitColor;
+                _lineRenderer.endColor = hitColor;
+                _coreRenderer.color = new Color(hitColor.r, hitColor.g, hitColor.b, 0.8f);
             }
         }
 
@@ -184,11 +162,11 @@ namespace TouchIT.Boundary
         {
             _isActive = false;
             gameObject.SetActive(false);
-            _bodyRenderer.transform.DOKill();
-            _bodyRenderer.DOKill();
+            _coreRenderer.transform.DOKill(); // 트윈 킬
         }
 
+        // 미사용 인터페이스 메서드 (빈 구현)
         public void Initialize(NoteInfo d, double t, float a, float r, Action<INoteView> c) { }
+        public void OnHoldStart() { }
     }
 }
-

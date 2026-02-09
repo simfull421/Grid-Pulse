@@ -9,7 +9,9 @@ namespace TouchIT.Entity
         Tap = 0,    // 일반 터치
         Hold = 1,   // 꾹 누르기
         Drag = 2,   // 긁기
-        Hyper = 3   // Osu 모드 노트
+        Hyper = 3,  // Osu 모드 노트
+            // ✅ [추가] 오수 모드용 하드 노트
+        Hard =4
     }
 
     [System.Serializable]

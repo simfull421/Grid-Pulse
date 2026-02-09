@@ -3,13 +3,13 @@ using TouchIT.Boundary;
 using TouchIT.Entity;
 using UnityEngine;
 
-namespace TouchIT.Control // 혹은 Boundary
+namespace TouchIT.Control
 {
     public interface IOsuNoteFactory
     {
         void Initialize();
 
-        // [수정] double targetTime -> NoteInfo data로 변경
+        // ✅ [핵심] NoteInfo 객체를 받도록 정의
         INoteView CreateOsuNote(Vector3 position, NoteInfo data, float approachTime, Action<INoteView> onMiss);
 
         void ReturnOsuNote(INoteView note);

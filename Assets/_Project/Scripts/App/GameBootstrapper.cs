@@ -49,7 +49,11 @@ namespace TouchIT.App
 
             // 🚨 [핵심] 두 가지 스폰 서비스 생성 (인터페이스 타입으로)
             ISpawnService ringSpawner = new NoteSpawnService(noteFactory, audio);
-            ISpawnService osuSpawner = new OsuSpawnService(osuFactory, audio);
+            ISpawnService osuSpawner = new OsuSpawnService(
+       osuFactory,
+       audio,
+       () => mainView.GetSpherePosition()
+   );
 
             // 4. Controller 생성 (두 서비스 모두 주입)
             _gameController = new GameController(

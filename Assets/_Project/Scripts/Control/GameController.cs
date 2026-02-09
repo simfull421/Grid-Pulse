@@ -109,12 +109,14 @@ namespace TouchIT.Control
                         }
                     }
 
-                    // CASE B: 오수 모드 -> 링 모드 (조건: 시간 다 됨 + 축소)
+                    // CASE B: 오수 모드 -> 링 모드 (조건: 시간 다 됨 + 축소 입력)
+                    // 🚨 _isOsuEnding이 true일 때만 작동하므로, 타이머 전에는 절대 작동 안 함
                     if (_currentPhase == GamePhase.OsuMode && _isOsuEnding)
                     {
-                        if (delta < -0.02f)
+                        if (delta < -0.02f) // 축소 제스처
                         {
-                            ExitOsuModeLogic(); // 복귀!
+                            Debug.Log("🤏 Pinch In Detected! Exiting Osu Mode.");
+                            ExitOsuModeLogic(); // 여기서만 복귀 로직 실행
                             return;
                         }
                     }
@@ -157,6 +159,12 @@ namespace TouchIT.Control
                     if (_mainView.IsTransitioning) return;
                     if (delta.x < -5f) NextAlbum();
                     else if (delta.x > 5f) PrevAlbum();
+                    // B. ⚔️ 오수 모드 (구체 직접 이동) - ⭐[추가된 부분]⭐
+                    else if (_currentPhase == GamePhase.OsuMode && !_isOsuEnding)
+                    {
+                        // 뷰에게 델타값만큼 이동하라고 명령
+                        _mainView.MoveSphere(delta);
+                    }
                 })
                 .AddTo(_disposables);
         }
@@ -193,23 +201,24 @@ namespace TouchIT.Control
         private void StartOsuTimer()
         {
             _isOsuEnding = false;
-            _osuTimerDisposable?.Dispose(); // 기존 타이머 제거
+            _osuTimerDisposable?.Dispose();
 
-            // 10초 뒤 복귀 준비 (블랙홀 등장)
-            _osuTimerDisposable = Observable.Timer(TimeSpan.FromSeconds(10.0f))
+            // 15초(예시) 뒤 복귀 준비
+            _osuTimerDisposable = Observable.Timer(TimeSpan.FromSeconds(15.0f))
                 .Subscribe(_ =>
                 {
                     if (_currentPhase != GamePhase.OsuMode) return;
 
-                    Debug.Log("🕳️ [System] Blackhole Appears! Pinch In!");
-                    _isOsuEnding = true; // 이제 축소 가능
+                    Debug.Log("🕳️ [System] Time Up! Waiting for Pinch In...");
 
-                    // 뷰에게 블랙홀 연출 명령 (아까 만드신 코드)
-                    // _mainView.AnimatePortalClosingReady(); 
+                    // 🚨 여기서 바로 Exit 로직을 타거나 화면을 확 바꾸면 안 됨!
+                    _isOsuEnding = true; // 이제부터 핀치 인 허용
+
+                    // 뷰에게 "이제 줄일 수 있어"라는 신호만 보냄 (예: 구체가 붉게 깜빡임 or UI 표시)
+                    _mainView.AnimatePortalClosingReady();
                 })
                 .AddTo(_disposables);
         }
-
         // 🌌 링 모드 복귀 로직
         private void ExitOsuModeLogic()
         {
