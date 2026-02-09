@@ -24,11 +24,17 @@ namespace TouchIT.Boundary
         private Vector3 _baseScale;
         private Vector3 _originalCamPos;
 
+        private Vector3 _velocity;
+        private bool _isDragging = false;
+        private Vector3 _minBounds;
+        private Vector3 _maxBounds;
+        private float _sphereRadius = 0.5f; // 구체 반지름
         private bool _isTransitioning = false;
         private float _currentManualScale = 1.0f;
 
         public bool IsTransitioning => _isTransitioning;
-
+     
+        private Vector3 _centerPos = Vector3.zero; // 복귀할 위치 (0,0,0)
         public void Initialize()
         {
             if (_sphereObj == null) _sphereObj = transform;
@@ -55,6 +61,44 @@ namespace TouchIT.Boundary
             {
                 Debug.LogError("❌ MainView: LifeRingView가 연결되지 않았습니다! 인스펙터를 확인하세요.");
             }
+            // 화면 경계 계산 (벽 튕기기용)
+            float vertExtent = _mainCamera.orthographicSize;
+            float horzExtent = vertExtent * Screen.width / Screen.height;
+            _minBounds = new Vector3(-horzExtent + _sphereRadius, -vertExtent + _sphereRadius, 0);
+            _maxBounds = new Vector3(horzExtent - _sphereRadius, vertExtent - _sphereRadius, 0);
+        }
+        // ♻️ 물리 연산 (Update에 추가)
+        private void Update()
+        {
+            // 드래그 중이 아니고, 게임 중이라면 -> 중앙으로 복귀
+            if (!_isDragging && !_isTransitioning)
+            {
+                // Lerp로 부드럽게 (재조정 개념)
+                // Time.deltaTime * 5f : 숫자가 클수록 빨리 복귀
+                _sphereObj.position = Vector3.Lerp(_sphereObj.position, Vector3.zero, Time.deltaTime * 5.0f);
+            }
+        }
+        // 🕹️ 1:1 절대 좌표 이동 (GameController가 호출)
+        public void MoveSphereDirectly(Vector2 screenPos)
+        {
+            if (_isTransitioning) return;
+
+            // 화면 좌표(Screen) -> 월드 좌표(World) 변환
+            Vector3 worldPos = _mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 10f)); // z=10 (카메라 앞)
+            worldPos.z = 0f; // 2D 평면 고정
+
+            _sphereObj.position = worldPos;
+        }
+        // 🕹️ GameController에서 호출할 함수들
+        public void OnDragStart()
+        {
+            _isDragging = true;
+            _sphereObj.DOKill(); // 복귀 중이었다면 즉시 중단 (사용자 우선)
+        }
+
+        public void OnDragEnd()
+        {
+            _isDragging = false;
         }
         // ✅ [추가] 인터페이스 구현: 링 끄고 켜기
         public void ShowRing(bool show)
@@ -176,22 +220,18 @@ namespace TouchIT.Boundary
         {
             if (_isTransitioning) return;
 
-            // 화면 델타값을 월드 좌표로 변환 (감도 조절)
-            // Orthographic Size에 비례하여 이동 속도 보정
-            float sensitivity = _mainCamera.orthographicSize * 2.0f / Screen.height;
+            // 1:1 이동을 위해 ScreenDelta를 WorldDelta로 변환
+            Vector3 worldDelta = _mainCamera.ScreenToWorldPoint(new Vector3(screenDelta.x, screenDelta.y, 0))
+                                 - _mainCamera.ScreenToWorldPoint(Vector3.zero);
+            worldDelta.z = 0; // 2D게임이므로 Z축 고정
 
-            Vector3 moveAmount = new Vector3(screenDelta.x, screenDelta.y, 0) * sensitivity;
+            // 위치 이동
+            _sphereObj.position += worldDelta;
 
-            // 현재 위치에 더하기
-            Vector3 newPos = _sphereObj.position + moveAmount;
-
-            // (선택사항) 화면 밖으로 못 나가게 가두기 (Clamp)
-            float xLimit = 2.5f;
-            float yLimit = 4.5f;
-            newPos.x = Mathf.Clamp(newPos.x, -xLimit, xLimit);
-            newPos.y = Mathf.Clamp(newPos.y, -yLimit, yLimit);
-
-            _sphereObj.position = newPos;
+            // 드래그 중에는 속도를 계속 계산 (놓았을 때 날아가기 위해)
+            // 프레임 보정을 위해 Time.deltaTime으로 나눔 (단, 너무 크면 제한)
+            _velocity = worldDelta / Time.deltaTime;
+            _velocity = Vector3.ClampMagnitude(_velocity, 20f); // 최대 속도 제한
         }
         // 🔄 Main -> Stage
         public void AnimateMainToStage(Color ignoredColor)

@@ -21,6 +21,13 @@ namespace TouchIT.Boundary
         private Subject<Vector2> _onDragSubject = new Subject<Vector2>();
         public IObservable<Vector2> OnDrag => _onDragSubject;
         private Subject<Unit> _onPinchEndSubject = new Subject<Unit>();
+
+        // [기존] 델타값 (앨범 넘기기용)
+
+
+        // ✅ [추가] 절대 좌표값 (오수 모드 구체 이동용)
+        private Subject<Vector2> _onDragPosSubject = new Subject<Vector2>();
+        public IObservable<Vector2> OnDragPos => _onDragPosSubject; // GameController에서 이거 구독
         public IObservable<Unit> OnPinchEnd => _onPinchEndSubject;
         // 내부 상태
         private float _touchStartTime;
@@ -29,7 +36,9 @@ namespace TouchIT.Boundary
         private bool _isPinching = false;
         private float _prevPinchDist = 0f;
         private float _screenDiagonal;
-
+        // 스트림 추가
+        private Subject<Unit> _onDragEndSubject = new Subject<Unit>();
+        public IObservable<Unit> OnDragEnd => _onDragEndSubject;
         private void Start()
         {
             float w = Screen.width;
@@ -56,6 +65,13 @@ namespace TouchIT.Boundary
                 _isPinching = false;
                 _onPinchEndSubject.OnNext(Unit.Default); // 손 뗐음 알림
             }
+            if (Input.touchCount == 0)
+            {
+           
+                // 터치가 없으면 드래그도 끝난 것
+                _onDragEndSubject.OnNext(Unit.Default);
+                return;
+            }
             // 👇 1. 한 손가락 (Tap or Drag)
             if (Input.touchCount == 1)
             {
@@ -72,9 +88,9 @@ namespace TouchIT.Boundary
                         break;
 
                     case TouchPhase.Moved:
-                        // 드래그 이벤트 발행
                         Vector2 delta = t.position - _lastDragPos;
-                        _onDragSubject.OnNext(delta); // ⬅️ 추가됨
+                        _onDragSubject.OnNext(delta);       // 기존: 변화량 전송
+                        _onDragPosSubject.OnNext(t.position); // ✅ 추가: 현재 위치 전송
                         _lastDragPos = t.position;
                         break;
 
@@ -115,6 +131,10 @@ namespace TouchIT.Boundary
                         _prevPinchDist = currDist;
                     }
                 }
+               else if (t1.phase == TouchPhase.Ended || t1.phase == TouchPhase.Canceled)
+                {
+                    _onDragEndSubject.OnNext(Unit.Default);
+                }
             }
         }
 
@@ -126,14 +146,16 @@ namespace TouchIT.Boundary
                 _touchStartTime = Time.time;
                 _touchStartPos = Input.mousePosition;
                 _lastDragPos = Input.mousePosition;
+                _onDragEndSubject.OnNext(Unit.Default);
             }
-            else if (Input.GetMouseButton(0)) // 누른 상태로 이동
+            else if (Input.GetMouseButton(0))
             {
                 Vector2 currentPos = Input.mousePosition;
                 Vector2 delta = currentPos - _lastDragPos;
-                if (delta.sqrMagnitude > 1f) // 미세 떨림 방지
+                if (delta.sqrMagnitude > 1f)
                 {
-                    _onDragSubject.OnNext(delta);
+                    _onDragSubject.OnNext(delta);       // 기존
+                    _onDragPosSubject.OnNext(currentPos); // ✅ 추가
                 }
                 _lastDragPos = currentPos;
             }

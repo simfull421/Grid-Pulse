@@ -35,5 +35,11 @@ namespace TouchIT.Control
         void ShowRing(bool show);
         void AnimatePortalClosingReady();
         void AnimateExitOsuMode();
+
+        void MoveSphere(Vector2 screenDelta);
+
+        void OnDragStart();
+        void OnDragEnd();
+        void MoveSphereDirectly(Vector2 screenPos);
     }
 }

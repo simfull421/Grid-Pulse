@@ -85,10 +85,27 @@ namespace TouchIT.Control
         // ✅ [추가됨] Bootstrapper에서 호출할 Update 메서드
         public void OnUpdate()
         {
-            // 현재 활성화된 스포너(링 or 오수)만 업데이트
+            // 스포너 업데이트 (노트 생성/이동 등)
             _currentSpawner?.OnUpdate();
-        }
 
+            // 💥 [핵심 수정] 오수 모드일 때는 매 프레임 충돌 검사 수행! (드래그 중 충돌)
+            if (_currentState == GameState.InGame && _currentPhase == GamePhase.OsuMode)
+            {
+                // 지속적으로 충돌 체크
+                var hitNote = _osuSpawner.CheckHitAndGetNote();
+
+                if (hitNote != null)
+                {
+                    // 충돌 성공 (파괴됨)
+                    _fireService.AddFuel();
+                    _vfxService.PlayHitEffect(hitNote.Transform.position);
+
+                    // 타격감 연출
+                    float punchScale = 0.5f + _fireService.CurrentFireSize;
+                    _mainView.OnNoteHitSuccess(punchScale);
+                }
+            }
+        }
         private void BindInputs()
         {
             // 1. 핀치 입력 (확대/축소)
@@ -148,25 +165,32 @@ namespace TouchIT.Control
                     }
                 })
                 .AddTo(_disposables);
-        
 
-        // 3. 드래그
-        _inputAnalyzer.OnDrag
+
+            // 3. 드래그 (앨범 넘기기 - Delta 사용)
+            _inputAnalyzer.OnDrag
                 .Where(_ => _currentState == GameState.StageSelect && !_isPreviewPlaying)
-                .ThrottleFirst(System.TimeSpan.FromSeconds(0.2f))
                 .Subscribe(delta =>
                 {
                     if (_mainView.IsTransitioning) return;
                     if (delta.x < -5f) NextAlbum();
                     else if (delta.x > 5f) PrevAlbum();
-                    // B. ⚔️ 오수 모드 (구체 직접 이동) - ⭐[추가된 부분]⭐
-                    else if (_currentPhase == GamePhase.OsuMode && !_isOsuEnding)
-                    {
-                        // 뷰에게 델타값만큼 이동하라고 명령
-                        _mainView.MoveSphere(delta);
-                    }
                 })
                 .AddTo(_disposables);
+
+            // 4. ✅ [수정] 오수 모드 이동 (절대 좌표 - Position 사용)
+            // InputAnalyzer에 새로 만든 OnDragPos를 구독합니다.
+            _inputAnalyzer.OnDragPos // (인터페이스에 추가 필요)
+                .Where(_ => _currentState == GameState.InGame && _currentPhase == GamePhase.OsuMode && !_isOsuEnding)
+                .Subscribe(screenPos =>
+                {
+                    _mainView.OnDragStart(); // "나 잡았다" 신호
+                    _mainView.MoveSphereDirectly(screenPos); // 1:1 이동 명령
+                })
+                .AddTo(_disposables);
+
+            // 5. 드래그 끝 (손 뗌) -> 복귀 시작
+            _inputAnalyzer.OnDragEnd.Subscribe(_ => _mainView.OnDragEnd()).AddTo(_disposables);
         }
         // ⚔️ 오수 모드 진입 로직
         private void EnterOsuModeLogic()

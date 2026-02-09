@@ -134,7 +134,10 @@ namespace TouchIT.Control
         {
             if (!_isPlaying || _activeNotes.Count == 0) return null;
 
+            // 플레이어 위치 가져오기 (디버깅 필요시 아래 주석 해제)
             Vector3 playerPos = _playerPosProvider.Invoke();
+            // Debug.Log($"Player Pos: {playerPos}"); 
+
             double currentTime = _audioManager.GetAudioTime();
 
             // 모든 활성 노트를 순회하며 충돌 검사
@@ -151,27 +154,29 @@ namespace TouchIT.Control
                 if (timeDiff <= currentHitWindow)
                 {
                     // 2. 거리(충돌) 판정
+                    // 노트 반지름(Radius) + 플레이어 반지름(0.5f) 정도를 고려
                     float dist = Vector3.Distance(playerPos, note.Position);
+                    float collisionThreshold = note.Radius + 0.5f; // 판정 범위 (여유값 포함)
 
-                    // 노트 반지름과 플레이어 반지름을 고려
-                    if (dist <= (note.Radius + 0.5f))
+                    if (dist <= collisionThreshold)
                     {
+                        // ⭐ [로그 추가] 충돌 감지됨!
+                        Debug.Log($"💥 Collision Detected! NoteHP: {note.CurrentHP}");
+
                         // 3. 데미지 적용 (TakeDamage 내부에서 쿨타임 체크 함)
-                        bool isDestroyed = note.TakeDamage();
+                        bool isDestroyed = note.TakeDamage(); // 노트 내부에서 시각적 반응(흔들림) 처리
 
                         if (isDestroyed)
                         {
+                            Debug.Log("✨ Note DESTROYED!"); // 파괴 로그
                             _activeNotes.RemoveAt(i);
                             _factory.ReturnOsuNote(note);
                             return note; // 완전히 파괴됨 -> 점수 획득
                         }
                         else
                         {
-                            // 3타 노트 중 1타만 맞음 -> 점수는 아직이지만 이펙트는 필요할 수 있음
-                            // null을 반환하여 "아직 클리어 아님"을 알리거나,
-                            // 별도의 처리를 위해 note를 반환하되 Controller에서 구분할 수도 있음.
-                            // 여기서는 "완전 파괴시에만" 리턴하도록 함.
-                            // (VFX는 NoteView 내부에서 PlayHitFeedback으로 처리됨)
+                            // 파괴되진 않았지만 충돌 중임 (3타 노트 비비기 중)
+                            // 시각적 피드백은 이미 TakeDamage() 안에서 처리됨
                             return null;
                         }
                     }
