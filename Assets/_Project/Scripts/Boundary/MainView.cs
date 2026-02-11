@@ -31,7 +31,8 @@ namespace TouchIT.Boundary
         private float _sphereRadius = 0.5f; // 구체 반지름
         private bool _isTransitioning = false;
         private float _currentManualScale = 1.0f;
-
+        // 🚨 [추가] 핀치 유도 애니메이션을 제어할 변수
+        private Sequence _guideSeq;
         public bool IsTransitioning => _isTransitioning;
      
         private Vector3 _centerPos = Vector3.zero; // 복귀할 위치 (0,0,0)
@@ -108,21 +109,41 @@ namespace TouchIT.Boundary
         }
         // 💥 [핵심] 타격감 함수 (GameController가 호출)
         // Hit 성공 시 호출됨
+        // 💥 타격감 함수 (GameController가 호출)
+        // MainView.cs
+
         public void OnNoteHitSuccess(float fuelRatio)
         {
-            // 1. 구체 탄성 효과 (Punch)
-            // 현재 크기에서 순간적으로 띠용! 하고 커졌다가 돌아옴
-            _sphereObj.DOKill(true); // 기존 트윈 즉시 완료 처리 (중첩 방지)
-            _sphereObj.DOPunchScale(Vector3.one * _punchPower, 0.2f, 10, 1);
+            // 1. 오수 모드 확인
+            bool isOsuMode = (_lifeRingView != null && !_lifeRingView.gameObject.activeSelf);
 
-            // 2. 생명력 업데이트 (기준 크기 변경)
-            _baseScale = Vector3.one * fuelRatio;
+            if (isOsuMode)
+            {
+                // ⚔️ [오수 모드]
+                _sphereObj.DOKill(true);
 
-            // 3. 링 반응
-            if (_lifeRingView != null) _lifeRingView.OnHitEffect();
+                // 1. 미세 진동
+                _sphereObj.DOPunchScale(Vector3.one * 0.05f, 0.1f, 10, 1);
 
-            // 4. 카메라 쉐이크 (약하게)
-            _mainCamera.transform.DOShakePosition(0.1f, 0.1f, 10);
+                // 2. 하얗게 번쩍! (수동 설정)
+                _sphereRenderer.color = Color.white;
+
+                // 🚨 [수정] 확장 메서드 오류 해결 -> DOTween.To 사용 (무조건 작동)
+                // 문법: DOTween.To(getter, setter, 목표값, 시간)
+                DOTween.To(() => _sphereRenderer.color, x => _sphereRenderer.color = x, Color.cyan, 0.2f);
+
+                // 3. 카메라 쉐이크
+                _mainCamera.transform.DOShakePosition(0.1f, 0.2f, 20);
+            }
+            else
+            {
+                // ⭕ [링 모드]
+                _sphereObj.DOKill(true);
+                _sphereObj.DOPunchScale(Vector3.one * _punchPower, 0.2f, 10, 1);
+
+                if (_lifeRingView != null) _lifeRingView.OnHitEffect();
+                _mainCamera.transform.DOShakePosition(0.1f, 0.1f, 10);
+            }
         }
         // 🚨 오수 모드 준비 (발광)
         // 🫧 [수정됨] 오수 모드 준비 (포탈 열림)
@@ -156,34 +177,48 @@ namespace TouchIT.Boundary
                     onClosed?.Invoke(); // 콜백 호출 (GameController에게 알림)
                 });
         }
-        // 블랙홀 등장 (복귀 준비)
+        // 1. 🕳️ 오수 모드 끝 (핀치 유도 시작)
         public void AnimatePortalClosingReady()
         {
-            // 중앙에 검은 구체(블랙홀) 생성 혹은 기존 구체를 검게 변형
-            _sphereObj.localScale = Vector3.zero;
-            _sphereMat.color = Color.black;
-            _sphereObj.DOScale(Vector3.one * 2.0f, 1.0f).SetEase(Ease.OutBack);
-            // 진동하며 유저에게 "줄여라!" 신호
+            _sphereObj.DOKill();
+            _sphereMat.DOColor(Color.red, 0.5f);
+            _sphereObj.DOMove(Vector3.zero, 0.5f).SetEase(Ease.OutExpo);
+
+            // 🚨 [수정] 시퀀스를 변수(_guideSeq)에 저장해야 나중에 끌 수 있음
+            _guideSeq?.Kill(); // 혹시 켜져 있으면 끄고
+            _guideSeq = DOTween.Sequence();
+
+            // 커졌다가(2.0) -> 작아지는(0.0) 연출 반복
+            _guideSeq.Append(_sphereObj.DOScale(Vector3.one * 2.0f, 0f));
+            _guideSeq.Append(_sphereObj.DOScale(Vector3.zero, 1.0f).SetEase(Ease.OutQuad));
+            _guideSeq.SetLoops(-1);
         }
         // 링 모드로 복귀 (축소)
+        // 2. 🌌 링 모드로 복귀 (핀치 유도 종료 & 크기 복구)
         public void AnimateExitOsuMode()
         {
+            // 🚨 [핵심 수정] 핀치 유도 애니메이션 즉시 사살
+            _guideSeq?.Kill();
+            _sphereObj.DOKill(); // 그 외 구체에 걸린 모든 트윈 정지
+
             Sequence seq = DOTween.Sequence();
 
-            // 1. 화면이 중앙 블랙홀로 빨려들어감 (카메라 줌아웃 or 배경 축소)
-            // 여기선 심플하게 배경색 반전 + 카메라 복귀
-            seq.Append(_mainCamera.transform.DOMoveZ(_originalCamPos.z, 0.5f).SetEase(Ease.OutExpo));
+            // A. 색상 복구 (배경 하양, 구체 검정)
+            seq.Append(_mainCamera.DOColor(Color.white, 0.5f));
+            seq.Join(_sphereMat.DOColor(Color.black, 0.5f)); // DOTween.To 안 써도 머티리얼엔 잘 먹힘
 
-            seq.AppendCallback(() =>
-            {
-                _mainCamera.backgroundColor = Color.black; // 다시 링 모드 배경(검정)
-                _sphereMat.color = Color.white;            // 구체(하양)
-            });
+            // B. 크기 복구 (중요!)
+            // 오수 모드에서 0.15f로 줄였던 _baseScale을 다시 링 모드 크기(0.5f ~ 1.0f)로 되돌려야 함
+            // 여기선 기본값 0.5f로 설정 (나중에 FireService가 업데이트해줌)
+            _baseScale = Vector3.one * 0.5f;
+
+            // C. 구체를 원래 크기(_baseScale)로 부드럽게 키움
+            seq.Join(_sphereObj.DOScale(_baseScale, 0.5f).SetEase(Ease.OutBack));
 
             seq.OnComplete(() =>
             {
-                _baseScale = Vector3.one;
-                StartBreathing();
+                Debug.Log("🌌 Back to Ring Mode");
+                StartBreathing(); // 링 모드 숨쉬기 시작
             });
         }
         // ⚔️ 오수 모드 진입 확정
@@ -194,25 +229,25 @@ namespace TouchIT.Boundary
 
             Sequence seq = DOTween.Sequence();
 
-            // 1. 줌인 연출
-            seq.Append(_sphereObj.DOScale(Vector3.one * 100f, 0.4f).SetEase(Ease.InExpo));
+            // 1. 줌인 연출 (기존 유지)
+            seq.Append(_sphereObj.DOScale(Vector3.one * 50f, 0.4f).SetEase(Ease.InExpo)); // 잠깐 커지는 연출
             seq.Append(_mainCamera.transform.DOMoveZ(_originalCamPos.z + 5f, 0.4f).SetEase(Ease.InExpo));
 
-            // 2. 화이트 아웃 & 색상 반전 (확실하게 설정)
             seq.AppendCallback(() =>
             {
-                // 배경을 검정(Black)으로 유지하고 싶으시다면:
                 _mainCamera.backgroundColor = Color.black;
+                _sphereMat.color = Color.cyan; // 네온 색상
 
-                // 구체는 눈에 띄는 색(Cyan 등)으로 변경 + 크기 재설정
-                _sphereMat.color = Color.cyan;
-                _sphereObj.localScale = Vector3.one * 0.8f; // 플레이하기 좋은 크기로 초기화
+                // 🚨 [여기 수정!] 구체 크기 조절
+                // 0.25f -> 0.15f (더 작게! 마우스 커서 느낌)
+                _baseScale = Vector3.one * 0.15f;
+                _sphereObj.localScale = _baseScale;
 
                 if (_portalEffect != null) _portalEffect.Stop();
             });
 
             seq.OnComplete(() => {
-                Debug.Log("⚔️ View: Osu Mode Visuals Ready (Sphere Visible)");
+                Debug.Log("⚔️ View: Osu Mode Visuals Ready");
             });
         }
         // 🕹️ [추가] 구체 이동 함수

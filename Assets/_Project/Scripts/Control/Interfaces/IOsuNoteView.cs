@@ -15,5 +15,7 @@ namespace TouchIT.Control
         // 🛡️ 상태 정보
         bool IsHardNote { get; }
         int CurrentHP { get; }
+        // ✅ [추가됨] 캐스팅 없이 선을 잇기 위한 메서드
+        void ConnectToNextNote(Vector3 nextNotePos);
     }
 }

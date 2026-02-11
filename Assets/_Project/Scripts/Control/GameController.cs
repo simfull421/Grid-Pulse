@@ -248,33 +248,27 @@ namespace TouchIT.Control
         {
             Debug.Log("🌌 [System] Collapsing to Ring Mode...");
 
-            // 1. 상태 잠금
             _currentPhase = GamePhase.Transitioning;
             _isOsuEnding = false;
-            _osuTimerDisposable?.Dispose(); // 타이머 정리
+            _osuTimerDisposable?.Dispose();
 
-            // 2. 오수 시스템 정지
             _osuSpawner.Stop();
 
-            // 3. 뷰 전환 (Implosion)
-            // _mainView.AnimateExitOsuMode(); // 구현하신 함수
+            // 🚨 [이 부분 확인] 뷰에게 복귀 애니메이션 명령
+            _mainView.AnimateExitOsuMode();
 
-            // 4. 로직 복구
+            // 로직 복구
             Observable.Timer(TimeSpan.FromSeconds(0.5f))
                 .Subscribe(_ =>
                 {
                     _currentPhase = GamePhase.RingMode;
-
                     _mainView.ShowRing(true); // 링 다시 보이기
                     _currentSpawner = _ringSpawner;
-
-                    // 링 모드는 노래 시간에 맞춰서 계속 진행 중이었으므로 그냥 Resume/Load
-                    // (NoteSpawnService는 Time 기반이라 끊기지 않음)
                     _currentSpawner.LoadPattern(_albumList[_currentAlbumIndex]);
                 })
                 .AddTo(_disposables);
         }
-       
+
         private void StartGame()
         {
             _currentState = GameState.InGame;
